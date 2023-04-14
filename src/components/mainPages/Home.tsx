@@ -31,10 +31,10 @@ export default function Home(){
 
     return(
     <>
-    <Box bgColor="#f0f2f3" w="100vw" h="50px">
-        <Text>HOME:</Text>
-        <Text>{_ping? "PONG" : "waiting for ping"}</Text>
-        <Text>{_version? _version.version + " " + _version.name : "Waiting for version"}</Text>
+    <Box  w="100vw" h="50px">
+        <Text>HOME</Text>
+        <Text>Reachable : {_ping? "OK" : "waiting for ping"}</Text>
+        <Text>Version: {_version? _version.version + " " + _version.name : "Waiting for version"}</Text>
     </Box>
     </>
     )

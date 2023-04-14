@@ -13,4 +13,16 @@
     border-color: black !important;
     padding: 0 !important;
   }
+
+  #profileButton:hover{
+    border-width: 0 0 0 2px !important;
+  }
+
+  .userText{
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+
   

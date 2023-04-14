@@ -1,12 +1,14 @@
-import { Box, Button, HStack, Image } from "@chakra-ui/react";
+import { Box, Button, HStack, Image} from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import home from "../../assets/icons/Home.png"
 import cart from "../../assets/icons/Cart.png"
 import order from "../../assets/icons/order.png"
 import notificiations from "../../assets/icons/Notifications.png"
-import profile from "../../assets/icons/profile.png"
+import AanmeldModal from "./AanmeldModal";
+
 
 export default function MenuButtons() {
+
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string){
@@ -25,7 +27,7 @@ export default function MenuButtons() {
             </HStack>
         </Box>
         <Box bgColor="blue">
-        <Button className="menuButton"><Image src= {profile} boxSize='80px' fit="fill"/></Button>
+        <AanmeldModal></AanmeldModal>
         </Box>
       </HStack>
     </>

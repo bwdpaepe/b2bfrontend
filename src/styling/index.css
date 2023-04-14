@@ -12,3 +12,18 @@ code {
     monospace;
 }
 
+.button {
+  background-color: #EC4842 !important;
+  color:white;
+  width: 150px;
+  margin: 10px;
+}
+
+.button:hover {
+  background-color: #E0433E !important;
+}
+
+p{
+  color: black;
+}
+

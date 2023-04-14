@@ -1,6 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Box, Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
+import {Grid, GridItem} from "@chakra-ui/react";
 import MenuBar from "./components/subComponents/MenuBar";
 import Footer from "./components/subComponents/Footer";
 import { Route, Routes } from "react-router";
@@ -10,7 +9,13 @@ import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
 
+
+export const UserContext = React.createContext("");
+
 function App() {
+
+
+
   return (
     <>
       <Grid
@@ -19,7 +24,9 @@ function App() {
         templateRows="auto 1fr auto"
       >
         <GridItem gridArea="menu">
+          <UserContext.Provider value={localStorage.getItem("User")? localStorage.getItem("User")! : ""}>
           <MenuBar />
+          </UserContext.Provider>
         </GridItem>
         <GridItem gridArea="content">
           <Routes>
