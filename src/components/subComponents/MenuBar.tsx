@@ -18,7 +18,7 @@ export default function MenuBar(){
     
     return(
     <>
-    <Box bgColor="#E0433E" w="100vw" h="115px">
+    <Box bgColor="#E0433E" w="100%" h="115px">
         <HStack bgColor="#EC4842" h="80px">
             <Image src={logo} h="80px" w="80px" mr="40vw"></Image>
             <MenuButtons/>

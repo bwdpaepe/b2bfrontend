@@ -22,6 +22,7 @@ function App() {
         <Grid
           templateAreas={`"menu""content""footer"`}
           h="100vh"
+          w="100%"
           templateRows="auto 1fr auto"
         >
           <GridItem gridArea="menu">
