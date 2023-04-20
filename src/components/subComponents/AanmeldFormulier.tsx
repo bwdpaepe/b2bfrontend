@@ -22,7 +22,7 @@ export default function AanmeldFormulier(onClose: {onClose: () => void}){
             
         }
         setIsloading.off();
-
+ 
 
     };
 
