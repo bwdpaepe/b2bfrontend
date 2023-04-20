@@ -1,27 +1,44 @@
 import { Box, Button } from "@chakra-ui/react";
 import notifications from "../../assets/icons/Notifications.png"
-import { checkUnread } from "../../service/notifications";
+import { checkNew, checkUnread } from "../../service/notifications";
 import { useCallback, useEffect, useState } from "react";
 import {Store} from 'react-notifications-component'
+import useInterval from '@use-it/interval';
 
 export default function NotificationButton() {
     const [error, setError] = useState("");
     const [unreadAmount, setUnreadAmount] = useState(0);
 
 
-    function _checkNew(){
+
+
+
+    const _getNew = useCallback(async()=>{
+        const _newAmount = await checkNew();
+        if(_newAmount > 0){
+            showNotification();
+            _checkUnread();
+        }
+    },[])
+
+    useInterval(_getNew, 10000);   
+
+
+    function showNotification(){
+
         Store.addNotification({
             title: "INFO!",
-            message: "Je hebt een nieuwe notificatie",
+            message: "Je hebt één of meer nieuwe notificatie(s)",
             type: "info",
             insert: "top",
             container: "bottom-left",
             animationIn: ["animate__animated", "animate__fadeIn"],
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
-              duration: 5000,
+              duration: 5000, 
             }
           });
+
     }
 
 
@@ -48,7 +65,7 @@ export default function NotificationButton() {
       <Button
         className="menuButton"
         onClick={() => {
-          _checkNew();
+
         }}
       >
         <Box id="notificationButton" bgImage={notifications} >
