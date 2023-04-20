@@ -8,12 +8,18 @@ import Bestellingen from "./components/mainPages/Bestellingen";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
+import { sessionClose } from "./service/aanmelden";
 
 
 
 export const UserContext = React.createContext("");
 
 function App() {
+
+  window.addEventListener("beforeunload", (ev) => {
+    sessionClose();
+  });
+
   return (
     <>
       <UserContext.Provider

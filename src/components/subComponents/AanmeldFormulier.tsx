@@ -26,9 +26,6 @@ export default function AanmeldFormulier(onClose: {onClose: () => void}){
 
     };
 
-
-
-
     return(
         <>
         {isLoading? <CircularProgress/> :

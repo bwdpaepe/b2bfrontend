@@ -6,10 +6,13 @@ import order from "../../assets/icons/order.png"
 import notificiations from "../../assets/icons/Notifications.png"
 import AanmeldModal from "./AanmeldModal";
 import NotificationButton from "./NotificationButton";
+import { UserContext } from "../../App";
+import { useContext } from "react";
 
 
 export default function MenuButtons() {
 
+  const userContext = useContext(UserContext);
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string){
@@ -24,7 +27,7 @@ export default function MenuButtons() {
             <HStack spacing="5%">
                 <Button className="menuButton" onClick={() => {handleNavigate("/")}}><Image src = {home} boxSize='80px' fit="fill"></Image></Button>
                 <Button className="menuButton" onClick={() => {handleNavigate("winkelmand")}}><Image src= {cart} boxSize='80px' fit="fill"></Image></Button>
-                <Button className="menuButton" onClick={() => {handleNavigate("bestellingen")}}><Image src= {order} boxSize='80px' fit="fill"/></Button>
+                <Button className="menuButton" onClick={() => {handleNavigate("bestellingen")}}><Image src= {order} boxSize='80px' fit="fill" display={userContext.length > 0? "flex" : "none"}/></Button>
                 <NotificationButton></NotificationButton>
             </HStack>
         </Box>
