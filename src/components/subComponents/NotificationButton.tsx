@@ -43,6 +43,7 @@ export default function NotificationButton() {
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
         duration: 5000,
+        onScreen: true,
       },
     });
   }
