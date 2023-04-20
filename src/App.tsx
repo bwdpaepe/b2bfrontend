@@ -10,6 +10,8 @@ import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
 import Profile from "./components/mainPages/Profile";
 
+
+
 export const UserContext = React.createContext("");
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
           localStorage.getItem("User") ? localStorage.getItem("User")! : ""
         }
       >
+
         <Grid
           templateAreas={`"menu""content""footer"`}
           h="100vh"
