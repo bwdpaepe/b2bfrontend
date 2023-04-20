@@ -23,7 +23,7 @@ export default function NotificationButton() {
     if (userContext.length > 0) {
         const _newAmount = await checkNew();
         if (_newAmount > 0) {
-          showNotification();
+          showNotification(_newAmount);
           _checkUnread();
         }
     }
@@ -32,10 +32,10 @@ export default function NotificationButton() {
 
   useInterval(_getNew, 10000);
 
-  function showNotification() {
+  function showNotification(amount : number) {
     Store.addNotification({
       title: "INFO!",
-      message: "Je hebt één of meer nieuwe notificatie(s)",
+      message: "Je hebt " + amount + " nieuwe notificatie(s)",
       type: "info",
       insert: "top",
       container: "bottom-left",
