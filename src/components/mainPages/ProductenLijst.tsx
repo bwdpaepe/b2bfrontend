@@ -10,8 +10,7 @@ export default function Producten() {
 
   useEffect(() => {
     async function fetchProducten() {
-      const productenData = await productenByBedrijfId(2);
-      console.log(JSON.stringify(productenData));
+      const productenData = await productenByBedrijfId(2); // fetch producten from the API
       setProducten(productenData); // set the fetched producten in state
     }
     fetchProducten();
@@ -21,5 +20,11 @@ export default function Producten() {
     return <Text>No products found.</Text>;
   }
 
-  return <div>{JSON.stringify(producten)}</div>;
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
+      {producten.map((product) => (
+        <Product key={product.productId} product={product} />
+      ))}
+    </div>
+  );
 }
