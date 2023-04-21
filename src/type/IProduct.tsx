@@ -5,7 +5,7 @@ export default interface Product {
   eenheidsprijs: number;
   naam: string;
   bedrijf: Bedrijf;
-  afbeelding: string;
+  pictureFilename: string;
   voorraad: number;
   omschrijving: string;
 }

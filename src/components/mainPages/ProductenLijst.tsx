@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Product from "./Product";
 import IProduct from "../../type/IProduct";
@@ -21,10 +21,10 @@ export default function Producten() {
   }
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <Flex flexWrap="wrap" justifyContent="center">
       {producten.map((product) => (
         <Product key={product.productId} product={product} />
       ))}
-    </div>
+    </Flex>
   );
 }

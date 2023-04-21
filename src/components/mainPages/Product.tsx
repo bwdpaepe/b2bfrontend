@@ -8,9 +8,9 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import IProduct from "../../type/IProduct";
+import ProductProps from "../../type/ProductProps";
 
-export default function Product(product: any) {
+export default function Product({ product }: ProductProps) {
   return (
     <>
       <Card
@@ -23,17 +23,17 @@ export default function Product(product: any) {
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
-          src={`/images/${product.product.pictureFilename}`}
-          alt={product.product.naam}
+          src={`/images/${product.pictureFilename}`}
+          alt={product.naam}
         />
         <Stack>
           <CardBody>
-            <Heading size="md">{product.product.naam}</Heading>
-            <Text>{product.product.omschrijving}</Text>
+            <Heading size="md">{product.naam}</Heading>
+            <Text>{product.omschrijving}</Text>
           </CardBody>
           <CardFooter>
             <Button variant="solid" colorScheme="blue">
-              Buy {product.product.naam}
+              Buy {product.naam}
             </Button>
           </CardFooter>
         </Stack>
