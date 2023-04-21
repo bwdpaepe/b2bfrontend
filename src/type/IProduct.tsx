@@ -7,4 +7,5 @@ export default interface Product {
   bedrijf: Bedrijf;
   afbeelding: string;
   voorraad: number;
+  omschrijving: string;
 }

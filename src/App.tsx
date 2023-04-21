@@ -8,7 +8,7 @@ import Bestellingen from "./components/mainPages/Bestellingen";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
-import Products from "./components/mainPages/Producten";
+import Products from "./components/mainPages/ProductenLijst";
 
 export const UserContext = React.createContext("");
 
