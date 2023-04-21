@@ -23,17 +23,17 @@ export default function Product(product: any) {
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
-          src="/images/porduct_picture1.jpg"
-          alt="Caffe Latte"
+          src={`/images/${product.product.pictureFilename}`}
+          alt={product.product.naam}
         />
         <Stack>
           <CardBody>
-            <Heading size="md">TEST</Heading>
-            <Text>This a to test a product</Text>
+            <Heading size="md">{product.product.naam}</Heading>
+            <Text>{product.product.omschrijving}</Text>
           </CardBody>
           <CardFooter>
             <Button variant="solid" colorScheme="blue">
-              Buy Latte
+              Buy {product.product.naam}
             </Button>
           </CardFooter>
         </Stack>
