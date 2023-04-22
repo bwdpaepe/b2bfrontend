@@ -4,7 +4,6 @@ import Product from "./Product";
 import IProduct from "../../type/IProduct";
 import "../../styling/producten.css";
 import { productenByBedrijfId } from "../../service/productenByBedrijfId";
-import LeftPanel from "./LeftPanel";
 
 export default function ProductenLijst() {
   const [producten, setProducten] = useState<IProduct[]>([]);
