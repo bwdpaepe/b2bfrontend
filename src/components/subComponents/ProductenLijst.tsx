@@ -7,16 +7,16 @@ import { productenByBedrijfId } from "../../service/productenByBedrijfId";
 import LeftPanel from "./LeftPanel";
 
 export default function ProductenLijst() {
-  const [producten, setProducten] = useState<IProduct[]>([]); // initialize producten as an empty array
+  const [producten, setProducten] = useState<IProduct[]>([]);
 
   useEffect(() => {
     async function fetchProducten() {
-      const productenData = await productenByBedrijfId(2); // fetch producten from the API
-      setProducten(productenData); // set the fetched producten in state
+      const productenData = await productenByBedrijfId(2);
+      setProducten(productenData);
     }
     fetchProducten();
   }, []);
-  // render a message if there are no products
+
   if (!producten.length) {
     return <Text>No products found.</Text>;
   }
