@@ -7,9 +7,9 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import BedrijfProps from "../../type/BedrijfProps";
-export default function BedrijfHomeCard(bedrijf: BedrijfProps) {
-  console.log(bedrijf.bedrijf.logoFilename);
+import Bedrijf from "../../type/Bedrijf";
+export default function BedrijfHomeCard({ bedrijf }: { bedrijf: Bedrijf }) {
+  console.log(bedrijf.logoFilename);
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     console.log(pathname);
@@ -21,18 +21,18 @@ export default function BedrijfHomeCard(bedrijf: BedrijfProps) {
       maxW="sm"
       mr="2"
       mb="2"
-      onClick={() => handleNavigate(`/producten/${bedrijf.bedrijf.bedrijfId}`)}
+      onClick={() => handleNavigate(`/producten/${bedrijf.bedrijfId}`)}
     >
       <CardBody>
         <Image
-          src={`/images/bedrijfAfbeelding/${bedrijf.bedrijf.logoFilename}`}
+          src={`/images/bedrijfAfbeelding/${bedrijf.logoFilename}`}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
         />
       </CardBody>
       <Divider />
       <CardFooter>
-        <Text>{bedrijf.bedrijf.naam}</Text>
+        <Text>{bedrijf.naam}</Text>
       </CardFooter>
     </Card>
   );

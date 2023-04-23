@@ -8,9 +8,9 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import ProductProps from "../../type/ProductProps";
+import Product from "../../type/Product";
 
-export default function Product({ product }: ProductProps) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
     <>
       <Card

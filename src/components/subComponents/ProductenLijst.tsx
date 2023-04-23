@@ -1,12 +1,12 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Product from "./Product";
-import IProduct from "../../type/IProduct";
+import ProductCard from "./ProductCard";
+import Product from "../../type/Product";
 import "../../styling/producten.css";
 import { productenByBedrijfId } from "../../service/productenByBedrijfId";
 
 export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
-  const [producten, setProducten] = useState<IProduct[]>([]);
+  const [producten, setProducten] = useState<Product[]>([]);
 
   useEffect(() => {
     async function fetchProducten() {
@@ -23,7 +23,7 @@ export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
   return (
     <Flex flexWrap="wrap" justifyContent="center">
       {producten.map((product) => (
-        <Product key={product.productId} product={product} />
+        <ProductCard key={product.productId} product={product} />
       ))}
     </Flex>
   );
