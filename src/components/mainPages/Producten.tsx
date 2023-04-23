@@ -11,8 +11,6 @@ export default function Producten() {
   const bedrijfId = Number(bedrijfIdString);
   const [bedrijf, setBedrijf] = useState<Bedrijf>();
 
-  //TODO aanapassen naar getBedrijfById eens die in de service laag zit
-
   useEffect(() => {
     async function fetchBedrijf() {
       const bedrijfData: Bedrijf = await getBedrijfByBedrijfId(bedrijfId);
