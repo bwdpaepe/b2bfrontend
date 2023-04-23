@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Product from "../../type/Product";
 import "../../styling/producten.css";
-import { productenByBedrijfId } from "../../service/productenByBedrijfId";
+import { productenByBedrijfId } from "../../service/producten";
 
 export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
   const [producten, setProducten] = useState<Product[]>([]);
