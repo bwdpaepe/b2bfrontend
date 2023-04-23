@@ -1,0 +1,25 @@
+.gridItem {
+  background-color: #FFFFFF !important;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px !important;
+    border-color: black !important;
+    padding: 0 !important;
+    
+    
+}
+
+.gridItem:first-of-type, .gridItem:last-of-type {
+  border: none;
+}
+
+.gridItem > input, .gridItem > react-datepicker-wrapper, .gridItem > chakra-select__wrapper, .gridItem > button {
+  height: 100%;
+}
+
+.gridItem > button {
+  color: black;
+  background: #333333;
+  font-weight: bold;
+  width:100%;
+  border-radius: 15px;
+}

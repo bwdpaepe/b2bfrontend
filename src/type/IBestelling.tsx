@@ -8,6 +8,6 @@ export default interface IBestelling{
   datumGeplaatst: Date;
   orderId: string;
   trackAndTraceCode: string;
-  details: string;
+  details: JSX.Element;
   email:string;
 }
