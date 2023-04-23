@@ -1,25 +1,15 @@
-.gridItem {
-  background-color: #FFFFFF !important;
-    border-style: solid;
-    border-width: 1px 1px 1px 1px !important;
-    border-color: black !important;
-    padding: 0 !important;
-    
-    
+.chakra-container {
+  position: relative;
 }
 
-.gridItem:first-of-type, .gridItem:last-of-type {
-  border: none;
+.chakra-container h2 {
+  position: absolute;
+  left: 0;
+  margin-top: 10px;
 }
 
-.gridItem > input, .gridItem > react-datepicker-wrapper, .gridItem > chakra-select__wrapper, .gridItem > button {
-  height: 100%;
-}
 
 .gridItem > button {
-  color: black;
-  background: #333333;
-  font-weight: bold;
-  width:100%;
-  border-radius: 15px;
+  background-color: #EC4842;
 }
+

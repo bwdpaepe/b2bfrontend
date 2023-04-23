@@ -2,18 +2,19 @@ import { Text} from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Grid, GridItem } from '@chakra-ui/react';
-import { Select } from '@chakra-ui/react'
-import DatePicker from "react-datepicker";
+import { Input } from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
+import { IconButton } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 import { useEffect, useMemo, useState } from "react";
 import IBestelling from "../../type/IBestelling";
 //import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css"
-import User from "../../type/User";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 type UnitConversion = {
     orderId: string;
@@ -52,8 +53,8 @@ export default function BestellingenLijst(){
     let [bestellingen, setBestellingen] = useState<IBestelling[]>([]);
     const [textAankoper, setTextAankoper] = useState('');
     const [searchAankoper, setSearchAankoper] = useState('');
-    const [textDatum, setTextDatum] = useState(new Date());
-    const [searchDatum, setSearchDatum] = useState(new Date());
+    const [textDatum, setTextDatum] = useState('');
+    const [searchDatum, setSearchDatum] = useState('');
     const [textStatus, setTextStatus] = useState('');
     const [searchStatus, setSearchStatus] = useState('');
     
@@ -67,18 +68,6 @@ export default function BestellingenLijst(){
       }, []);
 
       
-    /*useEffect(() => {
-      const filteredBestellingen = bestellingen.filter((b: IBestelling) =>{
-        console.log("filtering...");
-        return (
-                b.aankoper.email.toLowerCase().includes(searchAankoper.toLowerCase())
-                &&
-                (searchDatum.getDate === null || b.datumGeplaatst.getDate === searchDatum.getDate)
-                
-                );
-        })
-    }, [searchAankoper, searchDatum, searchStatus]);*/
-
     bestellingen = bestellingen.map((bestelling:IBestelling) => {
       return {...bestelling,
               email: bestelling.aankoper.email,
@@ -88,13 +77,11 @@ export default function BestellingenLijst(){
 
     const filteredBestellingen = useMemo(() => bestellingen.filter((b: IBestelling) =>{
       console.log("filtering...");
-      console.log(b);
-
       
       return (
               b.aankoper.email.toLowerCase().includes(searchAankoper.toLowerCase())
               &&
-              (searchDatum.getDate === new Date().getDate || b.datumGeplaatst.getDate === searchDatum.getDate)
+              (searchDatum == "" || new Date(b.datumGeplaatst).getTime() === new Date(searchDatum).getTime())
               &&
               (searchStatus == "" || BestellingStatus[b.status] == searchStatus)
               );
@@ -112,33 +99,38 @@ export default function BestellingenLijst(){
 
     
     return(
-      <>
-      <Grid mt='5' templateColumns='repeat(5, 1fr)' gap={6}>
-  <GridItem w='100%' h='10' className='gridItem'/>
-  <GridItem w='100%' h='10' className='gridItem'><input type="text" value={textAankoper} onChange={(e) => setTextAankoper(e.target.value)} className="flex-1"
-placeholder="search aankoper" /></GridItem>
-  <GridItem w='100%' h='10' className='gridItem'><DatePicker selected={textDatum} onChange={(date: Date) => setTextDatum(date)} /></GridItem>
-  <GridItem w='100%' h='10' className='gridItem'><Select placeholder='Select option' onChange={(e) => setTextStatus(e.target.value)}>
-    {
-      //Object.values(BestellingStatus).map((value: string, index: number, array: string[]) => {return (<option></option>);})
-      
-    }
-  <option key={1} value={BestellingStatus.GEPLAATST}>GEPLAATST</option>
-  <option key={2} value={BestellingStatus.VERWERKT}>VERWERKT</option>
-  <option key={3} value={BestellingStatus.VERZONDEN}>VERZONDEN</option>
-  <option key={4} value={BestellingStatus.UIT_VOOR_LEVERING}>UIT VOOR LEVERING</option>
-  <option key={5} value={BestellingStatus.GELEVERD}>GELEVERD</option>
-</Select></GridItem>
-  <GridItem w='100%' h='10' className='gridItem'><button type="button" onClick={()=>{
-    setSearchAankoper(textAankoper);
-    setSearchDatum(textDatum);
-    setSearchStatus(textStatus);
-  }
-  }>Search</button></GridItem>
-</Grid>
-        <ChakraProvider>
+      <Container maxW="1200px" centerContent>
+      <Heading>Mijn aankopen</Heading>
+      <Grid mt='20' templateColumns='repeat(5, 1fr)' gap={6}>
+        <GridItem w='100%' h='10' className='gridItem'/>
+        <GridItem w='100%' h='10' className='gridItem'><Input type="text" value={textAankoper} onChange={(e) => setTextAankoper(e.target.value)} className="flex-1"
+      placeholder="zoek op aankoper" /></GridItem>
+        <GridItem w='100%' h='10' className='gridItem'><Input type="date" value={textDatum} onChange={(e) => setTextDatum(e.target.value)} className="flex-1"
+      placeholder="zoek op datum" /></GridItem>
+        <GridItem w='100%' h='10' className='gridItem'>
+          <Select placeholder='Selecteer status' onChange={(e) => setTextStatus(e.target.value)}>
+          {
+            //Object.values(BestellingStatus).map((value: string, index: number, array: string[]) => {return (<option></option>);})
+            
+          }
+            <option key={1} value={BestellingStatus.GEPLAATST}>GEPLAATST</option>
+            <option key={2} value={BestellingStatus.VERWERKT}>VERWERKT</option>
+            <option key={3} value={BestellingStatus.VERZONDEN}>VERZONDEN</option>
+            <option key={4} value={BestellingStatus.UIT_VOOR_LEVERING}>UIT VOOR LEVERING</option>
+            <option key={5} value={BestellingStatus.GELEVERD}>GELEVERD</option>
+          </Select></GridItem>
+        <GridItem w='100%' h='10' className='gridItem'>
+          <IconButton aria-label='Filter bestellingen' icon={<SearchIcon />} onClick={()=>{
+          setSearchAankoper(textAankoper);
+          setSearchDatum(textDatum);
+          setSearchStatus(textStatus);
+        }
+        }/>
+        </GridItem>
+      </Grid>
+      <ChakraProvider>
         <DataTable columns={columns} data={filteredBestellingen} />
       </ChakraProvider>
-      </>
+      </Container>
     )
 }
