@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router";
 import BedrijfProps from "../../type/BedrijfProps";
 export default function BedrijfHomeCard(bedrijf: BedrijfProps) {
+  console.log(bedrijf.bedrijf.logoFilename);
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     console.log(pathname);
@@ -24,7 +25,7 @@ export default function BedrijfHomeCard(bedrijf: BedrijfProps) {
     >
       <CardBody>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          src={`/images/bedrijfAfbeelding/${bedrijf.bedrijf.logoFilename}`}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
         />

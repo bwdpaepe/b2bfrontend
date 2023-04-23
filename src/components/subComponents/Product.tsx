@@ -23,7 +23,7 @@ export default function Product({ product }: ProductProps) {
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
-          src={`/images/${product.pictureFilename}`}
+          src={`/images/productAfbeelding/${product.pictureFilename}`}
           alt={product.naam}
         />
         <Stack>
