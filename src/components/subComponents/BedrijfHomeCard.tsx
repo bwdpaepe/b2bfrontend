@@ -14,7 +14,7 @@ export default function BedrijfHomeCard(bedrijf: BedrijfProps) {
     console.log(pathname);
     navigate(pathname);
   }
-
+  //TODO logo's bedrijven aanpassen en toevoegen
   return (
     <Card
       maxW="sm"

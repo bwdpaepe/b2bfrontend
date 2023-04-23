@@ -27,11 +27,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    healthCheck();
     async function fetchBedrijven() {
       const bedrijvenData = await getAllBedrijven();
       setBedrijven(bedrijvenData);
     }
+    healthCheck();
     fetchBedrijven();
   }, [healthCheck]);
 

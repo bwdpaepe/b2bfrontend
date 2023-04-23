@@ -36,8 +36,8 @@ function App() {
               <Route path="/notificaties" element={<Notificaties />} />
               <Route path="/winkelmand" element={<Winkelmand />} />
               <Route
-                path="/producten/:bedrijfId"
-                element={<Producten bedrijfId={1} />}
+                path="/producten/:bedrijfIdString"
+                element={<Producten />}
               />
               <Route path="*" element={<NotFound />} />
             </Routes>

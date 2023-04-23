@@ -2,11 +2,13 @@ import { Flex } from "@chakra-ui/react";
 import LeftPanel from "../subComponents/LeftPanel";
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
-import BedrijfProps from "../../type/BedrijfProps";
 import Bedrijf from "../../type/Bedrijf";
 import { getAllBedrijven } from "../../service/bedrijven";
+import { useParams } from "react-router";
 
-export default function Producten({ bedrijfId }: { bedrijfId: number }) {
+export default function Producten() {
+  const { bedrijfIdString } = useParams();
+  const bedrijfId = Number(bedrijfIdString);
   const [bedrijf, setBedrijf] = useState<Bedrijf>();
 
   //TODO aanapassen naar getBedrijfById eens die in de service laag zit
@@ -14,11 +16,10 @@ export default function Producten({ bedrijfId }: { bedrijfId: number }) {
   useEffect(() => {
     async function fetchBedrijf() {
       const bedrijfData: any = await getAllBedrijven();
-      const bedrijf = bedrijfData.filter(
+      const bedrijf = bedrijfData.find(
         (bedrijf: any) => bedrijf.bedrijfId === bedrijfId
       );
-      setBedrijf(bedrijf[0]);
-      console.log(bedrijf[0]);
+      setBedrijf(bedrijf);
     }
     fetchBedrijf();
   }, [bedrijfId]);
