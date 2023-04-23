@@ -5,16 +5,16 @@ import IProduct from "../../type/IProduct";
 import "../../styling/producten.css";
 import { productenByBedrijfId } from "../../service/productenByBedrijfId";
 
-export default function ProductenLijst() {
+export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
   const [producten, setProducten] = useState<IProduct[]>([]);
 
   useEffect(() => {
     async function fetchProducten() {
-      const productenData = await productenByBedrijfId(2);
+      const productenData = await productenByBedrijfId(bedrijfId);
       setProducten(productenData);
     }
     fetchProducten();
-  }, []);
+  }, [bedrijfId]);
 
   if (!producten.length) {
     return <Text>No products found.</Text>;

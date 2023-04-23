@@ -35,7 +35,10 @@ function App() {
               <Route path="/bestellingen" element={<Bestellingen />} />
               <Route path="/notificaties" element={<Notificaties />} />
               <Route path="/winkelmand" element={<Winkelmand />} />
-              <Route path="/producten" element={<Producten />} />
+              <Route
+                path="/producten/:bedrijfId"
+                element={<Producten bedrijfId={1} />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>

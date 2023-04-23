@@ -29,11 +29,13 @@ export default function Product({ product }: ProductProps) {
         <Stack>
           <CardBody>
             <Heading size="md">{product.naam}</Heading>
-            <Text>{product.omschrijving}</Text>
+            <Text>
+              {product.omschrijving} met product ID: {product.productId}
+            </Text>
           </CardBody>
           <CardFooter>
             <Button variant="solid" colorScheme="blue">
-              Buy {product.naam}
+              Buy {product.productId}
             </Button>
           </CardFooter>
         </Stack>
