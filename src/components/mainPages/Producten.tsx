@@ -3,7 +3,7 @@ import LeftPanel from "../subComponents/LeftPanel";
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
 import Bedrijf from "../../type/Bedrijf";
-import { getAllBedrijven } from "../../service/bedrijven";
+import { getBedrijfByBedrijfId } from "../../service/bedrijven";
 import { useParams } from "react-router";
 
 export default function Producten() {
@@ -15,11 +15,8 @@ export default function Producten() {
 
   useEffect(() => {
     async function fetchBedrijf() {
-      const bedrijfData: any = await getAllBedrijven();
-      const bedrijf = bedrijfData.find(
-        (bedrijf: any) => bedrijf.bedrijfId === bedrijfId
-      );
-      setBedrijf(bedrijf);
+      const bedrijfData: Bedrijf = await getBedrijfByBedrijfId(bedrijfId);
+      setBedrijf(bedrijfData);
     }
     fetchBedrijf();
   }, [bedrijfId]);
