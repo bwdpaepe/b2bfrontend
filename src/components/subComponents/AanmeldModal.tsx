@@ -44,6 +44,7 @@ export default function AanmeldModal() {
         localStorage.removeItem("User");
         setLoggedInUser(null);
         navigate("/");
+        window.location.reload();
     }
   };
 
