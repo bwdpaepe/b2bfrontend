@@ -15,21 +15,21 @@ import {
 } from "@chakra-ui/react";
 import profile from "../../assets/icons/profile.png";
 import AanmeldFormulier from "./AanmeldFormulier";
-import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { sessionClose } from "../../service/aanmelden";
+import { UserContext } from "../../App";
+import User from "../../type/User";
 
 export default function AanmeldModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [loggedInUser, setLoggedInUser] = useState<any>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userFromStorage = localStorage.getItem("User");
-    if (userFromStorage) {
-      setLoggedInUser(JSON.parse(userFromStorage));
-    }
-  }, []);
+  const userContext = useContext(UserContext);
+  var loggedInUser: User | null = null;
+  if (userContext.length > 0) {
+    loggedInUser = JSON.parse(userContext);
+  }
 
   const handleButtonClick = () => {
     if (!loggedInUser) {
@@ -38,15 +38,14 @@ export default function AanmeldModal() {
   };
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm('Ben je zeker dat je wil uitloggen?');
+    const confirmLogout = window.confirm("Ben je zeker dat je wil uitloggen?");
     if (confirmLogout) {
-        sessionClose(); // before deleting the localstorage Token !!
-        localStorage.removeItem("Bedrijf");
-        localStorage.removeItem("Token");
-        localStorage.removeItem("User");
-        setLoggedInUser(null);
-        navigate("/");
-        window.location.reload(); // reload the page to update the navbar
+      sessionClose(); // before deleting the localstorage Token !!
+      localStorage.removeItem("Bedrijf");
+      localStorage.removeItem("Token");
+      localStorage.removeItem("User");
+      navigate("/");
+      window.location.reload(); // reload the page to update the navbar
     }
   };
 
@@ -68,7 +67,7 @@ export default function AanmeldModal() {
         {loggedInUser && (
           <MenuList>
             <MenuItem onClick={handleProfileNavigation}>Profiel</MenuItem>
-            <MenuDivider /> 
+            <MenuDivider />
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
         )}
