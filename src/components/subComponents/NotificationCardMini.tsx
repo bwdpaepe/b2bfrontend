@@ -1,18 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
 import Notifications from "../../type/Notifications";
-
-
-
-
-
+import { NotificationStatusDutch, NotificationStatus } from "../../util/NotificationStatusEnum";
 
 export default function NotificationCardMini(notification : {notification: Notifications}) {
-    function handleClick(){
-        //TODO
-    }
+  function handleClick(){
+      //TODO
+  }
 
-
-
+  const statusDutch = NotificationStatusDutch[notification.notification.status as keyof typeof NotificationStatusDutch];
 
   return (<>
     <Box id="notificationCardMini" onClick={() => handleClick()}>
@@ -20,15 +15,9 @@ export default function NotificationCardMini(notification : {notification: Notif
         <Text>Bestelling : {notification.notification.bestellingId} Datum : {notification.notification.creationDate.substring(0,10)}</Text>
         <Text></Text>
         <Text>Status: {notification.notification.bestellingStatus.toLowerCase()} </Text>
-        <Text color={notification.notification.status === "READ"? "black" : "red"} fontWeight={notification.notification.status === "NEW"? "bold" : "normal"}>{notification.notification.status.toLowerCase()} </Text>
+        <Text color={notification.notification.status === NotificationStatus.READ? "black" : "red"} fontWeight={notification.notification.status === NotificationStatus.NEW.toString() ? "bold" : "normal"}>{statusDutch} </Text>
         </Box>
-
-        <Box borderRadius="45" bgColor="red" width="10px" height="10px" display={notification.notification.status === "NEW"? "inline-block" : "none"}></Box>
-
+        <Box borderRadius="45" bgColor="red" width="10px" height="10px" display={notification.notification.status === NotificationStatus.NEW ? "inline-block" : "none"}></Box>
     </Box>
-
-  
-  
-  
   </>);
 }
