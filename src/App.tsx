@@ -9,10 +9,7 @@ import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
 import { sessionClose } from "./service/aanmelden";
-<<<<<<< HEAD
-=======
 import Profile from "./components/mainPages/Profile";
->>>>>>> UC10_bedrijfsprofiel
 
 
 
