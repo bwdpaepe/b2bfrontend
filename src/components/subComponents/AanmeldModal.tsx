@@ -17,6 +17,7 @@ import profile from "../../assets/icons/profile.png";
 import AanmeldFormulier from "./AanmeldFormulier";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { sessionClose } from "../../service/aanmelden";
 
 export default function AanmeldModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,14 +38,15 @@ export default function AanmeldModal() {
   };
 
   const handleLogout = () => {
-    const confirmedLogout = window.confirm('Ben je zeker dat je wil uitloggen?');
-    if (confirmedLogout) {
+    const confirmLogout = window.confirm('Ben je zeker dat je wil uitloggen?');
+    if (confirmLogout) {
+        sessionClose(); // before deleting the localstorage Token !!
         localStorage.removeItem("Bedrijf");
         localStorage.removeItem("Token");
         localStorage.removeItem("User");
         setLoggedInUser(null);
         navigate("/");
-        window.location.reload();
+        window.location.reload(); // reload the page to update the navbar
     }
   };
 
