@@ -87,7 +87,6 @@ export default function NotificationButton() {
       toggleLoading.on();
       const _notifications = await getLimitedNotifications();
       setLimitedNotifications(_notifications);
-      console.log(JSON.stringify(limitedNotifications![0]));
       toggleLoading.off();
     } catch (error) {
       setError("Er ging iets mis bij het laden van de notificiaties")
