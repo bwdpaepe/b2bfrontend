@@ -8,6 +8,7 @@ import Bestellingen from "./components/mainPages/Bestellingen";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
+import Profile from "./components/mainPages/Profile";
 
 export const UserContext = React.createContext("");
 
@@ -34,6 +35,7 @@ function App() {
               <Route path="/bestellingen" element={<Bestellingen />} />
               <Route path="/notificaties" element={<Notificaties />} />
               <Route path="/winkelmand" element={<Winkelmand />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>
