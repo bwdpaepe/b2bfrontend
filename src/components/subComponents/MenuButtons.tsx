@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import home from "../../assets/icons/Home.png"
 import cart from "../../assets/icons/Cart.png"
 import order from "../../assets/icons/order.png"
-import notificiations from "../../assets/icons/Notifications.png"
 import AanmeldModal from "./AanmeldModal";
 import NotificationButton from "./NotificationButton";
 import { UserContext } from "../../App";
@@ -32,7 +31,9 @@ export default function MenuButtons() {
             </HStack>
         </Box>
         <Box bgColor="blue">
+   
         <AanmeldModal></AanmeldModal>
+
         </Box>
       </HStack>
     </>
