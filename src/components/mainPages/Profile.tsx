@@ -1,12 +1,28 @@
-import { Box, Heading, Spinner, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Spinner,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack,
+  Grid,
+  GridItem,
+  Image,
+} from "@chakra-ui/react";
 import { useCallback, useState, useEffect } from "react";
 import "../../styling/index.css";
 import "../../styling/profile.css";
 import { getBedrijfProfile } from "../../service/bedrijven";
+import Bedrijf from "../../type/Bedrijf";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
-  const [bedrijfProfile, setBedrijfProfile] = useState<any>(null);
+  const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
   const [isLoggedInUser, setIsLoggedInUser] = useState<boolean>(false); // check if token is saved in localstorage
 
   // check if user is logged in
@@ -20,12 +36,11 @@ export default function Profile() {
     }
   }, []);
 
-
   // fetch bedrijf profile data (incl list of aankopers) from backend
   const fetchBedrijfProfile = useCallback(async () => {
     setLoading(true);
     try {
-      if(!isLoggedInUser) {
+      if (!isLoggedInUser) {
         return; // if user is not logged in, don't fetch data
       }
       const response = await getBedrijfProfile();
@@ -45,49 +60,92 @@ export default function Profile() {
   useEffect(() => {
     checkForLoggedInUser();
     fetchBedrijfProfile();
-  }, [checkForLoggedInUser ,fetchBedrijfProfile]);
+  }, [checkForLoggedInUser, fetchBedrijfProfile]);
 
   return (
     <>
-    {isLoggedInUser ? (
-      <> 
-        {loading ? (
-            <Spinner className="spinner"/>
+      {isLoggedInUser ? (
+        <>
+          {loading ? (
+            <Spinner className="spinner" />
           ) : (
             <>
               <VStack id="profileVstack">
-                  <Box id="profileBox">
-                  <Heading className="profileHeadings" id="profileHeading">PROFIEL VAN BEDRIJF</Heading>
-                  <Text id="profileText">
-                      Sunt ad dolore quis aute consequat. Magna exercitation reprehenderit
-                      magna aute tempor cupidatat consequat elit dolor adipisicing. Mollit
-                      dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit officia
-                      eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit
-                      incididunt nisi consectetur esse laborum eiusmod pariatur proident
-                      Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                  </Text>
-                  <Text>
-                      {bedrijfProfile && (
-                          <pre>{JSON.stringify(bedrijfProfile, null, 2)}</pre>
-                      )}
-                  </Text>
-                  </Box>
-                  <Box id="aankopersBox">
-                  <Heading className="profileHeadings" id="aankopersHeading">AANKOPERS</Heading>
-                  <Text id="aankopersText">
-                      Sit nulla est ex deserunt exercitation anim occaecat. Nostrud
-                      ullamco deserunt aute id consequat veniam incididunt duis in sint
-                      irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit
-                      officia tempor esse quis.
-                  </Text>
-                  </Box>
+                <Box id="profileBox">
+                  <Heading className="profileHeadings" id="profileHeading">
+                    {bedrijfProfile?.naam}
+                  </Heading>
+                  {bedrijfProfile && (
+                    <Grid
+                      templateColumns={{
+                        base: "repeat(1, minmax(250px, 1fr))",
+                        md: "repeat(3, minmax(250px, 1fr))",
+                      }}
+                      gap={6}
+                      // no padding of margins
+                      p={0}
+                      m={0}
+                    >
+                      <GridItem>
+                        <Image
+                          src={`/path/to/logo/folder/${bedrijfProfile.logoFilename}`}
+                          alt={bedrijfProfile.naam}
+                        />
+                      </GridItem>
+                      <GridItem>
+                        <Text fontWeight="bold">Adres</Text>
+                        <Text>
+                          {bedrijfProfile.straat} {bedrijfProfile.huisnummer}
+                        </Text>
+                        <Text>
+                          {bedrijfProfile.postcode} {bedrijfProfile.stad}
+                        </Text>
+                        <Text>{bedrijfProfile.land}</Text>
+                      </GridItem>
+                      <GridItem>
+                        <Text fontWeight="bold">Telefoonnummer</Text>
+                        <Text>{bedrijfProfile.telefoonnummer}</Text>
+                      </GridItem>
+                    </Grid>
+                  )}
+                </Box>
+                <Box id="aankopersBox">
+                  <Heading className="profileHeadings" id="aankopersHeading">
+                    AANKOPERS
+                  </Heading>
+                  <Table id="aankopersTable">
+                    <Thead>
+                      <Tr>
+                        <Th>Personeelnummer</Th>
+                        <Th>Voornaam</Th>
+                        <Th>Familienaamaam</Th>
+                        <Th>E-mail</Th>
+                        <Th>Telefoonnummer</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {bedrijfProfile &&
+                        bedrijfProfile.users?.map((aankoper) => (
+                          <Tr key={aankoper.userId}>
+                            <Td>{aankoper.personeelsNr}</Td>
+                            <Td>{aankoper.firstname}</Td>
+                            <Td>{aankoper.lastname}</Td>
+                            <Td>{aankoper.email}</Td>
+                            <Td>{aankoper.phone}</Td>
+                          </Tr>
+                        ))}
+                    </Tbody>
+                  </Table>
+                </Box>
               </VStack>
-          </>
-        )}
-      </>
-    ) : (
-        <Text id="notLoggedInText">Je moet ingelogd zijn om deze pagina te bekijken.</Text>
-    )}
-      </>
+            </>
+          )}
+        </>
+      ) : (
+        <Text id="notLoggedInText">
+          Je moet ingelogd zijn om deze pagina te bekijken.
+        </Text>
+      )}
+    </>
   );
 }
