@@ -29,7 +29,12 @@ function App() {
           <GridItem gridArea="menu">
             <MenuBar />
           </GridItem>
-          <GridItem gridArea="content">
+          <GridItem
+            gridArea="content"
+            overflow="scroll"
+            overflowY="auto"
+            overflowX="hidden"
+          >
             <Routes>
               <Route index element={<Home />} />
               <Route path="/bestellingen" element={<Bestellingen />} />
