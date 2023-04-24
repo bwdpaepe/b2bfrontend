@@ -14,7 +14,7 @@ import {
   GridItem,
   Image,
 } from "@chakra-ui/react";
-import { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import "../../styling/index.css";
 import "../../styling/profile.css";
 import { getBedrijfProfile } from "../../service/bedrijven";
@@ -24,6 +24,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
   const [isLoggedInUser, setIsLoggedInUser] = useState<boolean>(false); // check if token is saved in localstorage
+  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
 
   // check if user is logged in
   // if so, fetch data from backend
@@ -44,7 +45,7 @@ export default function Profile() {
         return; // if user is not logged in, don't fetch data
       }
       const response = await getBedrijfProfile();
-      console.log(response);
+      //console.log(response);
       if (response) {
         setBedrijfProfile(response);
       } else {
@@ -56,11 +57,24 @@ export default function Profile() {
       setLoading(false);
     }
   }, [isLoggedInUser]);
+  
 
   useEffect(() => {
     checkForLoggedInUser();
     fetchBedrijfProfile();
   }, [checkForLoggedInUser, fetchBedrijfProfile]);
+
+  useEffect(() => {
+    if (bedrijfProfile && bedrijfProfile.logoFilename) {
+      const loadLogo = async () => {
+        const logo = await import(
+          `../../assets/companies/${bedrijfProfile.logoFilename}`
+        );
+        setCompanyLogo(logo.default);
+      };
+      loadLogo();
+    }
+  }, [bedrijfProfile]);
 
   return (
     <>
@@ -70,27 +84,17 @@ export default function Profile() {
             <Spinner className="spinner" />
           ) : (
             <>
-              <VStack id="profileVstack">
-                <Box id="profileBox">
+              <VStack id="profileVstack" alignItems="start">
+                <>
                   <Heading className="profileHeadings" id="profileHeading">
                     {bedrijfProfile?.naam}
                   </Heading>
                   {bedrijfProfile && (
-                    <Grid
-                      templateColumns={{
-                        base: "repeat(1, minmax(250px, 1fr))",
-                        md: "repeat(3, minmax(250px, 1fr))",
-                      }}
-                      gap={6}
-                      // no padding of margins
-                      p={0}
-                      m={0}
-                    >
+                    <Grid className="profileGrid">
                       <GridItem>
-                        <Image
-                          src={`/path/to/logo/folder/${bedrijfProfile.logoFilename}`}
-                          alt={bedrijfProfile.naam}
-                        />
+                        {companyLogo && (
+                          <Image src={companyLogo} alt={bedrijfProfile.naam} />
+                        )}
                       </GridItem>
                       <GridItem>
                         <Text fontWeight="bold">Adres</Text>
@@ -108,17 +112,15 @@ export default function Profile() {
                       </GridItem>
                     </Grid>
                   )}
-                </Box>
-                <Box id="aankopersBox">
                   <Heading className="profileHeadings" id="aankopersHeading">
-                    AANKOPERS
+                    Details aankopers
                   </Heading>
                   <Table id="aankopersTable">
                     <Thead>
                       <Tr>
                         <Th>Personeelnummer</Th>
                         <Th>Voornaam</Th>
-                        <Th>Familienaamaam</Th>
+                        <Th>Familienaam</Th>
                         <Th>E-mail</Th>
                         <Th>Telefoonnummer</Th>
                       </Tr>
@@ -136,7 +138,7 @@ export default function Profile() {
                         ))}
                     </Tbody>
                   </Table>
-                </Box>
+                </>
               </VStack>
             </>
           )}

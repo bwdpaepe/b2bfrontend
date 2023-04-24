@@ -66,10 +66,7 @@ export default function AanmeldModal() {
         {loggedInUser && (
           <MenuList>
             <MenuItem onClick={handleProfileNavigation}>Profiel</MenuItem>
-            <MenuItem as="a" href="#">
-              (placeholder)
-            </MenuItem>
-            <MenuDivider />
+            <MenuDivider /> 
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
         )}
