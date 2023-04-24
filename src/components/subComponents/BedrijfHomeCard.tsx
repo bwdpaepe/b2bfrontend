@@ -9,13 +9,10 @@ import {
 import { useNavigate } from "react-router";
 import Bedrijf from "../../type/Bedrijf";
 export default function BedrijfHomeCard({ bedrijf }: { bedrijf: Bedrijf }) {
-  console.log(bedrijf.logoFilename);
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
-    console.log(pathname);
     navigate(pathname);
   }
-  //TODO logo's bedrijven aanpassen en toevoegen
   return (
     <Card
       maxW="sm"
@@ -23,11 +20,16 @@ export default function BedrijfHomeCard({ bedrijf }: { bedrijf: Bedrijf }) {
       mb="2"
       onClick={() => handleNavigate(`/producten/${bedrijf.bedrijfId}`)}
       className="card"
+      _hover={{
+        cursor: "pointer",
+        boxShadow: "md",
+        transform: "scale(1.01)",
+      }}
     >
       <CardBody>
         <Image
           src={`/images/bedrijfAfbeelding/${bedrijf.logoFilename}`}
-          alt="Green double couch with wooden legs"
+          alt={`${bedrijf.naam}`}
         />
       </CardBody>
       <Divider />
