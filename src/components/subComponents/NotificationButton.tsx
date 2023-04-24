@@ -22,6 +22,7 @@ import { useNavigate } from "react-router";
 import { forEach, forIn } from "lodash";
 import NotificationCardMini from "./NotificationCardMini";
 import Notifications from "../../type/Notifications";
+import ErrorMessage from "./ErrorMessage";
 
 
 export default function NotificationButton() {
@@ -116,12 +117,10 @@ export default function NotificationButton() {
         </Center>
       </Button>
       <MenuList>
+        {error && <ErrorMessage message={error}></ErrorMessage>}
         {isLoading && <CircularProgress isIndeterminate></CircularProgress>}
         {limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
         <MenuItem onClick={() => handleNavigate("/notificaties")}>Zie meer...</MenuItem>
-        
-
-
       </MenuList>
 
       </Menu>
