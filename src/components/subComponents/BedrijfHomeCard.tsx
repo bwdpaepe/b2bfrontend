@@ -22,16 +22,16 @@ export default function BedrijfHomeCard({ bedrijf }: { bedrijf: Bedrijf }) {
       mr="2"
       mb="2"
       onClick={() => handleNavigate(`/producten/${bedrijf.bedrijfId}`)}
+      className="card"
     >
       <CardBody>
         <Image
           src={`/images/bedrijfAfbeelding/${bedrijf.logoFilename}`}
           alt="Green double couch with wooden legs"
-          borderRadius="lg"
         />
       </CardBody>
       <Divider />
-      <CardFooter>
+      <CardFooter className="card-footer">
         <Text>{bedrijf.naam}</Text>
       </CardFooter>
     </Card>

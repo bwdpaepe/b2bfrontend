@@ -4,7 +4,7 @@ import Bedrijf from "../../type/Bedrijf";
 
 function LeftPanel({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
   return (
-    <Box w="20%" minW="250px" minHeight="100vh" bg="gray.100" p="4">
+    <Box w="20%" minW="250px" minHeight="100vh" borderRight="1px solid" p="4">
       <Image
         src={`/images/bedrijfAfbeelding/${bedrijf?.logoFilename}`}
         alt="logo"

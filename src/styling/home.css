@@ -1,0 +1,9 @@
+.card {
+  border: 3px solid #ec4842 !important;
+}
+
+.card-footer {
+  background-color: #ec4842;
+  border: 3px solid #ec4842 !important;
+  color: white;
+}
