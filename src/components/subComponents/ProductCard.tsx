@@ -30,11 +30,12 @@ export default function ProductCard({ product }: { product: Product }) {
     >
       <Image
         objectFit="cover"
-        maxW={{ base: "100%", sm: "200px" }}
+        maxW="30%"
+        h={{ base: "200px", sm: "auto" }}
         src={`/images/productAfbeelding/${product.pictureFilename}`}
         alt={product.naam}
       />
-      <Stack>
+      <Stack direction="column">
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
           <Heading size="md">€{product.eenheidsprijs}</Heading>
@@ -47,7 +48,7 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.voorraad === 0 ? (
             <Text>{product.naam} is niet beschikbaar</Text>
           ) : (
-            <Flex alignItems="center">
+            <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
               <NumberInput
                 defaultValue={0}
                 min={0}
