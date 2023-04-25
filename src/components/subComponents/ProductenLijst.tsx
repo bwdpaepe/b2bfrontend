@@ -1,4 +1,4 @@
-import { Text, Flex } from "@chakra-ui/react";
+import { Text, Flex, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Product from "../../type/Product";
@@ -21,10 +21,18 @@ export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
   }
 
   return (
-    <Flex flexWrap="wrap" justifyContent="center">
+    <Grid
+      templateColumns={{
+        base: "repeat(1, minmax(0, 1fr))",
+        md: "repeat(2, minmax(0, 1fr))",
+        lg: "repeat(2, minmax(0, 1fr))",
+      }}
+      gap={6}
+      p={3}
+    >
       {producten.map((product) => (
         <ProductCard key={product.productId} product={product} />
       ))}
-    </Flex>
+    </Grid>
   );
 }
