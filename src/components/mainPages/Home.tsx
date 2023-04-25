@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import "../../styling/home.css";
 import { useEffect, useState } from "react";
 import BedrijfHomeCard from "../subComponents/BedrijfHomeCard";

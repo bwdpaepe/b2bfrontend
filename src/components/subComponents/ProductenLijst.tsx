@@ -1,4 +1,4 @@
-import { Text, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
+import { Text, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Product from "../../type/Product";
