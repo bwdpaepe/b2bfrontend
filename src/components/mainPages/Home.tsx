@@ -1,4 +1,4 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react";
 import "../../styling/home.css";
 import { useEffect, useState } from "react";
 import BedrijfHomeCard from "../subComponents/BedrijfHomeCard";
@@ -20,11 +20,11 @@ export default function Home() {
   return (
     <>
       <Box w="100vw" h="50px">
-        <Grid
+        <SimpleGrid
           templateColumns={{
             base: "repeat(1, 1fr)",
             md: "repeat(2, 1fr)",
-            lg: "repeat(12, 1fr)",
+            lg: "repeat(10, 1fr)",
           }}
           gap={1}
           p={3}
@@ -35,7 +35,7 @@ export default function Home() {
           {[...Array(100)].map((_, i) => (
             <RandomHomeCard key={i} />
           ))}
-        </Grid>
+        </SimpleGrid>
       </Box>
     </>
   );

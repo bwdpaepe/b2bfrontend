@@ -9,7 +9,7 @@ import {
 export default function RandomHomeCard() {
   return (
     <Card maxW="sm" mr="2" mb="2" className="card">
-      <CardBody>
+      <CardBody alignSelf="center">
         <Image
           src={`/images/bedrijfAfbeelding/1.jpg`}
           alt="Dit is een random afbeelding"
