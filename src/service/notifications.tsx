@@ -1,5 +1,6 @@
 import { tryStatement } from "@babel/types"
 import http from "./http"
+import Notifications from "../type/Notifications"
 
 export async function checkUnread(){
     try {
@@ -31,7 +32,16 @@ export async function checkNew(){
 
 export async function getLimitedNotifications(){
     try {
-        const response = await http.get<Notification[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}, params:{limit : 5}});
+        const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}, params:{limit : 5}});
+        return response.data;
+    } catch (error : any) {
+        return  (error.message)
+    }
+}
+
+export async function getNotifications(){
+    try {
+        const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}});
         return response.data;
     } catch (error : any) {
         return  (error.message)

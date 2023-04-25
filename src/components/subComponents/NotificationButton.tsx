@@ -19,7 +19,6 @@ import useInterval from "@use-it/interval";
 import { UserContext } from "../../App";
 import {getLimitedNotifications} from "../../service/notifications"
 import { useNavigate } from "react-router";
-import { forEach, forIn } from "lodash";
 import NotificationCardMini from "./NotificationCardMini";
 import Notifications from "../../type/Notifications";
 import ErrorMessage from "./ErrorMessage";
