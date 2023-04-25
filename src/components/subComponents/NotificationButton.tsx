@@ -89,8 +89,9 @@ export default function NotificationButton() {
       const _notifications = await getLimitedNotifications();
       setLimitedNotifications(_notifications);
       toggleLoading.off();
-    } catch (error) {
-      setError("Er ging iets mis bij het laden van de notificiaties")
+    } catch (error :any) {
+      setError(error.message)
+      toggleLoading.off();
     }
 
 
@@ -119,7 +120,7 @@ export default function NotificationButton() {
       <MenuList>
         {error && <ErrorMessage message={error}></ErrorMessage>}
         {isLoading && <CircularProgress isIndeterminate></CircularProgress>}
-        {limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
+        {!error && limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
         <MenuItem onClick={() => handleNavigate("/notificaties")}>Zie meer...</MenuItem>
       </MenuList>
 

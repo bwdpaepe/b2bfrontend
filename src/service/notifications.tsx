@@ -33,17 +33,27 @@ export async function checkNew(){
 export async function getLimitedNotifications(){
     try {
         const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}, params:{limit : 5}});
-        return response.data;
+        if(response.status === 200){
+            return response.data;
+        }
+        else{
+            throw Error("Kon de notificaties niet ophalen")
+        }
     } catch (error : any) {
-        return  (error.message)
+        throw Error("Kon de notificaties niet ophalen")
     }
 }
 
 export async function getNotifications(){
     try {
         const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}});
-        return response.data;
+        if(response.status === 200){
+            return response.data;
+        }
+        else{
+            throw Error("Kon de notificaties niet ophalen, probeer opnieuw in te loggen")
+        }
     } catch (error : any) {
-        return  (error.message)
+        throw Error("Kon de notificaties niet ophalen, probeer opnieuw in te loggen")
     }
 }
