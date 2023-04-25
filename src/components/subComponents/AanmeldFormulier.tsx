@@ -17,30 +17,27 @@ export default function AanmeldFormulier(onClose: { onClose: () => void }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const aanmelden = async (event: FormEvent) => {
-    event.preventDefault();
-    setIsloading.on();
-    try {
-      await login(email, password);
-      onClose.onClose();
-      window.location.reload();
-    } catch (error: any) {
-      setError(error.message);
-    }
-    setIsloading.off();
-  };
+    const aanmelden = async(event: FormEvent) => {
+        event.preventDefault();
+        setIsloading.on();
+        try {
+            await login(email, password);
+            onClose.onClose();
+            window.location.reload();
+        } catch (error: any) {
+            setError(error.message)
+            
+        }
+        setIsloading.off();
+ 
 
-  return (
-    <>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <form
-          onSubmit={(e) => {
-            aanmelden(e);
-          }}
-        >
-          <FormControl>
+    };
+
+    return(
+        <>
+        {isLoading? <CircularProgress/> :
+        <form onSubmit={(e) => {aanmelden(e)}}>
+            <FormControl>
             {error && <ErrorMessage message={error} />}
             <FormLabel>E-mail Adress</FormLabel>
             <Input
@@ -65,7 +62,7 @@ export default function AanmeldFormulier(onClose: { onClose: () => void }) {
             </Center>
           </FormControl>
         </form>
-      )}
+      }
     </>
   );
 }
