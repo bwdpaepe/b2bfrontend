@@ -26,7 +26,7 @@ export default function AanmeldModal() {
   const navigate = useNavigate();
 
   const userContext = useContext(UserContext);
-  var loggedInUser: User | null = null;
+  let loggedInUser: User | null = null;
   if (userContext.length > 0) {
     loggedInUser = JSON.parse(userContext);
   }

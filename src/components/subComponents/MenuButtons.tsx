@@ -28,11 +28,11 @@ export default function MenuButtons() {
                 <Button className="menuButton" onClick={() => {handleNavigate("/")}}><Image src = {home} boxSize='80px' fit="fill"></Image></Button>
                 <Button className="menuButton" onClick={() => {handleNavigate("winkelmand")}}><Image src= {cart} boxSize='80px' fit="fill"></Image></Button>
                 <Button className="menuButton" onClick={() => {handleNavigate("bestellingen")}}><Image src= {order} boxSize='80px' fit="fill" display={userContext.length > 0? "flex" : "none"}/></Button>
-                <NotificationButton></NotificationButton>
+                <NotificationButton />
             </HStack>
         </Box>
         <Box bgColor="blue">
-        <AanmeldModal></AanmeldModal>
+        <AanmeldModal />
         </Box>
       </HStack>
     </>
