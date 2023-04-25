@@ -20,7 +20,7 @@ export default function MenuBar(){
     <>
     <Box bgColor="#E0433E" w="100%" h="115px">
         <HStack bgColor="#EC4842" h="80px">
-            <Image src={logo} h="80px" w="80px" mr="40vw"></Image>
+            <Image src={logo} h="80px" w="80px"></Image>
             <MenuButtons/>
 
         </HStack>

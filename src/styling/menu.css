@@ -1,9 +1,10 @@
 .menuButton{
-    width: 80px;
+    width: 100px;
     height: 80px !important;
     background-color: #EC4842 !important;
     border-radius: 0 !important;
     padding: 0 !important;
+    margin: 0 !important;
   }
   
   .menuButton:hover{
@@ -24,5 +25,27 @@
     margin-left: 10px;
   }
 
+
+  #notificationTip{
+    width: 25px;
+    height: 25px;
+    color: white;
+    border-style: solid;
+    border-radius :25px !important;
+    border-width: 2px !important;
+    margin-top: 45px !important;
+    margin-left: 60px !important;
+    background-color:#E0433E !important;
+    text-align :"center";
+    
+  }
+
+  #notificationButton{
+    width: 80px ;
+    height: 80px ;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 
   
