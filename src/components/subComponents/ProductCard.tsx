@@ -44,24 +44,28 @@ export default function ProductCard({ product }: { product: Product }) {
           </Text>
         </CardBody>
         <CardFooter>
-          <Flex alignItems="center">
-            <NumberInput
-              defaultValue={0}
-              min={0}
-              max={product.voorraad}
-              variant="filled"
-              focusBorderColor="#ec4842"
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <Button variant="solid" className="button">
-              <AiOutlineShoppingCart size="2.5rem" />
-            </Button>
-          </Flex>
+          {product.voorraad === 0 ? (
+            <Text>{product.naam} is niet beschikbaar</Text>
+          ) : (
+            <Flex alignItems="center">
+              <NumberInput
+                defaultValue={0}
+                min={0}
+                max={product.voorraad}
+                variant="filled"
+                focusBorderColor="#ec4842"
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              <Button variant="solid" className="button">
+                <AiOutlineShoppingCart size="2.5rem" />
+              </Button>
+            </Flex>
+          )}
         </CardFooter>
       </Stack>
     </Card>
