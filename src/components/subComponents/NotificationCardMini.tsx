@@ -10,10 +10,10 @@ export default function NotificationCardMini(notification : {notification: Notif
   const statusDutch = NotificationStatusDutch[notification.notification.status as keyof typeof NotificationStatusDutch];
 
   return (<>
-    <Box id="notificationCardMini" onClick={() => handleClick()}>
+    <Box key={notification.notification.notificationID} id="notificationCardMini" onClick={() => handleClick()}>
         <Box display="inline-block">
-        <Text>Bestelling : {notification.notification.bestellingId} Datum : {notification.notification.creationDate.substring(0,10)}</Text>
-        <Text></Text>
+        <Text>Bestelling : {notification.notification.bestellingId} </Text>
+        <Text>Datum : {notification.notification.creationDate.substring(0,10)}</Text>
         <Text>Status: {notification.notification.bestellingStatus.toLowerCase()} </Text>
         <Text color={notification.notification.status === NotificationStatus.READ? "black" : "red"} fontWeight={notification.notification.status === NotificationStatus.NEW.toString() ? "bold" : "normal"}>{statusDutch} </Text>
         </Box>

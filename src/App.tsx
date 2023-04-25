@@ -17,10 +17,6 @@ export const UserContext = React.createContext("");
 
 function App() {
 
-  window.addEventListener("beforeunload", (ev) => {
-    sessionClose();
-  });
-
   return (
     <>
       <UserContext.Provider
@@ -31,9 +27,9 @@ function App() {
 
         <Grid
           templateAreas={`"menu""content""footer"`}
-          h="50vh"
+          h="100vh"
           w="100%"
-          templateRows="auto 1fr auto"
+          templateRows="115px 1fr 55px"
         >
           <GridItem gridArea="menu">
             <MenuBar />

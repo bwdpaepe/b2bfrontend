@@ -36,7 +36,7 @@ export default function Notificaties(){
     <>
     <HStack w="100%">
     <LeftPanelNotifications notifications = {notifications? notifications : null}/>
-    <Box w="65%"></Box>
+    <Box ></Box>
     </HStack>
     
     </>

@@ -33,6 +33,7 @@ export default function NotificationButton() {
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     navigate(pathname);
+
   }
 
   const userContext = useContext(UserContext);

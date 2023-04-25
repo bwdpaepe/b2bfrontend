@@ -3,7 +3,7 @@
     border-bottom: 2px;
     border-style: solid;
     margin: 2px;
-    width: 280px;
+    width: 100%;
 }
 
 #notificationCardMini:hover{
@@ -21,3 +21,25 @@ cursor: pointer;
     background-color: #E0433E;
     
 }
+
+@media screen and (max-height: 900px) {
+    #leftPaneNotifications {
+      height: 75vh;
+    }
+  }
+
+  @media screen and (max-height: 720px) {
+    #leftPaneNotifications {
+      height: 70vh;
+    }
+  }
+
+
+  @media screen and (max-width: 610px) {
+    #leftPaneNotifications {
+      width: 200px;
+    }
+  }
+
+
+
