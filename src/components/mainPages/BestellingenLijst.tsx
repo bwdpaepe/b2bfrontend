@@ -4,7 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Grid, GridItem } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/react';
 import { Select } from '@chakra-ui/react';
-import { IconButton } from '@chakra-ui/react';
+import { Button, IconButton } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -71,7 +71,7 @@ export default function BestellingenLijst(){
     bestellingen = bestellingen.map((bestelling:IBestelling) => {
       return {...bestelling,
               email: bestelling.aankoper.email,
-              details: (<a href="#">Zie details</a>)
+              details: (<Button colorScheme='white'>Zie details</Button>)
           };
     });
 
@@ -120,7 +120,7 @@ export default function BestellingenLijst(){
             <option key={5} value={BestellingStatus.GELEVERD}>GELEVERD</option>
           </Select></GridItem>
         <GridItem w='100%' h='10' className='gridItem'>
-          <IconButton aria-label='Filter bestellingen' icon={<SearchIcon />} onClick={()=>{
+          <IconButton aria-label='Filter bestellingen' colorScheme='white' icon={<SearchIcon />} onClick={()=>{
           setSearchAankoper(textAankoper);
           setSearchDatum(textDatum);
           setSearchStatus(textStatus);

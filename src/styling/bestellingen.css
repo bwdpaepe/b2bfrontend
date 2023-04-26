@@ -9,7 +9,9 @@
 }
 
 
-.gridItem > button {
+.gridItem > button, .chakra-table button {
   background-color: #EC4842;
 }
+
+ 
 
