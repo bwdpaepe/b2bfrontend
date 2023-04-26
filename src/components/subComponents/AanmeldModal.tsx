@@ -12,6 +12,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Center,
 } from "@chakra-ui/react";
 import profile from "../../assets/icons/profile.png";
 import AanmeldFormulier from "./AanmeldFormulier";
@@ -62,7 +63,9 @@ export default function AanmeldModal() {
           id="profileButton"
           onClick={handleButtonClick}
         >
+          <Center>
           <Image src={profile} boxSize="80px" fit="fill" />
+          </Center>
         </MenuButton>
         {loggedInUser && (
           <MenuList>

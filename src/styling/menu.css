@@ -33,9 +33,9 @@
     border-style: solid;
     border-radius :25px !important;
     border-width: 2px !important;
-    margin-top: 45px !important;
-    margin-left: 60px !important;
     background-color:#E0433E !important;
+    margin-top: 45px;
+    margin-left: 60px;
     text-align :"center";
     
   }

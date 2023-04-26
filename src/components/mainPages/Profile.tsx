@@ -19,6 +19,7 @@ import "../../styling/index.css";
 import "../../styling/profile.css";
 import { getBedrijfProfile } from "../../service/bedrijven";
 import Bedrijf from "../../type/Bedrijf";
+import ErrorMessage from "../subComponents/ErrorMessage";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
@@ -144,9 +145,7 @@ export default function Profile() {
           )}
         </>
       ) : (
-        <Text id="notLoggedInText">
-          Je moet ingelogd zijn om deze pagina te bekijken.
-        </Text>
+        <ErrorMessage message="Kon het profiel niet ophalen, probeer opnieuw in te loggen"></ErrorMessage>
       )}
     </>
   );
