@@ -14,7 +14,7 @@ import {
 import notificationsIcon from "../../assets/icons/Notifications.png";
 import { checkNew, checkUnread } from "../../service/notifications";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { Store } from "react-notifications-component";
+import { NOTIFICATION_TYPE, Store } from "react-notifications-component";
 import useInterval from "@use-it/interval";
 import { UserContext } from "../../App";
 import {getLimitedNotifications} from "../../service/notifications"
@@ -40,21 +40,31 @@ export default function NotificationButton() {
 
   const _getNew = useCallback(async () => {
     if (userContext.length > 0) {
-      const _newAmount = await checkNew();
-      if (_newAmount > 0) {
-        showNotification(_newAmount);
-        _checkUnread();
+      try {
+        const _newAmount = await checkNew();
+        if (_newAmount > 0) {
+          showNotification("je hebt " + _newAmount + " nieuwe notificatie(s)", "info", "INFO");
+          _checkUnread();
+        }
+      } catch (error : any) {        
+        localStorage.clear();        
+        showNotification("Je sessie is verlopen, log opnieuw in", "warning", "OPGELET!");
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        navigate("/");
+        window.location.reload();
+        
       }
+
     }
   }, []);
 
   useInterval(_getNew, 10000);
 
-  function showNotification(amount: number) {
+  function showNotification(message: string, type : NOTIFICATION_TYPE, title : string) {
     Store.addNotification({
-      title: "INFO!",
-      message: "Je hebt " + amount + " nieuwe notificatie(s)",
-      type: "info",
+      title: title,
+      message: message,
+      type: type,
       insert: "top",
       container: "bottom-left",
       animationIn: ["animate__animated", "animate__fadeIn"],
@@ -65,6 +75,7 @@ export default function NotificationButton() {
       },
     });
   }
+
 
   const _checkUnread = useCallback(async () => {
     try {

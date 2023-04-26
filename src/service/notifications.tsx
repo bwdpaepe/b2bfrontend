@@ -19,9 +19,12 @@ export async function checkUnread(){
 export async function checkNew(){
     try {
         const response = await http.get("/notifications/new",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}})
+
         if (response.data) {
             return response.data.newNotificationsCountSinceLastCheck
         }
+
+
         else{
             throw Error("Kon de nieuwe notificaties niet ophalen")
         }
