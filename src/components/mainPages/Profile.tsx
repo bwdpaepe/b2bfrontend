@@ -1,5 +1,4 @@
 import {
-  Box,
   Heading,
   Spinner,
   Table,
@@ -58,7 +57,6 @@ export default function Profile() {
       setLoading(false);
     }
   }, [isLoggedInUser]);
-  
 
   useEffect(() => {
     checkForLoggedInUser();

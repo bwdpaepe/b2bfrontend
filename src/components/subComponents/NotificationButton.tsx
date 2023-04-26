@@ -5,10 +5,8 @@ import {
   CircularProgress,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
-  Text,
   useBoolean,
 } from "@chakra-ui/react";
 import notificationsIcon from "../../assets/icons/Notifications.png";
@@ -17,17 +15,17 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { NOTIFICATION_TYPE, Store } from "react-notifications-component";
 import useInterval from "@use-it/interval";
 import { UserContext } from "../../App";
-import {getLimitedNotifications} from "../../service/notifications"
+import { getLimitedNotifications } from "../../service/notifications";
 import { useNavigate } from "react-router";
 import NotificationCardMini from "./NotificationCardMini";
 import Notifications from "../../type/Notifications";
 import ErrorMessage from "./ErrorMessage";
 
-
 export default function NotificationButton() {
   const [error, setError] = useState("");
   const [unreadAmount, setUnreadAmount] = useState(0);
-  const [limitedNotifications, setLimitedNotifications] = useState<Notifications[]>();
+  const [limitedNotifications, setLimitedNotifications] =
+    useState<Notifications[]>();
   const [isLoading, toggleLoading] = useBoolean();
 
   const navigate = useNavigate();
@@ -94,51 +92,56 @@ export default function NotificationButton() {
     _checkUnread();
   });
 
-  async function handleClick(){
+  async function handleClick() {
     try {
       toggleLoading.on();
       const _notifications = await getLimitedNotifications();
       setLimitedNotifications(_notifications);
       toggleLoading.off();
-    } catch (error :any) {
-      setError(error.message)
+    } catch (error: any) {
+      setError(error.message);
       toggleLoading.off();
     }
-
-
   }
 
   return (
-    <><Menu>
-      <Button
-        as = {MenuButton}
-        className="menuButton"
-        onClick={() => handleClick()}
-        display={userContext.length > 0 ? "flex" : "none"}
-      >
-
-      <Center>
-        <Box id="notificationButton" bgImage={notificationsIcon}>
-          <Box
-            id="notificationTip"
-            display={unreadAmount > 0 ? "block" : "none"}
-          >
-            {unreadAmount}
-          </Box>
-        </Box>
-        </Center>
-      </Button>
-      <MenuList>
-        {error && <ErrorMessage message={error}></ErrorMessage>}
-        {isLoading && <CircularProgress isIndeterminate></CircularProgress>}
-        {!error && limitedNotifications && 
-          limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
-        {limitedNotifications ? 
-          (<MenuItem onClick={() => handleNavigate("/notificaties")}>Zie meer...</MenuItem>) 
-          : (<MenuItem >Geen notificaties...</MenuItem>)
-        }
-      </MenuList>
-
+    <>
+      <Menu>
+        <Button
+          as={MenuButton}
+          className="menuButton"
+          onClick={() => handleClick()}
+          display={userContext.length > 0 ? "flex" : "none"}
+        >
+          <Center>
+            <Box id="notificationButton" bgImage={notificationsIcon}>
+              <Box
+                id="notificationTip"
+                display={unreadAmount > 0 ? "block" : "none"}
+              >
+                {unreadAmount}
+              </Box>
+            </Box>
+          </Center>
+        </Button>
+        <MenuList>
+          {error && <ErrorMessage message={error}></ErrorMessage>}
+          {isLoading && <CircularProgress isIndeterminate></CircularProgress>}
+          {!error &&
+            limitedNotifications &&
+            limitedNotifications?.map((not) => (
+              <>
+                <NotificationCardMini notification={not} />
+              </>
+            ))}
+          {limitedNotifications ? (
+            <MenuItem onClick={() => handleNavigate("/notificaties")}>
+              Zie meer...
+            </MenuItem>
+          ) : (
+            <MenuItem>Geen notificaties...</MenuItem>
+          )}
+        </MenuList>
       </Menu>
     </>
   );
