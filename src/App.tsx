@@ -4,7 +4,7 @@ import MenuBar from "./components/subComponents/MenuBar";
 import Footer from "./components/subComponents/Footer";
 import { Route, Routes } from "react-router";
 import Home from "./components/mainPages/Home";
-import Bestellingen from "./components/mainPages/Bestellingen";
+import BestellingenLijst from "./components/mainPages/BestellingenLijst";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
@@ -43,7 +43,7 @@ function App() {
           >
             <Routes>
               <Route index element={<Home />} />
-              <Route path="/bestellingen" element={<Bestellingen />} />
+              <Route path="/bestellingen" element={<BestellingenLijst />} />
               <Route path="/notificaties" element={<Notificaties />} />
               <Route path="/winkelmand" element={<Winkelmand />} />
               <Route path="/profile" element={<Profile />} />

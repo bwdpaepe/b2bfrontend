@@ -1,0 +1,17 @@
+.chakra-container {
+  position: relative;
+}
+
+.chakra-container h2 {
+  position: absolute;
+  left: 0;
+  margin-top: 10px;
+}
+
+
+.gridItem > button, .chakra-table button {
+  background-color: #EC4842;
+}
+
+ 
+
