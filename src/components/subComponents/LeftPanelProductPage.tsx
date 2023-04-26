@@ -3,7 +3,6 @@ import { AiFillPhone, AiOutlineHome, AiOutlineMail } from "react-icons/ai";
 import Bedrijf from "../../type/Bedrijf";
 
 function LeftPanelProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
-  console.log(JSON.stringify(bedrijf));
   return (
     <Box w="20%" minW="200px" minHeight="100vh" borderRight="1px solid" p="4">
       {bedrijf && (
