@@ -1,0 +1,45 @@
+#notificationCardMini{
+    border-top: 2px;
+    border-bottom: 2px;
+    border-style: solid;
+    margin: 2px;
+    width: 100%;
+}
+
+#notificationCardMini:hover{
+background-color: rgb(209, 197, 197);
+cursor: pointer;
+}
+
+#menuListButtonNotification{
+    background-color: #EC4842 !important;
+    color: white;
+
+}
+
+#menuListButtonNotification:hover{
+    background-color: #E0433E;
+    
+}
+
+@media screen and (max-height: 900px) {
+    #leftPaneNotifications {
+      height: 75vh;
+    }
+  }
+
+  @media screen and (max-height: 720px) {
+    #leftPaneNotifications {
+      height: 70vh;
+    }
+  }
+
+
+  @media screen and (max-width: 610px) {
+    #leftPaneNotifications {
+      width: 200px;
+    }
+  }
+
+
+

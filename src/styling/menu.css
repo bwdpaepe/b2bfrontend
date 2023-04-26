@@ -1,0 +1,51 @@
+.menuButton{
+    width: 100px;
+    height: 80px !important;
+    background-color: #EC4842 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .menuButton:hover{
+    background-color: #E0433E !important;
+    border-style: solid;
+    border-width: 0 2px 0 2px !important;
+    border-color: black !important;
+    padding: 0 !important;
+  }
+
+  #profileButton:hover{
+    border-width: 0 0 0 2px !important;
+  }
+
+  .userText{
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+
+  #notificationTip{
+    width: 25px;
+    height: 25px;
+    color: white;
+    border-style: solid;
+    border-radius :25px !important;
+    border-width: 2px !important;
+    background-color:#E0433E !important;
+    margin-top: 45px;
+    margin-left: 60px;
+    text-align :"center";
+    
+  }
+
+  #notificationButton{
+    width: 80px ;
+    height: 80px ;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  
