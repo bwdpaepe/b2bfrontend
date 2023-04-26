@@ -15,9 +15,7 @@ import Profile from "./components/mainPages/Profile";
 export const UserContext = React.createContext("");
 
 function App() {
-  window.addEventListener("beforeunload", (ev) => {
-    sessionClose();
-  });
+
 
   return (
     <>
