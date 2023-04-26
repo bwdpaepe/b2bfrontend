@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import BedrijfHomeCard from "../subComponents/BedrijfHomeCard";
 import Bedrijf from "../../type/Bedrijf";
 import { getAllBedrijven } from "../../service/bedrijven";
-import RandomHomeCard from "../subComponents/RandomHomeCard";
 
 export default function Home() {
   const [bedrijven, setBedrijven] = useState<Bedrijf[]>([]);
@@ -31,9 +30,6 @@ export default function Home() {
       >
         {bedrijven.map((bedrijf) => (
           <BedrijfHomeCard key={bedrijf.bedrijfId} bedrijf={bedrijf} />
-        ))}
-        {[...Array(100)].map((_, i) => (
-          <RandomHomeCard key={i} />
         ))}
       </SimpleGrid>
     </Box>
