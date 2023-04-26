@@ -16,3 +16,7 @@ export async function login(email: String, password: String){
         throw Error("deze combinatie is ongeldig")
     }
 }
+
+export async function sessionClose(){
+    await http.post("/session/end", null, {headers: {Authorization: "Bearer " + localStorage.getItem("Token")}})
+}

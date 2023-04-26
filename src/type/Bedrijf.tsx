@@ -1,3 +1,5 @@
+import User from "./User";
+
 export default interface Bedrijf{
     bedrijfId: number;
     naam: string;
@@ -7,6 +9,6 @@ export default interface Bedrijf{
     postcode: string;
     stad:string;
     land: string;
-    telefoonnumer: string;
-
+    telefoonnummer: string;
+    users?: User[]
 }
