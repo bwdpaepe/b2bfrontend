@@ -44,7 +44,9 @@ export default function Notificaties(){
             {error ? (<ErrorMessage message={error}></ErrorMessage>
             ) : (
                 <HStack w="100%" ml={2}>
-                <LeftPanelNotifications notifications = {notifications? notifications : null}/>
+                    {notifications ? 
+                    (<LeftPanelNotifications notifications = {notifications? notifications : null}/>)
+                     : (<Text>Er zijn geen notificaties...</Text>)}
                 <Box ></Box>
             </HStack>
             )}

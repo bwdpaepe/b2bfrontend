@@ -120,8 +120,12 @@ export default function NotificationButton() {
       <MenuList>
         {error && <ErrorMessage message={error}></ErrorMessage>}
         {isLoading && <CircularProgress isIndeterminate></CircularProgress>}
-        {!error && limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
-        <MenuItem onClick={() => handleNavigate("/notificaties")}>Zie meer...</MenuItem>
+        {!error && limitedNotifications && 
+          limitedNotifications?.map(not => <><NotificationCardMini notification={not}/></>)}
+        {limitedNotifications ? 
+          (<MenuItem onClick={() => handleNavigate("/notificaties")}>Zie meer...</MenuItem>) 
+          : (<MenuItem >Geen notificaties...</MenuItem>)
+        }
       </MenuList>
 
       </Menu>

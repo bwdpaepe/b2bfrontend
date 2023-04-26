@@ -33,7 +33,7 @@ export async function checkNew(){
 export async function getLimitedNotifications(){
     try {
         const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}, params:{limit : 5}});
-        if(response.status === 200){
+        if(response.status >= 200 && response.status < 300){
             return response.data;
         }
         else{
@@ -47,7 +47,7 @@ export async function getLimitedNotifications(){
 export async function getNotifications(){
     try {
         const response = await http.get<Notifications[]>("/notifications/",{headers: {Authorization: "Bearer " + localStorage.getItem("Token")}});
-        if(response.status === 200){
+        if(response.status >= 200 && response.status < 300){
             return response.data;
         }
         else{
