@@ -31,7 +31,11 @@ export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
       p={3}
     >
       {producten.map((product) => (
-        <ProductCard key={product.productId} product={product} />
+        <ProductCard
+          key={product.productId}
+          product={product}
+          bedrijfId={bedrijfId}
+        />
       ))}
     </SimpleGrid>
   );

@@ -2,7 +2,7 @@ import { Box, Text, Image } from "@chakra-ui/react";
 import { AiFillPhone, AiOutlineHome, AiOutlineMail } from "react-icons/ai";
 import Bedrijf from "../../type/Bedrijf";
 
-function LeftPanel({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
+function LeftPanelProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
   return (
     <Box w="20%" minW="200px" minHeight="100vh" borderRight="1px solid" p="4">
       <Image
@@ -36,4 +36,4 @@ function LeftPanel({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
   );
 }
 
-export default LeftPanel;
+export default LeftPanelProductPage;

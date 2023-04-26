@@ -11,13 +11,13 @@ export default function RandomHomeCard() {
     <Card maxW="sm" mr="2" mb="2" className="card">
       <CardBody alignSelf="center">
         <Image
-          src={`/images/bedrijfAfbeelding/1.jpg`}
+          src={require("../../assets/companies/1.jpg")}
           alt="Dit is een random afbeelding"
         />
       </CardBody>
       <Divider />
       <CardFooter className="card-footer">
-        <Text>GUI TEST BEDRIJF</Text>
+        <Text>Test bedrijf</Text>
       </CardFooter>
     </Card>
   );

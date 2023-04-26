@@ -14,11 +14,16 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-import {} from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  bedrijfId,
+}: {
+  product: Product;
+  bedrijfId: number;
+}) {
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -32,7 +37,7 @@ export default function ProductCard({ product }: { product: Product }) {
         objectFit="cover"
         maxW="30%"
         h={{ base: "200px", sm: "auto" }}
-        src={`/images/productAfbeelding/${product.pictureFilename}`}
+        src={require(`../../assets/productafbeeldingen/${bedrijfId}/${product.pictureFilename}`)}
         alt={product.naam}
       />
       <Stack direction="column">

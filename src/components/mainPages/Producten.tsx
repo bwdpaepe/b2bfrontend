@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import LeftPanel from "../subComponents/LeftPanel";
+import LeftPanelProductPage from "../subComponents/LeftPanelProductPage";
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
 import Bedrijf from "../../type/Bedrijf";
@@ -21,7 +21,7 @@ export default function Producten() {
 
   return (
     <Flex>
-      <LeftPanel bedrijf={bedrijf} />
+      <LeftPanelProductPage bedrijf={bedrijf} />
       <ProductenLijst bedrijfId={bedrijfId} />
     </Flex>
   );

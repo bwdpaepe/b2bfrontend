@@ -28,7 +28,7 @@ export default function BedrijfHomeCard({ bedrijf }: { bedrijf: Bedrijf }) {
     >
       <CardBody alignSelf="center">
         <Image
-          src={`/images/bedrijfAfbeelding/${bedrijf.logoFilename}`}
+          src={require(`../../assets/companies/${bedrijf.bedrijfId}.jpg`)}
           alt={`${bedrijf.naam}`}
         />
       </CardBody>
