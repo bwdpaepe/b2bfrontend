@@ -3,9 +3,9 @@ import {
   Td,
 } from '@chakra-ui/react';
 import "../../styling/bestellingen.css";
-import BestellingProps from '../../type/BestellingProps';
+import Bestelling from '../../type/Bestelling';
 
-export default function Bestelling( { bestelling }:BestellingProps) {
+export default function Bestelling( { bestelling }:{bestelling:Bestelling}) {
   return (
     <Tr>
       <Td>{bestelling.orderId}</Td>

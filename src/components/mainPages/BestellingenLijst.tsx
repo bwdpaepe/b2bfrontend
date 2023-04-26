@@ -9,7 +9,7 @@ import { Container } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useEffect, useMemo, useState } from "react";
-import IBestelling from "../../type/IBestelling";
+import Bestelling from "../../type/Bestelling";
 //import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
@@ -50,7 +50,7 @@ const columns = [
 ];
 
 export default function BestellingenLijst(){
-    let [bestellingen, setBestellingen] = useState<IBestelling[]>([]);
+    let [bestellingen, setBestellingen] = useState<Bestelling[]>([]);
     const [textAankoper, setTextAankoper] = useState('');
     const [searchAankoper, setSearchAankoper] = useState('');
     const [textDatum, setTextDatum] = useState('');
@@ -68,14 +68,14 @@ export default function BestellingenLijst(){
       }, []);
 
       
-    bestellingen = bestellingen.map((bestelling:IBestelling) => {
+    bestellingen = bestellingen.map((bestelling:Bestelling) => {
       return {...bestelling,
               email: bestelling.aankoper.email,
               details: (<Button colorScheme='white'>Zie details</Button>)
           };
     });
 
-    const filteredBestellingen = useMemo(() => bestellingen.filter((b: IBestelling) =>{
+    const filteredBestellingen = useMemo(() => bestellingen.filter((b: Bestelling) =>{
       console.log("filtering...");
       
       return (
