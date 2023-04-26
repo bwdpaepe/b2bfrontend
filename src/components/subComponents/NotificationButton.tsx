@@ -33,7 +33,7 @@ export default function NotificationButton() {
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     navigate(pathname);
-
+    window.location.reload(); // reload the page to update the notifications list
   }
 
   const userContext = useContext(UserContext);

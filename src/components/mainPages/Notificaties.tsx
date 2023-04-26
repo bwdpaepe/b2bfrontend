@@ -1,11 +1,11 @@
-import { Box, HStack, Text, useBoolean} from "@chakra-ui/react";
+import { Box, HStack, Text, useBoolean, Spinner} from "@chakra-ui/react";
 import "../../styling/notificaties.css"
 import { useCallback, useEffect, useState } from "react";
 import Notifications from "../../type/Notifications";
 import { getNotifications } from "../../service/notifications";
 import LeftPanelNotifications from "../subComponents/LeftPanelNotifications";
 import ErrorMessage from "../subComponents/ErrorMessage";
-
+import "../../styling/index.css";
 
 
 export default function Notificaties(){
@@ -37,12 +37,19 @@ export default function Notificaties(){
 
     return(
     <>
-    {error && <ErrorMessage message={error}></ErrorMessage>}
-    <HStack w="100%">
-    <LeftPanelNotifications notifications = {notifications? notifications : null}/>
-    <Box ></Box>
-    </HStack>
-    
+    {isLoading ? (
+        <Spinner className="spinner" />
+    ) : (
+        <>
+            {error ? (<ErrorMessage message={error}></ErrorMessage>
+            ) : (
+                <HStack w="100%" ml={2}>
+                <LeftPanelNotifications notifications = {notifications? notifications : null}/>
+                <Box ></Box>
+            </HStack>
+            )}
+        </>
+    )}
     </>
     )
 }
