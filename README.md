@@ -27,7 +27,6 @@ De volgende software dient reeds geïnstalleerd te zijn:
 
 [https://sdp2t03-frontend.onrender.com/](https://sdp2t03-frontend.onrender.com/)
 
-*Belangrijk: wacht bij een eerste bezoek aan de website 30 seconden, de gratis versie van de webservice dient opnieuw geactiveerd te worden na de eerste request.*
 
 ## Demo gebruiker login
 - username: aankoperA1@test.com
