@@ -21,7 +21,7 @@ De volgende software dient reeds geïnstalleerd te zijn:
   REACT_APP_API_URL='https://sdp2t03-webservice.onrender.com/api/'
 
 - Installatie van de nodige packages via dit commando: **npm i**
-- Starten van de React site via dit commando in een 2e console venster (eerste niet afsluiten): **npm run start**
+- Starten van de React site via dit commando: **npm run start**
 
 ## Online adres van de website
 
