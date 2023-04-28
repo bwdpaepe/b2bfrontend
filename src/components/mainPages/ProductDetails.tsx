@@ -13,7 +13,6 @@ import {
   VStack,
   Button,
   SimpleGrid,
-  StackDivider,
   useColorModeValue,
   List,
   ListItem,
@@ -25,7 +24,6 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { MdLocalShipping } from "react-icons/md";
 
 export default function ProductDetails() {
   const { bedrijfIdString, productIdString } = useParams();
