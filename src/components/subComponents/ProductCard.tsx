@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
+import { useNavigate } from "react-router";
 
 export default function ProductCard({
   product,
@@ -24,6 +25,10 @@ export default function ProductCard({
   product: Product;
   bedrijfId: number;
 }) {
+  const navigate = useNavigate();
+  function handleNavigate(pathname: string) {
+    navigate(pathname);
+  }
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
@@ -47,6 +52,15 @@ export default function ProductCard({
           <Text>
             {product.omschrijving} met product ID: {product.productId} en heeft
             als voorraad: {product.voorraad}
+          </Text>
+          <Text
+            color="red"
+            onClick={() =>
+              handleNavigate(`/producten/${bedrijfId}/${product.productId}`)
+            }
+            _hover={{ cursor: "pointer", textDecoration: "underline" }}
+          >
+            {`< Details`}
           </Text>
         </CardBody>
         <CardFooter>
