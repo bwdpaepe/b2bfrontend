@@ -38,13 +38,15 @@ export default function ProductCard({
       mb="2"
       mt="2"
     >
-      <Image
-        objectFit="cover"
-        maxW="30%"
-        h={{ base: "200px", sm: "auto" }}
-        src={require(`../../assets/productafbeeldingen/${bedrijfId}/${product.pictureFilename}`)}
-        alt={product.naam}
-      />
+      {product && (
+        <Image
+          objectFit="cover"
+          maxW="30%"
+          h={{ base: "200px", sm: "auto" }}
+          src={require(`../../assets/productafbeeldingen/${bedrijfId}/${product.pictureFilename}`)}
+          alt={product.naam}
+        />
+      )}
       <Stack direction="column">
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
