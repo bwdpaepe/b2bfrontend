@@ -13,3 +13,17 @@ export async function bestellingenByAankoper(){
     throw Error("Kon de bestellingen niet ophalen._");
   }
 }
+
+export async function bestellingByBestellingId(bestellingId: number){
+  try {
+    const response = await http.get(`bestellingen/${bestellingId}`, {headers: {Authorization: "Bearer " + localStorage.getItem("Token")}});
+    if(response.data) {
+      return response.data;
+    }
+    else {
+      throw Error("Kon de bestelling niet ophalen.");
+    }
+  } catch (error: any) {
+    throw Error("Kon de bestelling niet ophalen._");
+  }
+}
