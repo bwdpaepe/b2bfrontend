@@ -87,7 +87,6 @@ export default function ProductDetails() {
               <Box>
                 <Text
                   fontSize={{ base: "16px", lg: "18px" }}
-                  color={useColorModeValue("yellow.500", "yellow.300")}
                   fontWeight={"500"}
                   textTransform={"uppercase"}
                   mb={"4"}
@@ -155,7 +154,7 @@ export default function ProductDetails() {
                 cursor: "pointer",
                 textDecoration: "underline",
               }}
-            >{`< Terug naar productoverzicht`}</Text>
+            >{`Terug naar productoverzicht`}</Text>
           </Stack>
         </SimpleGrid>
       </Container>
