@@ -9,6 +9,7 @@ import { Container } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import Bestelling from "../../type/Bestelling";
 //import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
@@ -57,6 +58,11 @@ export default function BestellingenLijst(){
     const [searchDatum, setSearchDatum] = useState('');
     const [textStatus, setTextStatus] = useState('');
     const [searchStatus, setSearchStatus] = useState('');
+
+    const navigate = useNavigate();
+    function handleNavigate(pathname: string) {
+      navigate(pathname);
+    }
     
     useEffect(() => {
         async function fetchBestellingen() {
@@ -71,7 +77,7 @@ export default function BestellingenLijst(){
     bestellingen = bestellingen.map((bestelling:Bestelling) => {
       return {...bestelling,
               email: bestelling.aankoper.email,
-              details: (<Button colorScheme='white'>Zie details</Button>)
+              details: (<Button colorScheme='white' onClick={() => handleNavigate(`/bestellingen/${bestelling.bestellingId}`)}>Zie details</Button>)
           };
     });
 

@@ -11,6 +11,8 @@ import Winkelmand from "./components/mainPages/Winkelmand";
 import Producten from "./components/mainPages/Producten";
 import { sessionClose } from "./service/aanmelden";
 import Profile from "./components/mainPages/Profile";
+import BestellingDetails from "./components/mainPages/BestellingDetails";
+import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
 
 export const UserContext = React.createContext("");
 
@@ -48,6 +50,14 @@ function App() {
               <Route
                 path="/producten/:bedrijfIdString"
                 element={<Producten />}
+              />
+              <Route
+                path="/bestellingen/:bestellingIdString"
+                element={<BestellingDetails />}
+              />
+              <Route
+                path="/bestellingen/:bestellingIdString/track-and-trace"
+                element={<BestellingTrackAndTrace />}
               />
               <Route path="*" element={<NotFound />} />
             </Routes>
