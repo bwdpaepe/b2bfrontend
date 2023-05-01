@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-import { Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Product from "../../type/Product";
 import { productenByProductId } from "../../service/producten";
@@ -95,25 +95,32 @@ export default function ProductDetails() {
                 </Text>
 
                 <List spacing={2}>
+                  <ListItem justifyContent={"space-between"}>
+                    <HStack justifyContent={"space-between"}>
+                      <Text as={"span"} fontWeight={"bold"}>
+                        Prijs:
+                      </Text>
+                      <Text> €{product?.eenheidsprijs}</Text>
+                    </HStack>
+                  </ListItem>
+
+                  <Divider orientation="horizontal" />
                   <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Prijs:
-                    </Text>{" "}
-                    €{product?.eenheidsprijs}
+                    <HStack justifyContent={"space-between"}>
+                      <Text as={"span"} fontWeight={"bold"}>
+                        Levertermijn:
+                      </Text>
+                      <Text>2-3 werkdagen</Text>
+                    </HStack>
                   </ListItem>
                   <Divider orientation="horizontal" />
                   <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Levertermijn:
-                    </Text>{" "}
-                    2-3 werkdagen
-                  </ListItem>
-                  <Divider orientation="horizontal" />
-                  <ListItem>
-                    <Text as={"span"} fontWeight={"bold"}>
-                      Voorraad:
-                    </Text>{" "}
-                    {product?.voorraad}
+                    <HStack justifyContent={"space-between"}>
+                      <Text as={"span"} fontWeight={"bold"}>
+                        Voorraad:
+                      </Text>
+                      <Text>{product?.voorraad}</Text>
+                    </HStack>
                   </ListItem>
                 </List>
               </Box>
