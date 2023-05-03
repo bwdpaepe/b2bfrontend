@@ -1,4 +1,19 @@
-import { Flex, Grid, GridItem, Box, Text, Stack } from "@chakra-ui/react";
+import {
+  Flex,
+  Grid,
+  GridItem,
+  Box,
+  Text,
+  Stack,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  Select,
+  Switch,
+  NumberInput,
+  NumberInputField,
+} from "@chakra-ui/react";
 
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
@@ -29,14 +44,33 @@ export default function Producten() {
               borderRight="1px"
               borderColor="gray.200"
               w={{ base: "full", md: 60 }}
-              pos="relative"
+              pos="fixed"
               h="full"
               maxWidth={{ base: "100%", md: "500px" }}
             >
-              <Flex alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                  Hier komen de filters en dit is een test om te kijken indien
-                  de tekst te lang is of het dan wel goed gaat
+              <Flex
+                alignItems="center"
+                mx="8"
+                justifyContent="space-between"
+                direction={"column"}
+                py={4}
+              >
+                <NumberInput min={10} max={20}>
+                  <NumberInputField defaultValue={0} />
+                </NumberInput>
+                <NumberInput min={10} max={20}>
+                  <NumberInputField defaultValue={0} />
+                </NumberInput>
+                <br />
+                <Select placeholder="Select option">
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                  <option value="option3">Option 3</option>
+                </Select>
+                <br />
+                <Text>
+                  Enkel voorradige producten?
+                  <Switch />
                 </Text>
               </Flex>
             </Box>
