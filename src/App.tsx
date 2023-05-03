@@ -9,14 +9,12 @@ import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
 import Producten from "./components/mainPages/Producten";
-import { sessionClose } from "./service/aanmelden";
+
 import Profile from "./components/mainPages/Profile";
 
 export const UserContext = React.createContext("");
 
 function App() {
-
-
   return (
     <>
       <UserContext.Provider
