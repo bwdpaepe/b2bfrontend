@@ -11,7 +11,7 @@ export async function productenByBedrijfId(bedrijfId: number) {
 
 export async function productenByProductId(productId: number) {
   try {
-    const response = await http.get(`/products/bedrijven/${id}`);
+    const response = await http.get(`/products/${productId}`);
     return response.data;
   } catch (error: any) {
     throw new Error("er is iets misgegaan");
