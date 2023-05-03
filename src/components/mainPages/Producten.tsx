@@ -44,7 +44,7 @@ export default function Producten() {
               borderRight="1px"
               borderColor="gray.200"
               w={{ base: "full", md: 60 }}
-              pos="fixed"
+              pos="relative"
               h="full"
               maxWidth={{ base: "100%", md: "500px" }}
             >
