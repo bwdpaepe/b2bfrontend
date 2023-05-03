@@ -78,9 +78,7 @@ export default function ProductDetails() {
                   fontSize={"xl"}
                   fontWeight={"300"}
                 >
-                  {product?.omschrijving} met product ID: {product?.productId}{" "}
-                  en heeft als voorraad: {product?.voorraad}. Aangeboden door
-                  bedrijf met ID: {bedrijfIdString}.
+                  {product?.omschrijving}
                 </Text>
               </VStack>
 
