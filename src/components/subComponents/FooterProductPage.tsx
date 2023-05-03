@@ -4,7 +4,7 @@ import Bedrijf from "../../type/Bedrijf";
 
 function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
   return (
-    <Box>
+    <Box borderTop={"1px solid"}>
       <Container
         as={Stack}
         maxW={"6xl"}
@@ -19,8 +19,8 @@ function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
             <Image
               src={require(`../../assets/companies/${bedrijf.logoFilename}`)}
               alt="logo"
-              w="50%"
-              h="50%"
+              w="40%"
+              h="40%"
               maxW="100%"
             />
           )}
