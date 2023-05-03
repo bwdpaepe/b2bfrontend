@@ -51,10 +51,7 @@ export default function ProductCard({
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
           <Heading size="md">€{product.eenheidsprijs}</Heading>
-          <Text>
-            {product.omschrijving} met product ID: {product.productId} en heeft
-            als voorraad: {product.voorraad}
-          </Text>
+          <Text>{product.omschrijving}</Text>
           <Text
             color="red"
             onClick={() =>

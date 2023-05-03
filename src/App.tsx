@@ -9,6 +9,7 @@ import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
 import Winkelmand from "./components/mainPages/Winkelmand";
 import Producten from "./components/mainPages/Producten";
+
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
 
