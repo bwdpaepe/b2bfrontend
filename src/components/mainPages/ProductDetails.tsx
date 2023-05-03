@@ -129,7 +129,7 @@ export default function ProductDetails() {
             <Stack direction="row" alignItems="center">
               <NumberInput
                 defaultValue={1}
-                min={0}
+                min={1}
                 max={product?.voorraad}
                 variant="filled"
                 focusBorderColor="#ec4842"

@@ -72,7 +72,7 @@ export default function ProductCard({
             <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
               <NumberInput
                 defaultValue={1}
-                min={0}
+                min={1}
                 max={product.voorraad}
                 variant="filled"
                 focusBorderColor="#ec4842"
