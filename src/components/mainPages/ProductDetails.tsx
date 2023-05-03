@@ -128,7 +128,7 @@ export default function ProductDetails() {
             </Stack>
             <Stack direction="row" alignItems="center">
               <NumberInput
-                defaultValue={0}
+                defaultValue={1}
                 min={0}
                 max={product?.voorraad}
                 variant="filled"
