@@ -120,7 +120,7 @@ export default function ProductDetails() {
                       <Text as={"span"} fontWeight={"bold"}>
                         Voorraad:
                       </Text>
-                      <Text>{product?.voorraad}</Text>
+                      <Text>{product?.voorraad} stuks</Text>
                     </HStack>
                   </ListItem>
                 </List>
