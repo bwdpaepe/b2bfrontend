@@ -1,10 +1,11 @@
-import { Flex } from "@chakra-ui/react";
-import LeftPanelProductPage from "../subComponents/LeftPanelProductPage";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import LeftPanelProductPage from "../subComponents/FooterProductPage";
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
 import Bedrijf from "../../type/Bedrijf";
 import { getBedrijfByBedrijfId } from "../../service/bedrijven";
 import { useParams } from "react-router";
+import FooterProductPage from "../subComponents/FooterProductPage";
 
 export default function Producten() {
   const { bedrijfIdString } = useParams();
@@ -21,8 +22,14 @@ export default function Producten() {
 
   return (
     <Flex>
-      <LeftPanelProductPage bedrijf={bedrijf} />
-      <ProductenLijst bedrijfId={bedrijfId} />
+      <Grid>
+        <GridItem>
+          <ProductenLijst bedrijfId={bedrijfId} />
+        </GridItem>
+        <GridItem>
+          <FooterProductPage bedrijf={bedrijf} />
+        </GridItem>
+      </Grid>
     </Flex>
   );
 }
