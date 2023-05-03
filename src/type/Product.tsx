@@ -8,4 +8,5 @@ export default interface Product {
   pictureFilename: string;
   voorraad: number;
   omschrijving: string;
+  levertermijn: number;
 }

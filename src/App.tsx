@@ -11,6 +11,7 @@ import Winkelmand from "./components/mainPages/Winkelmand";
 import Producten from "./components/mainPages/Producten";
 
 import Profile from "./components/mainPages/Profile";
+import ProductDetails from "./components/mainPages/ProductDetails";
 
 export const UserContext = React.createContext("");
 
@@ -46,6 +47,10 @@ function App() {
               <Route
                 path="/producten/:bedrijfIdString"
                 element={<Producten />}
+              />
+              <Route
+                path="/producten/:bedrijfIdString/:productIdString"
+                element={<ProductDetails />}
               />
               <Route path="*" element={<NotFound />} />
             </Routes>
