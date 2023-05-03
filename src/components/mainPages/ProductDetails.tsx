@@ -110,7 +110,10 @@ export default function ProductDetails() {
                       <Text as={"span"} fontWeight={"bold"}>
                         Levertermijn:
                       </Text>
-                      <Text>2-3 werkdagen</Text>
+                      <Text>
+                        {product?.levertermijn}{" "}
+                        {product?.levertermijn === 1 ? "werkdag" : "werkdagen"}
+                      </Text>
                     </HStack>
                   </ListItem>
                   <Divider orientation="horizontal" />

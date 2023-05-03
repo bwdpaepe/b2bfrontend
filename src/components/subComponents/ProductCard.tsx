@@ -51,7 +51,12 @@ export default function ProductCard({
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
           <Heading size="md">€{product.eenheidsprijs}</Heading>
-          <Text>{product.omschrijving}</Text>
+          {product.voorraad === 0 ? (
+            <Text>{product.naam} is niet beschikbaar</Text>
+          ) : (
+            <Text>Voorraad: {product.voorraad} stuks</Text>
+          )}
+
           <Text
             color="red"
             onClick={() =>
@@ -63,9 +68,7 @@ export default function ProductCard({
           </Text>
         </CardBody>
         <CardFooter>
-          {product.voorraad === 0 ? (
-            <Text>{product.naam} is niet beschikbaar</Text>
-          ) : (
+          {product.voorraad === 0 ? null : (
             <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
               <NumberInput
                 defaultValue={0}
