@@ -2,13 +2,7 @@ import {
   Flex,
   Grid,
   GridItem,
-  Box,
-  Text,
   Stack,
-  Select,
-  NumberInput,
-  NumberInputField,
-  Checkbox,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
@@ -24,7 +18,24 @@ export default function Producten() {
   const { bedrijfIdString } = useParams();
   const bedrijfId = Number(bedrijfIdString);
   const [bedrijf, setBedrijf] = useState<Bedrijf>();
+
   const screenWidth = useBreakpointValue({ base: false, md: true });
+
+  const [isVoorradig, setIsVoorradig] = useState<boolean>(false);
+  const [minimumPrijs, setMinimumPrijs] = useState<number>(0);
+  const [maximumPrijs, setMaximumPrijs] = useState<number>(1000);
+
+  const onVoorraadChange = (isChecked: boolean) => {
+    setIsVoorradig(isChecked);
+  };
+
+  const onMinimumPrijsChange = (prijs: number) => {
+    setMinimumPrijs(prijs);
+  };
+
+  const onMaximumPrijsChange = (prijs: number) => {
+    setMaximumPrijs(prijs);
+  };
 
   useEffect(() => {
     async function fetchBedrijf() {
@@ -33,14 +44,24 @@ export default function Producten() {
     }
     fetchBedrijf();
   }, [bedrijfId]);
-
   return (
     <Flex>
       <Stack direction={"column"}>
         <Grid templateColumns={{ base: "5fr", md: "250px 1fr" }}>
-          {screenWidth && <LeftFilterPanel />}
+          {screenWidth && (
+            <LeftFilterPanel
+              onVoorraadChange={onVoorraadChange}
+              onMinimumPrijsChange={onMinimumPrijsChange}
+              onMaximumPrijsChange={onMaximumPrijsChange}
+            />
+          )}
           <GridItem>
-            <ProductenLijst bedrijfId={bedrijfId} />
+            <ProductenLijst
+              bedrijfId={bedrijfId}
+              isVoorradig={isVoorradig}
+              minimumPrijs={minimumPrijs}
+              maximumPrijs={maximumPrijs}
+            />
           </GridItem>
         </Grid>
         <FooterProductPage bedrijf={bedrijf} />

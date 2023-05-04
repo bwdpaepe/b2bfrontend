@@ -8,15 +8,15 @@ import { productenByBedrijfId } from "../../service/producten";
 export default function ProductenLijst({
   bedrijfId,
   isVoorradig,
+  minimumPrijs,
+  maximumPrijs,
 }: {
   bedrijfId: number;
   isVoorradig: boolean;
+  minimumPrijs: number;
+  maximumPrijs: number;
 }) {
   const [producten, setProducten] = useState<Product[]>([]);
-
-  const filteredProducten = isVoorradig
-    ? producten.filter((product) => product.voorraad > 0)
-    : producten;
 
   useEffect(() => {
     async function fetchProducten() {
@@ -25,6 +25,20 @@ export default function ProductenLijst({
     }
     fetchProducten();
   }, [bedrijfId]);
+
+  const filteredProducten = isVoorradig
+    ? producten
+        .filter((product) => product.voorraad > 0)
+        .filter(
+          (product) =>
+            product.eenheidsprijs >= minimumPrijs &&
+            product.eenheidsprijs <= maximumPrijs
+        )
+    : producten.filter(
+        (product) =>
+          product.eenheidsprijs >= minimumPrijs &&
+          product.eenheidsprijs <= maximumPrijs
+      );
 
   if (!producten.length) {
     return <Text>No products found.</Text>;
