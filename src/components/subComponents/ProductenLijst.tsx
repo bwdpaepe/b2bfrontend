@@ -5,8 +5,18 @@ import Product from "../../type/Product";
 import "../../styling/producten.css";
 import { productenByBedrijfId } from "../../service/producten";
 
-export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
+export default function ProductenLijst({
+  bedrijfId,
+  isVoorradig,
+}: {
+  bedrijfId: number;
+  isVoorradig: boolean;
+}) {
   const [producten, setProducten] = useState<Product[]>([]);
+
+  const filteredProducten = isVoorradig
+    ? producten.filter((product) => product.voorraad > 0)
+    : producten;
 
   useEffect(() => {
     async function fetchProducten() {
@@ -30,7 +40,7 @@ export default function ProductenLijst({ bedrijfId }: { bedrijfId: number }) {
       gap={3}
       p={3}
     >
-      {producten.map((product) => (
+      {filteredProducten.map((product) => (
         <ProductCard
           key={product.productId}
           product={product}
