@@ -4,7 +4,7 @@ import Bedrijf from "../../type/Bedrijf";
 
 function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
   return (
-    <Box borderTop={"1px solid"}>
+    <Box borderTop={"1px solid"} maxH="400px">
       <Container
         as={Stack}
         maxW={"6xl"}

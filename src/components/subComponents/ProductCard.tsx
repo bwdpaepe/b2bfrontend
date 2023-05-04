@@ -56,7 +56,7 @@ export default function ProductCard({
           ) : (
             <Text>Voorraad: {product.voorraad} stuks</Text>
           )}
-
+          <Text>Categorie: {product.categorie.naam}</Text>
           <Text
             color="red"
             onClick={() =>
