@@ -51,6 +51,14 @@ export default function MenuButtons() {
               />
             </Button>
             <NotificationButton />
+            <Button
+              className="menuButton"
+              onClick={() => {
+                handleNavigate("track-and-trace");
+              }}
+            >
+              <Image src={cart} boxSize="80px" fit="fill"></Image>
+            </Button>
           </HStack>
         </Box>
         <Box bgColor="blue">

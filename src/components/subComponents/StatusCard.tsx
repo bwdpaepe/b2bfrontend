@@ -10,7 +10,7 @@ export default function StatusCard({
   bestelling,
 }: {
   key: string;
-  bestelling: Bestelling;
+  bestelling: Bestelling | undefined;
 }) {
   return (
     <Card

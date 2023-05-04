@@ -28,9 +28,9 @@ export async function bestellingByBestellingId(bestellingId: number){
   }
 }
 
-export async function bestellingTrackAndTraceByBestellingId(bestellingId: number){
+export async function bestellingByTrackAndTrace(ttc: string, verify: string){
   try {
-    const response = await http.get(`bestellingen/${bestellingId}/track-and-trace`, {headers: {Authorization: "Bearer " + localStorage.getItem("Token")}});
+    const response = await http.get(`bestellingen/track-and-trace?ttc=${ttc}&verify=${verify}`);
     if(response.data) {
       return response.data;
     }
