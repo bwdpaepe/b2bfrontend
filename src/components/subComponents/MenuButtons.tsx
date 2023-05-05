@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import home from "../../assets/icons/Home.png";
 import cart from "../../assets/icons/Cart.png";
 import order from "../../assets/icons/order.png";
+import delivery from "../../assets/icons/delivery.png";
 import AanmeldModal from "./AanmeldModal";
 import NotificationButton from "./NotificationButton";
 import { UserContext } from "../../App";
@@ -57,7 +58,7 @@ export default function MenuButtons() {
                 handleNavigate("track-and-trace");
               }}
             >
-              <Image src={cart} boxSize="80px" fit="fill"></Image>
+              <Image src={delivery} boxSize="80px" fit="fill"></Image>
             </Button>
           </HStack>
         </Box>
