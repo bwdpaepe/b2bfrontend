@@ -24,13 +24,13 @@ export default function WinkelmandComponent() {
         setWinkelmand(parsed_winkelmand);
       }
     }
-    sorteerWinkelmand(winkelmand!);
 
 
-  }, []);
 
-  function sorteerWinkelmand(winkelmand: Winkelmand){
-    const _sortedWinkelmand = WinkelmandProductenSorteerder(winkelmand);
+  }, [user]);
+
+  function sorteerWinkelmand(){
+    const _sortedWinkelmand = WinkelmandProductenSorteerder(winkelmand!);
     setSortedWinkelmand(_sortedWinkelmand)
   }
 
@@ -38,9 +38,14 @@ export default function WinkelmandComponent() {
   useEffect(() => {
     _getWinkelmand();
 
+  }, [_getWinkelmand]);
 
-
-  }, [_getWinkelmand, sortedWinkelmand]);
+  useEffect(() => {
+    if(winkelmand){
+        sorteerWinkelmand();
+        console.log("blub");
+    }
+  }, [winkelmand]);
 
   return (
     <>

@@ -17,10 +17,10 @@ export default function WinkelmandProductenSorteerder(winkelmand : Winkelmand){
         const checkBedrijf = accumulator.find((entry) => entry.bedrijfId === bedrijfId);
 
         if(checkBedrijf){
-            checkBedrijf.producten.push(winkelmandProduct.product)
+            checkBedrijf.producten.push(winkelmandProduct)
         }
         else{
-            accumulator.push({bedrijfId, producten: [winkelmandProduct.product]});
+            accumulator.push({bedrijfId, bedrijfNaam: winkelmandProduct.product.bedrijf.naam,  producten: [winkelmandProduct]});
         }
 
 

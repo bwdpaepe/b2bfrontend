@@ -1,9 +1,13 @@
 import { Box, Center, Text, Button } from "@chakra-ui/react";
 import WinkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
+import Product from "../../../type/Product";
+import WinkelmandProductEntry from "./WinkelmandProductEntry";
 
 export default function WinkelmandCard(props: {
-  producten: WinkelmandProduct[] | null, totalPrice : TotalPrice[] | null;
+  producten: WinkelmandProduct[] | null,
+  totalPrice: TotalPrice | null,
+  leverancier: string | null,
 }) {
   async function handleBestelling() {
     //TODO
@@ -17,7 +21,19 @@ export default function WinkelmandCard(props: {
             <Text>Je winkelmand is leeg</Text>
           ) : (
             <>
-              <Text><Text fontWeight="bold">PRODUCTEN: </Text>{JSON.stringify(props.producten)} <Text fontWeight="bold"> PRIJS: </Text>{JSON.stringify(props.totalPrice)}</Text>
+              <Text fontWeight="bold">Leverancier: {props.leverancier}</Text>
+              <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
+              {props.producten.map((product) => (
+                <WinkelmandProductEntry product={product} />
+              ))}{" "}
+              <Text fontWeight="bold">
+                {" "}
+                PRIJS: {props.totalPrice?.value.toFixed(2)} €{" "}
+              </Text>
+              <Text fontWeight="bold">
+                {" "}
+                Levertermijn: {props.totalPrice?.levertermijn}{" "}
+              </Text>
               <Button className="button" onClick={() => handleBestelling()}>
                 Bestellen
               </Button>

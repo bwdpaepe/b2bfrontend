@@ -10,7 +10,7 @@ export default function WinkelmandCardHolder(props : {winkelmand : BedrijfProduc
         <>
         <Box id="WinkelmandCardHolder">
 
-        {props.winkelmand === null? <WinkelmandCard producten={null} totalPrice = {null}/> : <>{props.winkelmand.map((entry) =><Text>{JSON.stringify(entry.producten)}</Text>)}</>}
+        {props.winkelmand === null? <WinkelmandCard leverancier={null} producten={null} totalPrice = {null}/> : <>{props.winkelmand.map((entry) => <WinkelmandCard leverancier={entry.bedrijfNaam} producten={entry.producten} totalPrice={props.totalPrices!.find((prices) => prices.bedrijfId === entry.bedrijfId)!}></WinkelmandCard>)}</>}
 
         </Box>
 
