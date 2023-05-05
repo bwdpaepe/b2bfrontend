@@ -9,21 +9,33 @@ import {
 import ProductenLijst from "../subComponents/ProductenLijst";
 import { useState, useEffect } from "react";
 import Bedrijf from "../../type/Bedrijf";
-import { getBedrijfByBedrijfId } from "../../service/bedrijven";
+import {
+  getBedrijfByBedrijfId,
+  getBedrijfCategorie,
+} from "../../service/bedrijven";
 import { useParams } from "react-router";
 import FooterProductPage from "../subComponents/FooterProductPage";
 import LeftFilterPanel from "../subComponents/LeftFilterPanel";
+import Categorie from "../../type/Categorie";
 
 export default function Producten() {
+  //BedrijfId
   const { bedrijfIdString } = useParams();
   const bedrijfId = Number(bedrijfIdString);
-  const [bedrijf, setBedrijf] = useState<Bedrijf>();
 
+  //Screen width
   const screenWidth = useBreakpointValue({ base: false, md: true });
 
+  //Bedrijf states
+  const [bedrijf, setBedrijf] = useState<Bedrijf>();
+
+  //Filters states
+  const [bedrijfCategorieën, setBedrijfCategorieën] = useState<Categorie[]>([]);
   const [isVoorradig, setIsVoorradig] = useState<boolean>(false);
   const [minimumPrijs, setMinimumPrijs] = useState<number>(0);
   const [maximumPrijs, setMaximumPrijs] = useState<number>(1000);
+  const [geselecteerdeCategorie, setGeselecteerdeCategorie] =
+    useState<string>("");
 
   const onVoorraadChange = (isChecked: boolean) => {
     setIsVoorradig(isChecked);
@@ -37,10 +49,18 @@ export default function Producten() {
     setMaximumPrijs(prijs);
   };
 
+  const onCategoriesChange = (categorie: string) => {
+    setGeselecteerdeCategorie(categorie);
+  };
+
   useEffect(() => {
     async function fetchBedrijf() {
       const bedrijfData: Bedrijf = await getBedrijfByBedrijfId(bedrijfId);
+      const BedrijfCategorieData: Categorie[] = await getBedrijfCategorie(
+        bedrijfId
+      );
       setBedrijf(bedrijfData);
+      setBedrijfCategorieën(BedrijfCategorieData);
     }
     fetchBedrijf();
   }, [bedrijfId]);
@@ -53,6 +73,8 @@ export default function Producten() {
               onVoorraadChange={onVoorraadChange}
               onMinimumPrijsChange={onMinimumPrijsChange}
               onMaximumPrijsChange={onMaximumPrijsChange}
+              onCategorieChange={onCategoriesChange}
+              bedrijfCategorieën={bedrijfCategorieën}
             />
           )}
           <GridItem>
@@ -61,6 +83,7 @@ export default function Producten() {
               isVoorradig={isVoorradig}
               minimumPrijs={minimumPrijs}
               maximumPrijs={maximumPrijs}
+              geselecteerdeCategorie={geselecteerdeCategorie}
             />
           </GridItem>
         </Grid>

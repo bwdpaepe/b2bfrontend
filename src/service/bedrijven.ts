@@ -31,3 +31,12 @@ export async function getBedrijfProfile() {
     throw Error("Kon het bedrijfsprofiel niet ophalen");
   }
 }
+
+export async function getBedrijfCategorie(bedrijfId: number) {
+  try {
+    const response = await http.get(`/bedrijf/categories/${bedrijfId}`);
+    return response.data;
+  } catch (error: any) {
+    throw Error("Kon de bedrijfscategorieën niet ophalen");
+  }
+}

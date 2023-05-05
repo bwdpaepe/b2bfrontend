@@ -10,11 +10,13 @@ export default function ProductenLijst({
   isVoorradig,
   minimumPrijs,
   maximumPrijs,
+  geselecteerdeCategorie,
 }: {
   bedrijfId: number;
   isVoorradig: boolean;
   minimumPrijs: number;
   maximumPrijs: number;
+  geselecteerdeCategorie: string;
 }) {
   const [producten, setProducten] = useState<Product[]>([]);
 
@@ -32,16 +34,20 @@ export default function ProductenLijst({
         .filter(
           (product) =>
             product.eenheidsprijs >= minimumPrijs &&
-            product.eenheidsprijs <= maximumPrijs
+            product.eenheidsprijs <= maximumPrijs &&
+            (!geselecteerdeCategorie ||
+              product.categorie.naam === geselecteerdeCategorie)
         )
     : producten.filter(
         (product) =>
           product.eenheidsprijs >= minimumPrijs &&
-          product.eenheidsprijs <= maximumPrijs
+          product.eenheidsprijs <= maximumPrijs &&
+          (!geselecteerdeCategorie ||
+            product.categorie.naam === geselecteerdeCategorie)
       );
 
-  if (!producten.length) {
-    return <Text>No products found.</Text>;
+  if (!producten.length || !filteredProducten.length) {
+    return <Text w={"full"}>No products found.</Text>;
   }
 
   return (

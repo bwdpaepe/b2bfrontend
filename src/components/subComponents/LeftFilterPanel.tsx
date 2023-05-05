@@ -9,15 +9,20 @@ import {
   Checkbox,
   Stack,
 } from "@chakra-ui/react";
+import Categorie from "../../type/Categorie";
 
 export default function LeftFilterPanel({
   onVoorraadChange,
   onMaximumPrijsChange,
   onMinimumPrijsChange,
+  onCategorieChange,
+  bedrijfCategorieën,
 }: {
   onVoorraadChange: any;
   onMaximumPrijsChange: any;
   onMinimumPrijsChange: any;
+  onCategorieChange: any;
+  bedrijfCategorieën: Categorie[];
 }) {
   return (
     <GridItem>
@@ -51,10 +56,15 @@ export default function LeftFilterPanel({
             />
           </NumberInput>
           <br />
-          <Select placeholder="Select option">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+          <Select
+            placeholder="Categorie"
+            onChange={(e) => onCategorieChange(e.target.value)}
+          >
+            {bedrijfCategorieën.map((categorie) => (
+              <option key={categorie.categorieId} value={categorie.categorieId}>
+                {categorie.naam}
+              </option>
+            ))}
           </Select>
           <br />
           <Stack direction={"row"}>
