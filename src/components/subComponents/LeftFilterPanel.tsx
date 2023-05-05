@@ -41,20 +41,22 @@ export default function LeftFilterPanel({
           direction={"column"}
           py={4}
         >
-          <Text>Minimum prijs</Text>
-          <NumberInput min={0} defaultValue={0}>
-            <NumberInputField
-              onChange={(e) => onMinimumPrijsChange(Number(e.target.value))}
-            />
-          </NumberInput>
-          <br />
-          <Text>Maximum prijs</Text>
-          <NumberInput min={0} defaultValue={1000}>
-            <NumberInputField
-              value={1000}
-              onChange={(e) => onMaximumPrijsChange(Number(e.target.value))}
-            />
-          </NumberInput>
+          <Box alignSelf={"flex-start"}>
+            <Text>Minimum prijs</Text>
+            <NumberInput min={0} defaultValue={0}>
+              <NumberInputField
+                onChange={(e) => onMinimumPrijsChange(Number(e.target.value))}
+              />
+            </NumberInput>
+            <br />
+            <Text>Maximum prijs</Text>
+            <NumberInput min={0} defaultValue={1000}>
+              <NumberInputField
+                value={1000}
+                onChange={(e) => onMaximumPrijsChange(Number(e.target.value))}
+              />
+            </NumberInput>
+          </Box>
           <br />
           <Select
             placeholder="Categorie"
