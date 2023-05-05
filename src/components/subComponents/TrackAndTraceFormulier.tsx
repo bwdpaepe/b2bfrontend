@@ -6,48 +6,46 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-import { FormEvent, useState } from "react";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
+import { TrackAndTraceSchema } from "../../schema/track-and-trace.schema";
 import { bestellingByTrackAndTrace } from "../../service/bestellingen";
 
 export default function TrackAndTraceFormulier() {
-  const [trackAndTrace, setTrackAndTrace] = useState<string>("");
-  const [verificatie, setVerificatie] = useState<string>("");
+  const {register, handleSubmit, formState: { errors }, reset} = useForm<typeTrackAndTraceSchema>({resolver: zodResolver(TrackAndTraceSchema),});
 
-  const getTrackAndTrace = async(event: FormEvent) => {
-    event.preventDefault();
-    try {
-        const data = await bestellingByTrackAndTrace(trackAndTrace, verificatie);
-        console.log(data);
-        //window.location.reload();
-    } catch (error: any) {
-        console.log(error.message)
-        
-    }
+  const onSubmit = (data: typeTrackAndTraceSchema) => {
+    console.log(JSON.stringify(data));
+    const {ttc, verify} = data;
+    bestellingByTrackAndTrace(ttc, verify);
+    };
     
-
-
-};
+  type typeTrackAndTraceSchema = z.infer<typeof TrackAndTraceSchema>;
 
   return(<>
-        <form onSubmit={(e) => {getTrackAndTrace(e)}}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
             <FormLabel>Track & Trace Code</FormLabel>
             <Input
               type="text"
-              onChange={(event) => {
-                setTrackAndTrace(event.currentTarget.value);
-              }}
+              {...register('ttc',
+              )}
               required
-            ></Input>
+            />{errors.ttc && (
+              <p className="text-xs italic text-red-500 mt-2"> {errors.ttc?.message}
+              </p>
+            )}
             <FormLabel>Verificatie</FormLabel>
             <Input
               type="text"
-              onChange={(event) => {
-                setVerificatie(event.currentTarget.value);
-              }}
+              {...register('verify')}
               required
-            ></Input>
+            />{errors.verify && (
+              <p className="text-xs italic text-red-500 mt-2"> {errors.verify?.message}
+              </p>
+            )}
             <Center>
               <Button className="button" type="submit">
                 Verstuur
