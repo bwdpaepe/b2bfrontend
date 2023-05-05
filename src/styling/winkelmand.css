@@ -1,0 +1,16 @@
+.WinkelmandCard{
+    width: 80%;
+    height: auto;
+    min-height: 50px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: #ec4842;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+
+
+#WinkelmandCardHolder{
+    margin-top: 25px;
+}
