@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { UserContext } from "../../../App"
 import Winkelmand from "../../../type/Winkelmand";
 import { getWinkelmand } from "../../../service/winkelmand";
@@ -6,15 +6,16 @@ import { getWinkelmand } from "../../../service/winkelmand";
 
 
 
-export function Winkelmand(){
+export default function WinkelmandComponent(){
     const [winkelmand, setWinkelmand] = useState<Winkelmand>();
 
     const user = useContext(UserContext)
 
 
-    async function _getWinkelmand(){
+    const _getWinkelmand = useCallback(async() =>{
         if(user){
             const _winkelmand = await getWinkelmand();
+            setWinkelmand(_winkelmand);
         }
         else{
             const _winkelmand = localStorage.getItem("winkelmand")
@@ -23,13 +24,15 @@ export function Winkelmand(){
                 setWinkelmand(parsed_winkelmand)
             }
         }
-    }
+    },[])
 
 
 
     useEffect(() =>{
         _getWinkelmand();
     }, [])
+
+
     return(
         <>
         </>

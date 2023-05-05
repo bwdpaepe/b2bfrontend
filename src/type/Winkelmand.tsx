@@ -3,6 +3,6 @@ import User from "./User";
 import winkelmandProduct from "./WinkelmandProduct";
 
 export default interface Winkelmand {
-  winkelmandProduct: winkelmandProduct[];
+  winkelmandProducten: winkelmandProduct[];
   totalPrice: TotalPrice[];
 }
