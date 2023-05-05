@@ -5,9 +5,9 @@ import Product from "../../../type/Product";
 import WinkelmandProductEntry from "./WinkelmandProductEntry";
 
 export default function WinkelmandCard(props: {
-  producten: WinkelmandProduct[] | null,
-  totalPrice: TotalPrice | null,
-  leverancier: string | null,
+  producten: WinkelmandProduct[] | null;
+  totalPrice: TotalPrice | null;
+  leverancier: string | null;
 }) {
   async function handleBestelling() {
     //TODO
@@ -28,11 +28,11 @@ export default function WinkelmandCard(props: {
               ))}{" "}
               <Text fontWeight="bold">
                 {" "}
-                PRIJS: {props.totalPrice?.value.toFixed(2)} €{" "}
+                Levertermijn: {props.totalPrice?.levertermijn}{" "}
               </Text>
               <Text fontWeight="bold">
                 {" "}
-                Levertermijn: {props.totalPrice?.levertermijn}{" "}
+                Totaal Bedrag: {props.totalPrice?.value.toFixed(2)} €{" "}
               </Text>
               <Button className="button" onClick={() => handleBestelling()}>
                 Bestellen
