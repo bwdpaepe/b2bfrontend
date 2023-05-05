@@ -1,4 +1,4 @@
-import { Text, SimpleGrid, Box, Select } from "@chakra-ui/react";
+import { Text, SimpleGrid, Box, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Product from "../../type/Product";
@@ -80,25 +80,25 @@ export default function ProductenLijst({
   }
   return (
     <Box justifySelf={"flex-start"}>
-      <Select
-        maxW="300px"
-        p={3}
-        onChange={(e) => setSorteerOp(e.target.value)}
-        placeholder="Sorteren op"
-      >
-        <option key={1} value="1">
-          Sorteer op prijs: laag naar hoog
-        </option>
-        <option key={2} value="2">
-          Sorteer op prijs: hoog naar laag
-        </option>
-        <option key={3} value="3">
-          Sorteer op naam: A-Z
-        </option>
-        <option key={4} value="4">
-          Sorteer op naam: Z-A
-        </option>
-      </Select>
+      <Stack direction={"row"} alignItems={"center"} mt={3} ml={4}>
+        <Text fontSize="xl" fontWeight="bold">
+          Sorteren:
+        </Text>
+        <Select maxW="300px" onChange={(e) => setSorteerOp(e.target.value)}>
+          <option key={1} value="1">
+            Prijs: laag naar hoog
+          </option>
+          <option key={2} value="2">
+            Prijs: hoog naar laag
+          </option>
+          <option key={3} value="3">
+            Naam: A-Z
+          </option>
+          <option key={4} value="4">
+            Naam: Z-A
+          </option>
+        </Select>
+      </Stack>
       <SimpleGrid
         templateColumns={{
           base: "repeat(1, minmax(0, 1fr))",
