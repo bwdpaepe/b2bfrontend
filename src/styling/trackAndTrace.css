@@ -1,4 +1,10 @@
-.chakra-button: {
+form .chakra-button {
   width: 100%;
   margin: 10px 0;
+}
+
+p.ttcError {
+  color: red;
+  font-style: italic;
+  maring-top: 2px;
 }
