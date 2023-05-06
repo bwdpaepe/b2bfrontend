@@ -6,17 +6,18 @@ import {
   Heading,
   Stack,
   Text,
-  Button,
+  // Button,
   Flex,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  // NumberInput,
+  // NumberInputField,
+  // NumberInputStepper,
+  // NumberIncrementStepper,
+  // NumberDecrementStepper,
 } from "@chakra-ui/react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+// import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
 import { useNavigate } from "react-router";
+import ProductQuantitySelector from "./ProductQuantitySelector";
 
 export default function ProductCard({
   product,
@@ -70,7 +71,7 @@ export default function ProductCard({
         <CardFooter>
           {product.voorraad === 0 ? null : (
             <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
-              <NumberInput
+              {/* <NumberInput
                 defaultValue={1}
                 min={1}
                 max={product.voorraad}
@@ -85,7 +86,8 @@ export default function ProductCard({
               </NumberInput>
               <Button variant="solid" className="button">
                 <AiOutlineShoppingCart size="2.5rem" />
-              </Button>
+              </Button> */}
+              <ProductQuantitySelector product={product} />
             </Flex>
           )}
         </CardFooter>
