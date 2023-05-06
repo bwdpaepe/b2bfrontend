@@ -56,10 +56,22 @@ export default function ProductenLijst({
         filteredProducten.sort((a, b) => b.eenheidsprijs - a.eenheidsprijs);
         break;
       case "3":
-        filteredProducten.sort((a, b) => a.naam.localeCompare(b.naam));
+        filteredProducten.sort((a, b) => {
+          if (a.naam === b.naam) {
+            return a.productId - b.productId;
+          } else {
+            return a.naam.localeCompare(b.naam);
+          }
+        });
         break;
       case "4":
-        filteredProducten.sort((a, b) => b.naam.localeCompare(a.naam));
+        filteredProducten.sort((a, b) => {
+          if (a.naam === b.naam) {
+            return b.productId - a.productId;
+          } else {
+            return b.naam.localeCompare(a.naam);
+          }
+        });
         break;
       default:
         filteredProducten.sort((a, b) => a.eenheidsprijs - b.eenheidsprijs);
