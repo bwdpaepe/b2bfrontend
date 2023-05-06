@@ -1,4 +1,7 @@
 import http from "./http"
+import Winkelmand from '../type/Winkelmand';
+import { addProductToWinkelmand } from "../service/winkelmand";
+import { showNotification } from "../util/showNotification";
 
 export async function login(email: String, password: String){
     try {
@@ -8,6 +11,22 @@ export async function login(email: String, password: String){
             localStorage.setItem("User",JSON.stringify(user));
             localStorage.setItem("Token", response.data.token)
             localStorage.setItem("Bedrijf", JSON.stringify(bedrijf))
+
+            // push items from localstorage to database and delete 'winkelmand' from local storage if it exists
+            let winkelmandFromStorage: Winkelmand | string | null = localStorage.getItem("winkelmand");
+            if (winkelmandFromStorage) {
+              console.log("Starting to add products from winkelmand in local storage to database");
+              winkelmandFromStorage = JSON.parse(winkelmandFromStorage) as Winkelmand;
+              for (const winkelmandProduct of winkelmandFromStorage.winkelmandProducten) {
+                try {
+                  await addProductToWinkelmand(winkelmandProduct.product.productId, winkelmandProduct.aantal);
+                } catch (error: any) {
+                  console.error("Error adding product to winkelmand:", error.message);
+                  showNotification("Je winkelmand kon niet aangevuld worden met " + winkelmandProduct.product.naam + ". " + error.message, "warning", "OPGELET!");
+                }
+              }
+              localStorage.removeItem("winkelmand");
+            }
         }
         else{
             throw Error("deze combinatie is ongeldig")
