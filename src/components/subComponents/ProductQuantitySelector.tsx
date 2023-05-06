@@ -13,6 +13,8 @@ import {
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
 import { addProductToWinkelmand } from "../../service/winkelmand";
+import Winkelmand from "../../type/Winkelmand";
+import { json } from "stream/consumers";
 
 interface ProductQuantitySelectorProps {
   product: Product;
@@ -27,7 +29,7 @@ export default function ProductQuantitySelector({
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleButtonClick = async () => {
-    if (user) {
+    if (user) { // if user is logged in, add product to winkelmand in database
       try {
         // Call addProductToWinkelmand with productId and quantity
         await addProductToWinkelmand(product.productId, quantity);
@@ -43,6 +45,29 @@ export default function ProductQuantitySelector({
         }, 5000); // to clear the message after 5 seconds
       }
     } 
+    else { // if user is not logged in, add product to winkelmand in local storage
+      let winkelmand: Winkelmand | string | null = localStorage.getItem("winkelmand");
+      console.log("Before if: " + winkelmand);
+      if (winkelmand) {
+        winkelmand = JSON.parse(winkelmand) as Winkelmand;
+        console.log("Existing winkelmand: " + winkelmand.toString());
+      } else {
+        winkelmand = { winkelmandProducten: [], totalPrice: [] };
+        console.log("New winkelmand: " + winkelmand.toString());
+      }
+
+      winkelmand.winkelmandProducten.push({
+              aantal: quantity,
+              product,
+              subtotal: product.eenheidsprijs * quantity,
+            });
+
+      localStorage.setItem("winkelmand", JSON.stringify(winkelmand));
+      console.log("After adding product to winkelmand: " + winkelmand);
+    };
+
+
+    
 
   };
 
