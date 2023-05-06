@@ -28,7 +28,8 @@ export default function WinkelmandCard(props: {
               ))}{" "}
               <Text fontWeight="bold">
                 {" "}
-                Levertermijn: {props.totalPrice?.levertermijn}{" "}
+                Levertermijn: {props.totalPrice?.levertermijn || -1}{(props.totalPrice?.levertermijn || 0) > 1 ? " werkdagen" : " werkdag"}
+
               </Text>
               <Text fontWeight="bold">
                 {" "}
