@@ -51,7 +51,7 @@ export default function ProductCard({
       <Stack direction="column">
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
-          <Heading size="md">€{product.eenheidsprijs}</Heading>
+          <Heading size="md">€{product.eenheidsprijs.toFixed(2)}</Heading>
           {product.voorraad === 0 ? (
             <Text>{product.naam} is niet beschikbaar</Text>
           ) : (

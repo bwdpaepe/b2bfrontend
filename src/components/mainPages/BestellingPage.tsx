@@ -164,6 +164,8 @@ export default function BestellingPage() {
           {teBestellenProducten.map((item) => (
             <ProductLine
               productNaam={item.product.naam}
+              productAantal={item.aantal}
+              productEenhiedsprijs={item.product.eenheidsprijs}
               productSubTotaal={item.subtotal}
               key={item.product.productId}
             />
