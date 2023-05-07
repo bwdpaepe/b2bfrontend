@@ -6,6 +6,7 @@ import {
   Flex,
   Button,
   Divider,
+  Select,
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
 import { useNavigate, useParams } from "react-router";
@@ -13,9 +14,10 @@ import { useState, useCallback, useEffect } from "react";
 import Doos from "../../type/Doos";
 import Bedrijf from "../../type/Bedrijf";
 import { getBedrijfProfile } from "../../service/bedrijven";
+import { getAllDozenfromBedrijf } from "../../service/dozen";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
-  const [doos, setDoos] = useState<Doos>();
+  const [dozen, setDozen] = useState<Doos[]>([]);
   const [loading, setLoading] = useState(false);
   const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
 
@@ -35,6 +37,21 @@ export default function BestellingPage() {
     }
     fetchBedrijfProfile();
   }, []);
+
+  useEffect(() => {
+    async function fetchDoos() {
+      const doosData = await getAllDozenfromBedrijf(
+        Number(leverancierIdString)
+      );
+      if (doosData) {
+        setDozen(doosData);
+        console.log(JSON.stringify(dozen[0].naam));
+      } else {
+        throw Error("Kon dozen niet ophalen");
+      }
+    }
+    fetchDoos();
+  }, [leverancierIdString]);
 
   return (
     <>
@@ -79,7 +96,13 @@ export default function BestellingPage() {
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verpakking
           </Text>
-          <EditableLineBestellingPage adresgegevens="test" />
+          <Select>
+            {dozen.map((doos) => (
+              <option key={doos.doosId} value={doos.naam}>
+                {doos.naam}
+              </option>
+            ))}
+          </Select>
           <br />
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verwachte levertermijn
