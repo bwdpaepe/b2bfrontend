@@ -5,10 +5,7 @@ import { BestellingStatus } from '../../enums/BestellingStatusEnum';
 import TrackAndTraceCard from "./TrackAndTraceCard";
 import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
 import TRACK_AND_TRACE_DATA from '../../util/TrackAndTraceData';
-
-function enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
-  return Object.keys(obj).filter(k => Number.isInteger(+k)) as K[];
-}
+import enumKeys from '../../util/Util';
 
 export default function TrackAndTraceResultaat(props: {bestelling: BestellingByTrackAndTrace | undefined}){
   const { bestelling } = props;
