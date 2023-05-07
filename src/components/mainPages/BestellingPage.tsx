@@ -17,16 +17,23 @@ import { getBedrijfProfile } from "../../service/bedrijven";
 import { getAllDozenfromBedrijf } from "../../service/dozen";
 import { getWinkelmand } from "../../service/winkelmand";
 import winkelmandProduct from "../../type/WinkelmandProduct";
-import ProductLine from "../subComponents/bestelling/ProductLine";
+import OrderOverviewBoxLine from "../subComponents/bestelling/OrderOverviewBoxLine";
+import OrderOverviewProductLine from "../subComponents/bestelling/OrderOverviewProductLine";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
   const [dozen, setDozen] = useState<Doos[]>([]);
+  const [geselecteerdeDoos, setGeselecteerdeDoos] = useState<Doos | null>(null);
   const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
   const [levertermijn, setLevertermijn] = useState<number | undefined>();
   const [teBestellenProducten, setTeBestellenProducten] = useState<
     winkelmandProduct[]
   >([]);
-  const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
+  const [totalPriceProducten, setTotalPriceProducten] = useState<
+    number | undefined
+  >(0);
+  const [totalPrice, setTotalPrice] = useState<number | undefined>(
+    totalPriceProducten
+  );
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -52,6 +59,7 @@ export default function BestellingPage() {
       );
       if (doosData) {
         setDozen(doosData);
+        setGeselecteerdeDoos(doosData[0]);
       } else {
         throw Error("Kon dozen niet ophalen");
       }
@@ -67,7 +75,7 @@ export default function BestellingPage() {
   useEffect(() => {
     async function fetchWinkelmandgegevens() {
       const response = await getWinkelmand();
-      console.log(JSON.stringify(response));
+
       const levertermijn = response.totalPrice.find(
         (item) => item.bedrijfId === Number(leverancierIdString)
       )?.levertermijn;
@@ -81,16 +89,27 @@ export default function BestellingPage() {
       );
 
       if (response) {
-        setTotalPrice(_totalPrice?.value);
         setLevertermijn(levertermijn);
         setTeBestellenProducten(winkelmandProducten);
-        console.log(JSON.stringify(winkelmandProducten));
+        setTotalPriceProducten(_totalPrice?.value!);
       } else {
         throw Error("Kon winkelmand niet ophalen");
       }
     }
     fetchWinkelmandgegevens();
   }, [userIdString, leverancierIdString]);
+
+  useEffect(() => {
+    setTotalPrice(totalPriceProducten! + geselecteerdeDoos?.prijs!);
+  }, [geselecteerdeDoos, totalPriceProducten]);
+
+  const handleDoosChange = (doosNaam: string) => {
+    const doos = dozen.find((doos) => doos.naam === doosNaam);
+    if (doos) {
+      setGeselecteerdeDoos(doos);
+      setTotalPrice(totalPriceProducten! + doos.prijs);
+    }
+  };
 
   return (
     <>
@@ -103,7 +122,7 @@ export default function BestellingPage() {
         _hover={{ cursor: "pointer", textDecoration: "underline" }}
       >{`< Winkelwagen`}</Text>
       <Flex mt={4} flexWrap={"wrap"} justifyContent={"space-between"}>
-        <Box p={2} ml={4} alignItems={"flex-start"} flex={1} border={"1px"}>
+        <Box p={2} ml={4} alignItems={"flex-start"} flex={1}>
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Leveradres
           </Text>
@@ -135,7 +154,10 @@ export default function BestellingPage() {
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verpakking
           </Text>
-          <Select>
+          <Select
+            onChange={(e) => handleDoosChange(e.target.value)}
+            maxW={"300px"}
+          >
             {dozen.map((doos) => (
               <option key={doos.doosId} value={doos.naam}>
                 {doos.naam}
@@ -154,7 +176,7 @@ export default function BestellingPage() {
           <br />
         </Box>
 
-        <Box minW={"300px"} p={4} mr={10}>
+        <Box minW={"300px"} p={4} mr={10} border={"2px"} height={"fit-content"}>
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Overzicht
           </Text>
@@ -162,7 +184,7 @@ export default function BestellingPage() {
             Producten
           </Text>
           {teBestellenProducten.map((item) => (
-            <ProductLine
+            <OrderOverviewProductLine
               productNaam={item.product.naam}
               productAantal={item.aantal}
               productEenhiedsprijs={item.product.eenheidsprijs}
@@ -170,6 +192,10 @@ export default function BestellingPage() {
               key={item.product.productId}
             />
           ))}
+          <OrderOverviewBoxLine
+            doosNaam={geselecteerdeDoos?.naam}
+            doosPrijs={geselecteerdeDoos?.prijs}
+          />
 
           <Divider mt={2} mb={2} colorScheme="purple" />
           <Stack direction={"row"} alignItems={"center"}>

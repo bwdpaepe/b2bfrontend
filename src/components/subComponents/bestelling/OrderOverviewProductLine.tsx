@@ -1,6 +1,6 @@
 import { Text, Stack, Spacer } from "@chakra-ui/react";
 
-export default function ProductLine(props: {
+export default function OrderOverviewProductLine(props: {
   productNaam: string;
   productSubTotaal: number;
   productAantal: number;
