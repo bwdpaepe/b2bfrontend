@@ -10,16 +10,23 @@ import {
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
 import { useNavigate, useParams } from "react-router";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Doos from "../../type/Doos";
 import Bedrijf from "../../type/Bedrijf";
 import { getBedrijfProfile } from "../../service/bedrijven";
 import { getAllDozenfromBedrijf } from "../../service/dozen";
+import { getWinkelmand } from "../../service/winkelmand";
+import winkelmandProduct from "../../type/WinkelmandProduct";
+import ProductLine from "../subComponents/bestelling/ProductLine";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
   const [dozen, setDozen] = useState<Doos[]>([]);
-  const [loading, setLoading] = useState(false);
   const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
+  const [levertermijn, setLevertermijn] = useState<number | undefined>();
+  const [teBestellenProducten, setTeBestellenProducten] = useState<
+    winkelmandProduct[]
+  >([]);
+  const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -51,6 +58,39 @@ export default function BestellingPage() {
     }
     fetchDoos();
   }, [leverancierIdString]);
+
+  useEffect(() => {
+    async function fetchProducten() {}
+    fetchProducten();
+  }, [leverancierIdString]);
+
+  useEffect(() => {
+    async function fetchWinkelmandgegevens() {
+      const response = await getWinkelmand();
+      console.log(JSON.stringify(response));
+      const levertermijn = response.totalPrice.find(
+        (item) => item.bedrijfId === Number(leverancierIdString)
+      )?.levertermijn;
+
+      const _totalPrice = response.totalPrice.find(
+        (item) => item.bedrijfId === Number(leverancierIdString)
+      );
+
+      const winkelmandProducten = response.winkelmandProducten.filter(
+        (item) => item.product.bedrijf.bedrijfId === Number(leverancierIdString)
+      );
+
+      if (response) {
+        setTotalPrice(_totalPrice?.value);
+        setLevertermijn(levertermijn);
+        setTeBestellenProducten(winkelmandProducten);
+        console.log(JSON.stringify(winkelmandProducten));
+      } else {
+        throw Error("Kon winkelmand niet ophalen");
+      }
+    }
+    fetchWinkelmandgegevens();
+  }, [userIdString, leverancierIdString]);
 
   return (
     <>
@@ -106,7 +146,11 @@ export default function BestellingPage() {
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verwachte levertermijn
           </Text>
-          <EditableLineBestellingPage adresgegevens="test" />
+          {levertermijn === 1 ? (
+            <Text>{levertermijn} werkdag</Text>
+          ) : (
+            <Text>{levertermijn} werkdagen</Text>
+          )}
           <br />
         </Box>
 
@@ -117,35 +161,24 @@ export default function BestellingPage() {
           <Text fontSize={"xl"} mb={2}>
             Producten
           </Text>
-          <Stack direction={"row"} alignItems={"center"}>
-            <Text fontSize={"l"}>Product1</Text>
-            <Spacer />
-            <Text fontSize={"l"} alignSelf={"flex-end"}>
-              €100
-            </Text>
-          </Stack>
-          <Stack direction={"row"} alignItems={"center"}>
-            <Text fontSize={"l"}>Product2</Text>
-            <Spacer />
-            <Text fontSize={"l"} alignSelf={"flex-end"}>
-              €100
-            </Text>
-          </Stack>
-          <Stack direction={"row"} alignItems={"center"}>
-            <Text fontSize={"l"}>Product3</Text>
-            <Spacer />
-            <Text fontSize={"l"} alignSelf={"flex-end"}>
-              €100
-            </Text>
-          </Stack>
-          <Stack direction={"row"} alignItems={"center"}>
-            <Text fontSize={"l"}>Product4</Text>
-            <Spacer />
-            <Text fontSize={"l"} alignSelf={"flex-end"}>
-              €100
-            </Text>
-          </Stack>
+          {teBestellenProducten.map((item) => (
+            <ProductLine
+              productNaam={item.product.naam}
+              productSubTotaal={item.subtotal}
+              key={item.product.productId}
+            />
+          ))}
+
           <Divider mt={2} mb={2} colorScheme="purple" />
+          <Stack direction={"row"} alignItems={"center"}>
+            <Text fontSize={"l"} fontWeight={"bold"}>
+              TOTAAL BEDRAG:
+            </Text>
+            <Spacer />
+            <Text fontSize={"l"} alignSelf={"flex-end"}>
+              €{totalPrice?.toFixed(2)}
+            </Text>
+          </Stack>
           <Button mt={4} w={"full"} colorScheme={"red"}>
             Plaats bestelling
           </Button>

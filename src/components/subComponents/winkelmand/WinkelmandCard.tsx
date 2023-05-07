@@ -29,8 +29,6 @@ export default function WinkelmandCard(props: {
 
       return;
     }
-    console.log(JSON.stringify(loggedInUser));
-
     handleNavigate(
       `/bestelling/${props?.leverancierId}/${loggedInUser?.userId}`
     );
