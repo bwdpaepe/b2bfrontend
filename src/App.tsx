@@ -13,6 +13,7 @@ import Producten from "./components/mainPages/Producten";
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
 import WinkelmandPage from "./components/mainPages/WinkelmandPage";
+import BestellingPage from "./components/mainPages/BestellingPage";
 
 export const UserContext = React.createContext("");
 
@@ -53,6 +54,7 @@ function App() {
                 path="/producten/:bedrijfIdString/:productIdString"
                 element={<ProductDetails />}
               />
+              <Route path="/bestelling" element={<BestellingPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>
