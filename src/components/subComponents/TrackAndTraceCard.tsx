@@ -42,7 +42,7 @@ export default function TrackAndTraceCard(props: {
         >
           {currentStatus && <Image src={delivery_black} boxSize="80px" fit="fill"></Image>}
         </CardBody>
-        <CardFooter>
+        <CardFooter className="ttc-card-footer">
           <Text>{BestellingStatus[parseInt(props.status)]}</Text>
         </CardFooter>
       </Stack>

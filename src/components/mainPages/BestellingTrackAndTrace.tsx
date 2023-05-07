@@ -1,6 +1,7 @@
 import {useEffect, useState} from  "react";
 
 import { Container } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 
 import "../../styling/trackAndTrace.css";
 import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
@@ -17,6 +18,7 @@ export default function BestellingTrackAndTrace() {
   if (bestelling === undefined) {
   return(
     <Container maxW="70%" centerContent>
+      <Heading>Track & trace gegevens</Heading>
       <TrackAndTraceFormulier setBestelling={setBestelling} />
     </Container>
     
@@ -25,6 +27,7 @@ export default function BestellingTrackAndTrace() {
   else {
     return(
       <Container maxW="70%" centerContent>
+        <Heading>Track & trace gegevens van aankoop {bestelling.orderId}</Heading>
         <TrackAndTraceResultaat bestelling={bestelling}/>
       </Container>
     );

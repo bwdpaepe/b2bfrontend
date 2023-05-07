@@ -1,8 +1,10 @@
 import { Flex } from '@chakra-ui/react';
-import { Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react';
+import { Divider } from '@chakra-ui/react';
 import { BestellingStatus } from '../../enums/BestellingStatusEnum';
 import TrackAndTraceCard from "./TrackAndTraceCard";
 import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
+import TRACK_AND_TRACE_DATA from '../../util/TrackAndTraceData';
 
 function enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
   return Object.keys(obj).filter(k => Number.isInteger(+k)) as K[];
@@ -10,36 +12,53 @@ function enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
 
 export default function TrackAndTraceResultaat(props: {bestelling: BestellingByTrackAndTrace | undefined}){
   const { bestelling } = props;
+
+  const statusIndex = function(status: BestellingStatus | undefined){
+    if(status !== undefined){
+      return parseInt(BestellingStatus[status]);
+    }
+    return 0;
+  }
+  
+  const statusMelding = function(statusId: number){
+    if(0<=statusId && statusId<=4){
+      return TRACK_AND_TRACE_DATA[statusId];
+    }
+    else return "";
+  }
+  
+  const leverDatum = function(notificatieDatum: Date|undefined){
+    if(notificatieDatum !== undefined)
+    {
+      let result = new Date(notificatieDatum);
+      result.setDate(result.getDate() + 3);
+      return result.toISOString().split('T')[0];
+    }
+    else {
+      return null;
+    }
+  };
+
+
   return(
-    <Flex direction={"column"}>
+    <Flex className={"ttc-resultaat"} direction={"column"}>
       <Flex direction={"row"}>
         {enumKeys(BestellingStatus)
                .map((status: string) => {
-          return(<TrackAndTraceCard status={status} bestellingStatus={bestelling?.status}></TrackAndTraceCard>)
+          return(<TrackAndTraceCard key={status} status={status} bestellingStatus={bestelling?.status}></TrackAndTraceCard>)
           })
         }
       </Flex>
-      <Flex direction={"row"}>
-        <Text mr="20"
-      mb="2"
-      mt="2">Uw bestelling ligt in het afhaalpunt en kan afgehaald worden</Text>
-        <Text mr="20"
-      mb="2"
-      mt="2">{bestelling ? bestelling.status : 'GEPLAATST'}</Text>
-        <Text mr="20"
-      mb="2"
-      mt="2">{bestelling?.notification.creationDate}</Text>
+      <Flex mt='20' direction={"row"} justify="space-between" wrap={"wrap"}>
+        <Text w="50%">{statusMelding(statusIndex(bestelling?.status))}</Text>
+        <Text w="20%">{bestelling ? bestelling.status : 'GEPLAATST'}</Text>
+        <Text w="20%">{bestelling?.notification.creationDate}</Text>
       </Flex>
-      <Flex direction={"row"}>
-        <Text mr="20"
-      mb="2"
-      mt="2">Uw bestelling wordt geleverd door Transportdienst {bestelling?.transportdienst.naam}</Text>
-        <Text mr="20"
-      mb="2"
-      mt="2">Verwachte leverdatum</Text>
-        <Text mr="20"
-      mb="2"
-      mt="2"></Text>
+      <Divider orientation='horizontal' />
+      <Flex mt='20' direction={"row"} justify="space-between" wrap={"wrap"}>
+        <Text w="50%">Uw bestelling wordt geleverd door Transportdienst {bestelling?.transportdienst.naam}</Text>
+        <Text w="20%">Verwachte leverdatum</Text>
+        <Text w="20%">{leverDatum(bestelling?.datumGeplaatst)}</Text>
       </Flex>
     </Flex>
   );

@@ -7,6 +7,7 @@ export default interface BestellingByTrackAndTrace {
   status: BestellingStatus;
   datumGeplaatst: Date;
   leveradresPostcode: string;
+  orderId: string;
   trackAndTraceCode: string;
   transportdienst: Transportdienst;
   notification: Notification;

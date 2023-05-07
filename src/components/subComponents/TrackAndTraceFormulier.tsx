@@ -19,7 +19,6 @@ export default function TrackAndTraceFormulier(props: {setBestelling : Function}
   const {register, handleSubmit, formState: { errors }, reset} = useForm<typeTrackAndTraceSchema>({resolver: zodResolver(TrackAndTraceSchema),});
 
   const onSubmit = async (data: typeTrackAndTraceSchema) => {
-    console.log(JSON.stringify(data));
     const {ttc, verify} = data;
     props.setBestelling(await bestellingByTrackAndTrace(ttc, verify));
     reset();
@@ -33,6 +32,7 @@ export default function TrackAndTraceFormulier(props: {setBestelling : Function}
             <FormLabel>Track & Trace Code</FormLabel>
             <Input
               type="text"
+              width="300px"
               {...register('ttc',
               )}
               required
@@ -43,6 +43,7 @@ export default function TrackAndTraceFormulier(props: {setBestelling : Function}
             <FormLabel>Verificatie</FormLabel>
             <Input
               type="text"
+              width="300px"
               {...register('verify')}
               required
             />{errors.verify && (

@@ -30,9 +30,6 @@ export async function bestellingByBestellingId(bestellingId: number){
 
 export async function bestellingByTrackAndTrace(ttc: string, verify: string){
   try {
-    console.log(ttc);
-    console.log(verify);
-    console.log(`bestellingen/track-and-trace?ttc=${ttc}&verify=${verify}`);
     const response = await http.get(`bestellingen/track-and-trace?ttc=${ttc}&verify=${verify}`);
     if(response.data) {
       return response.data;
