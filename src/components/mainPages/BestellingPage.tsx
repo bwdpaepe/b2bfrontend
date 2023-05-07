@@ -45,7 +45,6 @@ export default function BestellingPage() {
       );
       if (doosData) {
         setDozen(doosData);
-        console.log(JSON.stringify(dozen[0].naam));
       } else {
         throw Error("Kon dozen niet ophalen");
       }
