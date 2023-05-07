@@ -9,17 +9,32 @@ import {
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
 import { useNavigate, useParams } from "react-router";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Doos from "../../type/Doos";
+import Bedrijf from "../../type/Bedrijf";
+import { getBedrijfProfile } from "../../service/bedrijven";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
-
   const [doos, setDoos] = useState<Doos>();
+  const [loading, setLoading] = useState(false);
+  const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     navigate(pathname);
   }
+
+  useEffect(() => {
+    async function fetchBedrijfProfile() {
+      const response = await getBedrijfProfile();
+      if (response) {
+        setBedrijfProfile(response);
+      } else {
+        throw Error("Kon bedrijfprofiel niet ophalen");
+      }
+    }
+    fetchBedrijfProfile();
+  }, []);
 
   return (
     <>
@@ -36,23 +51,40 @@ export default function BestellingPage() {
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Leveradres
           </Text>
-          <EditableLineBestellingPage />
-          <br />
-          <EditableLineBestellingPage />
-          <br />
-          <EditableLineBestellingPage />
-          <br />
-          <EditableLineBestellingPage />
-          <br />
+          {bedrijfProfile && (
+            <>
+              <EditableLineBestellingPage
+                adresgegevens={bedrijfProfile?.land}
+              />
+              <br />
+              <EditableLineBestellingPage
+                adresgegevens={bedrijfProfile?.stad}
+              />
+              <br />
+              <EditableLineBestellingPage
+                adresgegevens={bedrijfProfile?.postcode}
+              />
+              <br />
+              <EditableLineBestellingPage
+                adresgegevens={bedrijfProfile?.straat}
+              />
+              <br />
+              <EditableLineBestellingPage
+                adresgegevens={bedrijfProfile?.huisnummer}
+              />
+              <br />
+            </>
+          )}
+
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verpakking
           </Text>
-          <EditableLineBestellingPage />
+          <EditableLineBestellingPage adresgegevens="test" />
           <br />
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Verwachte levertermijn
           </Text>
-          <EditableLineBestellingPage />
+          <EditableLineBestellingPage adresgegevens="test" />
           <br />
         </Box>
 

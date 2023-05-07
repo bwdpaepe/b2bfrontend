@@ -9,10 +9,12 @@ import {
 
 import EditControlsBestellingPage from "./EditControlsBestellingPage";
 
-export default function EditableLineBestellingPage() {
+export default function EditableLineBestellingPage(props: {
+  adresgegevens: string | undefined;
+}) {
   return (
     <Editable
-      defaultValue="Land"
+      defaultValue={props.adresgegevens}
       isPreviewFocusable={true}
       selectAllOnFocus={false}
       w={"100%"}
