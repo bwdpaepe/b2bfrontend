@@ -16,6 +16,8 @@ export default function EditableLineBestellingPage() {
       isPreviewFocusable={true}
       selectAllOnFocus={false}
       w={"100%"}
+      alignItems={"flex-start"}
+      flex={1}
     >
       <Tooltip label="Klik om aan te passen" shouldWrapChildren={true}>
         <EditablePreview

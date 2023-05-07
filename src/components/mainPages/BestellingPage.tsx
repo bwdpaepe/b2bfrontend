@@ -8,13 +8,29 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
-
+import { useNavigate, useParams } from "react-router";
+import { useState } from "react";
+import Doos from "../../type/Doos";
 export default function BestellingPage() {
-  /* Here's a custom control */
+  const { leverancierIdString, userIdString } = useParams();
+
+  const [doos, setDoos] = useState<Doos>();
+
+  const navigate = useNavigate();
+  function handleNavigate(pathname: string) {
+    navigate(pathname);
+  }
 
   return (
     <>
-      <Text color={"red"} p={2} mt={2} ml={4}>{`< Winkelwagen`}</Text>
+      <Text
+        color={"red"}
+        p={2}
+        mt={2}
+        ml={4}
+        onClick={() => handleNavigate(`/winkelmand`)}
+        _hover={{ cursor: "pointer", textDecoration: "underline" }}
+      >{`< Winkelwagen`}</Text>
       <Flex mt={4} flexWrap={"wrap"} justifyContent={"space-between"}>
         <Box p={2} ml={4} alignItems={"flex-start"} flex={1} border={"1px"}>
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>

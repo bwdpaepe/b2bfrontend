@@ -71,22 +71,6 @@ export default function ProductCard({
         <CardFooter>
           {product.voorraad === 0 ? null : (
             <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
-              {/* <NumberInput
-                defaultValue={1}
-                min={1}
-                max={product.voorraad}
-                variant="filled"
-                focusBorderColor="#ec4842"
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Button variant="solid" className="button">
-                <AiOutlineShoppingCart size="2.5rem" />
-              </Button> */}
               <ProductQuantitySelector product={product} />
             </Flex>
           )}

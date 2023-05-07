@@ -54,7 +54,10 @@ function App() {
                 path="/producten/:bedrijfIdString/:productIdString"
                 element={<ProductDetails />}
               />
-              <Route path="/bestelling" element={<BestellingPage />} />
+              <Route
+                path="/bestelling/:leverancierIdString/:userIdString"
+                element={<BestellingPage />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>
