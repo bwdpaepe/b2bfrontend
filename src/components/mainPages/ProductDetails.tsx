@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { HStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Product from "../../type/Product";
-import { productenByProductId } from "../../service/producten";
+import { productByProductId } from "../../service/producten";
 import {
   Box,
   Container,
@@ -37,7 +37,7 @@ export default function ProductDetails() {
 
   useEffect(() => {
     async function fetchProduct() {
-      const productData = await productenByProductId(Number(productIdString));
+      const productData = await productByProductId(Number(productIdString));
       setProduct(productData);
     }
     fetchProduct();
