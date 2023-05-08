@@ -19,6 +19,8 @@ import { getWinkelmand } from "../../service/winkelmand";
 import winkelmandProduct from "../../type/WinkelmandProduct";
 import OrderOverviewBoxLine from "../subComponents/bestelling/OrderOverviewBoxLine";
 import OrderOverviewProductLine from "../subComponents/bestelling/OrderOverviewProductLine";
+import { postBestellingen } from "../../service/bestellingen";
+import Adres from "../../type/Adres";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
   const [dozen, setDozen] = useState<Doos[]>([]);
@@ -35,6 +37,14 @@ export default function BestellingPage() {
     totalPriceProducten
   );
 
+  const [adresgegevens, setAdresgegevens] = useState<Adres>({
+    land: "",
+    stad: "",
+    postcode: "",
+    straat: "",
+    huisnummer: "",
+  });
+
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     navigate(pathname);
@@ -42,9 +52,16 @@ export default function BestellingPage() {
 
   useEffect(() => {
     async function fetchBedrijfProfile() {
-      const response = await getBedrijfProfile();
-      if (response) {
-        setBedrijfProfile(response);
+      const bedrijfprofiel = await getBedrijfProfile();
+      if (bedrijfprofiel) {
+        setBedrijfProfile(bedrijfprofiel);
+        setAdresgegevens({
+          land: bedrijfprofiel.land,
+          stad: bedrijfprofiel.stad,
+          postcode: bedrijfprofiel.postcode,
+          straat: bedrijfprofiel.straat,
+          huisnummer: bedrijfprofiel.huisnummer,
+        });
       } else {
         throw Error("Kon bedrijfprofiel niet ophalen");
       }
@@ -68,13 +85,10 @@ export default function BestellingPage() {
   }, [leverancierIdString]);
 
   useEffect(() => {
-    async function fetchProducten() {}
-    fetchProducten();
-  }, [leverancierIdString]);
-
-  useEffect(() => {
     async function fetchWinkelmandgegevens() {
       const response = await getWinkelmand();
+
+      console.log(response);
 
       const levertermijn = response.totalPrice.find(
         (item) => item.bedrijfId === Number(leverancierIdString)
@@ -111,6 +125,19 @@ export default function BestellingPage() {
     }
   };
 
+  const handleBestellingClick = () => {
+    console.log("Bestelling geplaatst");
+    postBestellingen(
+      leverancierIdString!,
+      geselecteerdeDoos?.doosId!,
+      adresgegevens.straat,
+      adresgegevens.huisnummer,
+      adresgegevens.postcode,
+      adresgegevens.stad,
+      adresgegevens.land
+    );
+  };
+
   return (
     <>
       <Text
@@ -130,22 +157,37 @@ export default function BestellingPage() {
             <>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.land}
+                onChange={(value: string) =>
+                  setAdresgegevens({ ...adresgegevens, land: value })
+                }
               />
               <br />
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.stad}
+                onChange={(value: string) =>
+                  setAdresgegevens({ ...adresgegevens, stad: value })
+                }
               />
               <br />
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.postcode}
+                onChange={(value: string) =>
+                  setAdresgegevens({ ...adresgegevens, postcode: value })
+                }
               />
               <br />
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.straat}
+                onChange={(value: string) =>
+                  setAdresgegevens({ ...adresgegevens, straat: value })
+                }
               />
               <br />
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.huisnummer}
+                onChange={(value: string) =>
+                  setAdresgegevens({ ...adresgegevens, huisnummer: value })
+                }
               />
               <br />
             </>
@@ -207,7 +249,12 @@ export default function BestellingPage() {
               €{totalPrice?.toFixed(2)}
             </Text>
           </Stack>
-          <Button mt={4} w={"full"} colorScheme={"red"}>
+          <Button
+            mt={4}
+            w={"full"}
+            colorScheme={"red"}
+            onClick={handleBestellingClick}
+          >
             Plaats bestelling
           </Button>
         </Box>
