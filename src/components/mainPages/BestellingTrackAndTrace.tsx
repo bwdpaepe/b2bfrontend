@@ -1,6 +1,7 @@
 import {useEffect, useState} from  "react";
 
 import { Container } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 
 import "../../styling/trackAndTrace.css";
@@ -12,8 +13,13 @@ export default function BestellingTrackAndTrace() {
   const [bestelling, setBestelling] = useState<BestellingByTrackAndTrace>();
 
   useEffect(() => {
-    setBestelling(undefined); // set the fetched producten in state 
+    setBestelling(undefined); 
   }, []);
+
+  const handleBackToForm = () => {
+      window.location.reload(); // reload the page to set the state to undefined
+    
+  };
 
   if (bestelling === undefined) {
   return(
@@ -27,6 +33,7 @@ export default function BestellingTrackAndTrace() {
   else {
     return(
       <Container maxW="70%" centerContent>
+        <Text onClick={handleBackToForm}>Terug naar formulier</Text>
         <Heading>Track & trace gegevens van aankoop {bestelling.orderId}</Heading>
         <TrackAndTraceResultaat bestelling={bestelling}/>
       </Container>

@@ -1,3 +1,20 @@
+.chakra-container > .chakra-text {
+  position: absolute;
+  left: 0;
+  margin-top: 10px;
+  color: #EC4842;
+}
+
+.chakra-container > .chakra-text::before {
+  content: '> ';
+}
+
+.chakra-container h2 {
+  position: absolute;
+  left: 0;
+  margin-top: 35px;
+}
+
 form, .ttc-resultaat {
   margin-top: 100px;
 }
