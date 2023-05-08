@@ -7,6 +7,7 @@ import {
   Button,
   Divider,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
 import { useNavigate, useParams } from "react-router";
@@ -23,6 +24,7 @@ import { postBestellingen } from "../../service/bestellingen";
 import Adres from "../../type/Adres";
 export default function BestellingPage() {
   const { leverancierIdString, userIdString } = useParams();
+  const toast = useToast();
   const [dozen, setDozen] = useState<Doos[]>([]);
   const [geselecteerdeDoos, setGeselecteerdeDoos] = useState<Doos | null>(null);
   const [bedrijfProfile, setBedrijfProfile] = useState<Bedrijf | null>(null);
@@ -136,6 +138,14 @@ export default function BestellingPage() {
       adresgegevens.stad,
       adresgegevens.land
     );
+    toast({
+      title: "Bestelling geplaatst",
+      description: "Uw bestelling is geplaatst",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    handleNavigate(`/`);
   };
 
   return (
