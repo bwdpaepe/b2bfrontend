@@ -6,35 +6,43 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-//import { useState } from 'react';
+import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { TrackAndTraceSchema } from "../../schema/track-and-trace.schema";
 import { verificatieByTrackAndTrace, bestellingByTrackAndTrace } from "../../service/bestellingen";
-import { useState } from "react";
+import ErrorMessage from "./ErrorMessage";
+
 //import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
 
 export default function TrackAndTraceFormulier(props: {setBestelling : Function}) {
   const {register, handleSubmit, formState: { errors }, reset} = useForm<typeTrackAndTraceSchema>({resolver: zodResolver(TrackAndTraceSchema),});
   const [verificatieLabel, setVerificatieLabel] = useState("Verificatie");
+  const [error, setError] = useState<string>();
 
   const onSubmit = async (data: typeTrackAndTraceSchema) => {
     const {ttc, verify} = data;
-    props.setBestelling(await bestellingByTrackAndTrace(ttc, verify));
-    reset();
-    };
+    try {
+      props.setBestelling(await bestellingByTrackAndTrace(ttc, verify));
+      reset();
+    } catch (error: any) {
+      setError(error.message)
+      
+    }
+  };
 
   const getVerificatieLabel = async (ttc: string) => {
     setVerificatieLabel(await verificatieByTrackAndTrace(ttc));
-    };
+  };
     
   type typeTrackAndTraceSchema = z.infer<typeof TrackAndTraceSchema>;
 
   return(<>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
+            {error && <ErrorMessage message={error} />}
             <FormLabel>Track & Trace Code</FormLabel>
             <Input
               type="text"

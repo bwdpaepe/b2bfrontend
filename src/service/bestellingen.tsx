@@ -49,9 +49,9 @@ export async function verificatieByTrackAndTrace(ttc: string){
       return response.data;
     }
     else {
-      throw Error("Kon de bestelling niet ophalen.");
+      throw Error("Kon formaat verificatiecode niet ophalen.");
     }
   } catch (error: any) {
-    throw Error("Kon de bestelling niet ophalen._");
+    throw Error("Kon formaat verificatiecode niet ophalen._");
   }
 }
