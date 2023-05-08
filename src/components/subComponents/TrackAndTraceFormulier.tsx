@@ -12,16 +12,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { TrackAndTraceSchema } from "../../schema/track-and-trace.schema";
-import { bestellingByTrackAndTrace } from "../../service/bestellingen";
+import { verificatieByTrackAndTrace, bestellingByTrackAndTrace } from "../../service/bestellingen";
+import { useState } from "react";
 //import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
 
 export default function TrackAndTraceFormulier(props: {setBestelling : Function}) {
   const {register, handleSubmit, formState: { errors }, reset} = useForm<typeTrackAndTraceSchema>({resolver: zodResolver(TrackAndTraceSchema),});
+  const [verificatieLabel, setVerificatieLabel] = useState("Verificatie");
 
   const onSubmit = async (data: typeTrackAndTraceSchema) => {
     const {ttc, verify} = data;
     props.setBestelling(await bestellingByTrackAndTrace(ttc, verify));
     reset();
+    };
+
+  const getVerificatieLabel = async (ttc: string) => {
+    setVerificatieLabel(await verificatieByTrackAndTrace(ttc));
     };
     
   type typeTrackAndTraceSchema = z.infer<typeof TrackAndTraceSchema>;
@@ -36,11 +42,14 @@ export default function TrackAndTraceFormulier(props: {setBestelling : Function}
               {...register('ttc',
               )}
               required
+              onBlur={(event) => {
+                getVerificatieLabel(event.currentTarget.value);
+              }}
             />{errors.ttc && (
               <p className="ttcError"> {errors.ttc?.message}
               </p>
             )}
-            <FormLabel>Verificatie</FormLabel>
+            <FormLabel>{verificatieLabel}</FormLabel>
             <Input
               type="text"
               width="300px"

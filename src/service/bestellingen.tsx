@@ -41,3 +41,17 @@ export async function bestellingByTrackAndTrace(ttc: string, verify: string){
     throw Error("Kon de bestelling niet ophalen._");
   }
 }
+
+export async function verificatieByTrackAndTrace(ttc: string){
+  try {
+    const response = await http.get(`bestellingen/verificatie?ttc=${ttc}`);
+    if(response.data) {
+      return response.data;
+    }
+    else {
+      throw Error("Kon de bestelling niet ophalen.");
+    }
+  } catch (error: any) {
+    throw Error("Kon de bestelling niet ophalen._");
+  }
+}
