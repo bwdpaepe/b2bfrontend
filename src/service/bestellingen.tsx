@@ -26,13 +26,18 @@ export async function postBestellingen(
   leveradresLand: string
 ) {
   try {
-    const response = await http.post(
-      `bestellingen?leverancierbedrijfId=${leverancierbedrijfId}&doosId=${doosId}&leveradresStraat=${leveradresStraat}&leveradresNummer=
-      ${leveradresNummer}&leveradresPostcode=${leveradresPostcode}&leveradresStad=${leveradresStad}&leveradresLand=${leveradresLand}`,
-      {
-        headers: { Authorization: "Bearer " + localStorage.getItem("Token") },
-      }
-    );
+    const response = await http.post("/bestellingen", null, {
+      params: {
+        leverancierbedrijfId: leverancierbedrijfId,
+        doosId: doosId,
+        leveradresStraat: leveradresStraat,
+        leveradresNummer: leveradresNummer,
+        leveradresPostcode: leveradresPostcode,
+        leveradresStad: leveradresStad,
+        leveradresLand: leveradresLand,
+      },
+      headers: authHeader()
+    });
     if (response.data) {
       return response.data;
     }
