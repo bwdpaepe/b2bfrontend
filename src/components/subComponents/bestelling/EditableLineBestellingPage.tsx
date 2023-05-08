@@ -11,6 +11,7 @@ import EditControlsBestellingPage from "./EditControlsBestellingPage";
 
 export default function EditableLineBestellingPage(props: {
   adresgegevens: string | undefined;
+  onChange: (value: string) => void;
 }) {
   return (
     <Editable
@@ -20,6 +21,7 @@ export default function EditableLineBestellingPage(props: {
       w={"100%"}
       alignItems={"flex-start"}
       flex={1}
+      onChange={(e) => props.onChange(e)}
     >
       <Tooltip label="Klik om aan te passen" shouldWrapChildren={true}>
         <EditablePreview

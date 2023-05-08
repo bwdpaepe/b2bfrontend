@@ -1,3 +1,4 @@
+import authHeader from "./auth-header";
 import http from "./http";
 
 export async function bestellingenByAankoper() {
@@ -16,17 +17,21 @@ export async function bestellingenByAankoper() {
 }
 
 export async function postBestellingen(
-  leverancierbedrijfId: number,
+  leverancierbedrijfId: string,
   doosId: number,
   leveradresStraat: string,
-  leveradresNummer: number,
+  leveradresNummer: string,
   leveradresPostcode: string,
   leveradresStad: string,
   leveradresLand: string
 ) {
   try {
     const response = await http.post(
-      `/bestellingen?leverancierbedrijfId=${leverancierbedrijfId}&doosId=${doosId}&leveradresStraat=${leveradresStraat}&leveradresNummer=${leveradresNummer}&leveradresPostcode=${leveradresPostcode}&leveradresStad=${leveradresStad}&leveradresLand=${leveradresLand}`
+      `bestellingen?leverancierbedrijfId=${leverancierbedrijfId}&doosId=${doosId}&leveradresStraat=${leveradresStraat}&leveradresNummer=
+      ${leveradresNummer}&leveradresPostcode=${leveradresPostcode}&leveradresStad=${leveradresStad}&leveradresLand=${leveradresLand}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("Token") },
+      }
     );
     if (response.data) {
       return response.data;
