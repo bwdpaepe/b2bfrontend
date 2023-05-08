@@ -12,7 +12,6 @@ import {
 import notificationsIcon from "../../assets/icons/Notifications.png";
 import { checkNew, checkUnread } from "../../service/notifications";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { NOTIFICATION_TYPE, Store } from "react-notifications-component";
 import useInterval from "@use-it/interval";
 import { UserContext } from "../../App";
 import { getLimitedNotifications } from "../../service/notifications";
@@ -20,6 +19,7 @@ import { useNavigate } from "react-router";
 import NotificationCardMini from "./NotificationCardMini";
 import Notifications from "../../type/Notifications";
 import ErrorMessage from "./ErrorMessage";
+import { showNotification } from "../../util/showNotification";
 
 export default function NotificationButton() {
   const [error, setError] = useState("");
@@ -58,24 +58,8 @@ export default function NotificationButton() {
 
   useInterval(_getNew, 10000);
 
-  function showNotification(message: string, type : NOTIFICATION_TYPE, title : string) {
-    Store.addNotification({
-      title: title,
-      message: message,
-      type: type,
-      insert: "top",
-      container: "bottom-left",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true,
-      },
-    });
-  }
-
-
   const _checkUnread = useCallback(async () => {
+    if(userContext){
     try {
       const _unreadAmount: number = await checkUnread();
       if (_unreadAmount > 99) {
@@ -86,7 +70,7 @@ export default function NotificationButton() {
     } catch (error: any) {
       setError(error.message);
     }
-  }, []);
+}}, []);
 
   useEffect(() => {
     _checkUnread();

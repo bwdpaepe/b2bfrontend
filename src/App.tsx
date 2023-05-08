@@ -7,11 +7,12 @@ import Home from "./components/mainPages/Home";
 import BestellingenLijst from "./components/mainPages/BestellingenLijst";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
-import Winkelmand from "./components/mainPages/Winkelmand";
+import Winkelmand from "./components/mainPages/WinkelmandPage";
 import Producten from "./components/mainPages/Producten";
 
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
+import WinkelmandPage from "./components/mainPages/WinkelmandPage";
 
 export const UserContext = React.createContext("");
 
@@ -42,7 +43,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/bestellingen" element={<BestellingenLijst />} />
               <Route path="/notificaties" element={<Notificaties />} />
-              <Route path="/winkelmand" element={<Winkelmand />} />
+              <Route path="/winkelmand" element={<WinkelmandPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route
                 path="/producten/:bedrijfIdString"
