@@ -99,7 +99,7 @@ export default function ProductDetails() {
                       <Text as={"span"} fontWeight={"bold"}>
                         Prijs:
                       </Text>
-                      <Text> €{product?.eenheidsprijs}</Text>
+                      <Text> €{product?.eenheidsprijs.toFixed(2)}</Text>
                     </HStack>
                   </ListItem>
 
