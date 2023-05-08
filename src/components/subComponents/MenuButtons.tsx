@@ -40,6 +40,7 @@ export default function MenuButtons() {
             </Button>
             <Button
               className="menuButton"
+              display={userContext.length > 0 ? "flex" : "none"}
               onClick={() => {
                 handleNavigate("bestellingen");
               }}
@@ -48,7 +49,7 @@ export default function MenuButtons() {
                 src={order}
                 boxSize="80px"
                 fit="fill"
-                display={userContext.length > 0 ? "flex" : "none"}
+                
               />
             </Button>
             <NotificationButton />
