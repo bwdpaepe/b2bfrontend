@@ -9,12 +9,14 @@ import { Container } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import Bestelling from "../../type/Bestelling";
 //import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css"
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
+import enumKeys from "../../util/Util";
 
 type UnitConversion = {
     orderId: string;
@@ -57,6 +59,11 @@ export default function BestellingenLijst(){
     const [searchDatum, setSearchDatum] = useState('');
     const [textStatus, setTextStatus] = useState('');
     const [searchStatus, setSearchStatus] = useState('');
+
+    const navigate = useNavigate();
+    function handleNavigate(pathname: string) {
+      navigate(pathname);
+    }
     
     useEffect(() => {
         async function fetchBestellingen() {
@@ -71,7 +78,7 @@ export default function BestellingenLijst(){
     bestellingen = bestellingen.map((bestelling:Bestelling) => {
       return {...bestelling,
               email: bestelling.aankoper.email,
-              details: (<Button colorScheme='white'>Zie details</Button>)
+              details: (<Button colorScheme='white' onClick={() => handleNavigate(`/bestellingen/${bestelling.bestellingId}`)}>Zie details</Button>)
           };
     });
 
@@ -110,14 +117,12 @@ export default function BestellingenLijst(){
         <GridItem w='100%' h='10' className='gridItem'>
           <Select placeholder='Selecteer status' onChange={(e) => setTextStatus(e.target.value)}>
           {
-            //Object.values(BestellingStatus).map((value: string, index: number, array: string[]) => {return (<option></option>);})
-            
+            enumKeys(BestellingStatus)
+              .map((status: string) => {
+                return(<option key={status} value={BestellingStatus[parseInt(status)]}>{BestellingStatus[parseInt(status)]}</option>)
+              })
           }
-            <option key={1} value={BestellingStatus.GEPLAATST}>GEPLAATST</option>
-            <option key={2} value={BestellingStatus.VERWERKT}>VERWERKT</option>
-            <option key={3} value={BestellingStatus.VERZONDEN}>VERZONDEN</option>
-            <option key={4} value={BestellingStatus.UIT_VOOR_LEVERING}>UIT VOOR LEVERING</option>
-            <option key={5} value={BestellingStatus.GELEVERD}>GELEVERD</option>
+            
           </Select></GridItem>
         <GridItem w='100%' h='10' className='gridItem'>
           <IconButton aria-label='Filter bestellingen' colorScheme='white' icon={<SearchIcon />} onClick={()=>{
