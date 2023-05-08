@@ -13,6 +13,9 @@ import Producten from "./components/mainPages/Producten";
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
 import WinkelmandPage from "./components/mainPages/WinkelmandPage";
+import BestellingPage from "./components/mainPages/BestellingPage";
+import BestellingDetails from "./components/mainPages/BestellingDetails";
+import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
 
 export const UserContext = React.createContext("");
 
@@ -53,6 +56,15 @@ function App() {
                 path="/producten/:bedrijfIdString/:productIdString"
                 element={<ProductDetails />}
               />
+              <Route
+                path="/bestellingen/:bestellingIdString"
+                element={<BestellingDetails />}
+              />
+              <Route
+                path="/bestellingen/:bestellingIdString/track-and-trace"
+                element={<BestellingTrackAndTrace />}
+              />
+              <Route path="/track-and-trace" element={<BestellingTrackAndTrace />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>

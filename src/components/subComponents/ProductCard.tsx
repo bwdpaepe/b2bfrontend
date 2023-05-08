@@ -51,13 +51,13 @@ export default function ProductCard({
       <Stack direction="column">
         <CardBody>
           <Heading size="md">{product.naam}</Heading>
-          <Heading size="md">€{product.eenheidsprijs}</Heading>
+          <Heading size="md">€{product.eenheidsprijs.toFixed(2)}</Heading>
           {product.voorraad === 0 ? (
             <Text>{product.naam} is niet beschikbaar</Text>
           ) : (
             <Text>Voorraad: {product.voorraad} stuks</Text>
           )}
-
+          <Text>Categorie: {product.categorie.naam}</Text>
           <Text
             color="red"
             onClick={() =>
@@ -71,22 +71,6 @@ export default function ProductCard({
         <CardFooter>
           {product.voorraad === 0 ? null : (
             <Flex alignItems="center" display={{ base: "none", sm: "flex" }}>
-              {/* <NumberInput
-                defaultValue={1}
-                min={1}
-                max={product.voorraad}
-                variant="filled"
-                focusBorderColor="#ec4842"
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Button variant="solid" className="button">
-                <AiOutlineShoppingCart size="2.5rem" />
-              </Button> */}
               <ProductQuantitySelector product={product} />
             </Flex>
           )}

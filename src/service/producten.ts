@@ -9,7 +9,7 @@ export async function productenByBedrijfId(bedrijfId: number) {
   }
 }
 
-export async function productenByProductId(productId: number) {
+export async function productByProductId(productId: number) {
   try {
     const response = await http.get(`/products/${productId}`);
     return response.data;
