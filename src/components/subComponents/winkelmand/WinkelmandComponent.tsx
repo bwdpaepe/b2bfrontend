@@ -32,6 +32,7 @@ export default function WinkelmandComponent() {
   function sorteerWinkelmand(){
     const _sortedWinkelmand = WinkelmandProductenSorteerder(winkelmand!);
     setSortedWinkelmand(_sortedWinkelmand)
+    console.log(winkelmand, sortedWinkelmand)
   }
 
 
@@ -50,7 +51,7 @@ export default function WinkelmandComponent() {
   return (
     <>
     
-      {sortedWinkelmand && winkelmand ? (
+      {sortedWinkelmand && sortedWinkelmand!.length > 0 && winkelmand? (
         <WinkelmandCardHolder winkelmand={sortedWinkelmand} totalPrices = {winkelmand.totalPrice} />
       ) : ( 
         <WinkelmandCardHolder winkelmand = {null} totalPrices = {null} /> 
