@@ -12,7 +12,7 @@ import Producten from "./components/mainPages/Producten";
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
 import WinkelmandPage from "./components/mainPages/WinkelmandPage";
-import BestellingPage from "./components/mainPages/BestellingPage";
+import BestellingPage from "./components/mainPages/BestellingOrderPage";
 import BestellingDetails from "./components/mainPages/BestellingDetails";
 import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
 

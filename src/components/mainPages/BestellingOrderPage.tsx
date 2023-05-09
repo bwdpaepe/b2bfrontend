@@ -22,7 +22,7 @@ import OrderOverviewBoxLine from "../subComponents/bestelling/OrderOverviewBoxLi
 import OrderOverviewProductLine from "../subComponents/bestelling/OrderOverviewProductLine";
 import { postBestellingen } from "../../service/bestellingen";
 import Adres from "../../type/Adres";
-export default function BestellingPage() {
+export default function BestellingOrderPage() {
   const { leverancierIdString, userIdString } = useParams();
   const toast = useToast();
   const [dozen, setDozen] = useState<Doos[]>([]);
@@ -158,7 +158,7 @@ export default function BestellingPage() {
         onClick={() => handleNavigate(`/winkelmand`)}
         _hover={{ cursor: "pointer", textDecoration: "underline" }}
       >{`< Winkelwagen`}</Text>
-      <Flex mt={4} flexWrap={"wrap"} justifyContent={"space-between"}>
+      <Flex mt={4} flexWrap={"wrap"} justifyContent={"space-evenly"}>
         <Box p={2} ml={4} alignItems={"flex-start"} flex={1}>
           <Text fontSize={"xl"} fontWeight={"bold"} fontStyle={"italic"} mb={2}>
             Leveradres
