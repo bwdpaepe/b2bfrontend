@@ -115,7 +115,8 @@ export default function ProductenLijst({
         templateColumns={{
           base: "repeat(1, minmax(0, 1fr))",
           md: "repeat(1, minmax(0, 1fr))",
-          lg: "repeat(5, minmax(0, 1fr))",
+          lg: "repeat(2, minmax(0, 1fr))",
+          xl: "repeat(4, minmax(0, 1fr))",
         }}
         gap={3}
         p={3}

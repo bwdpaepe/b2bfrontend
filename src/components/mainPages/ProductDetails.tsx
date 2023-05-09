@@ -11,19 +11,12 @@ import {
   Image,
   Flex,
   VStack,
-  // Button,
   SimpleGrid,
   useColorModeValue,
   List,
   ListItem,
-  // NumberInput,
-  // NumberInputField,
-  // NumberInputStepper,
-  // NumberIncrementStepper,
-  // NumberDecrementStepper,
   Divider,
 } from "@chakra-ui/react";
-// import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProductQuantitySelector from "../subComponents/ProductQuantitySelector";
 
 export default function ProductDetails() {
@@ -128,33 +121,9 @@ export default function ProductDetails() {
               </Box>
             </Stack>
             <Stack direction="row" alignItems="center">
-              {/* <NumberInput
-                defaultValue={1}
-                min={1}
-                max={product?.voorraad}
-                variant="filled"
-                focusBorderColor="#ec4842"
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Button
-                variant="solid"
-                className="button"
-                mt={4}
-                py={"4"}
-                w={"full"}
-                _hover={{
-                  transform: "translateY(2px)",
-                  boxShadow: "lg",
-                }}
-              >
-                <AiOutlineShoppingCart size="2.5rem" />
-              </Button> */}
-              {product && <ProductQuantitySelector product={product} />}
+              {product && product?.voorraad > 0 && (
+                <ProductQuantitySelector product={product} />
+              )}
             </Stack>
             <Text
               color="#ec4842"

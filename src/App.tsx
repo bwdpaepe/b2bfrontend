@@ -7,13 +7,12 @@ import Home from "./components/mainPages/Home";
 import BestellingenLijst from "./components/mainPages/BestellingenLijst";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
-import Winkelmand from "./components/mainPages/WinkelmandPage";
 import Producten from "./components/mainPages/Producten";
 
 import Profile from "./components/mainPages/Profile";
 import ProductDetails from "./components/mainPages/ProductDetails";
 import WinkelmandPage from "./components/mainPages/WinkelmandPage";
-import BestellingPage from "./components/mainPages/BestellingPage";
+import BestellingPage from "./components/mainPages/BestellingOrderPage";
 import BestellingDetails from "./components/mainPages/BestellingDetails";
 import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
 
@@ -64,7 +63,14 @@ function App() {
                 path="/bestellingen/:bestellingIdString/track-and-trace"
                 element={<BestellingTrackAndTrace />}
               />
-              <Route path="/track-and-trace" element={<BestellingTrackAndTrace />} />
+              <Route
+                path="/bestelling/:leverancierIdString/:userIdString"
+                element={<BestellingPage />}
+              />
+              <Route
+                path="/track-and-trace"
+                element={<BestellingTrackAndTrace />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>
