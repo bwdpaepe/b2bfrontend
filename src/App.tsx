@@ -64,7 +64,14 @@ function App() {
                 path="/bestellingen/:bestellingIdString/track-and-trace"
                 element={<BestellingTrackAndTrace />}
               />
-              <Route path="/track-and-trace" element={<BestellingTrackAndTrace />} />
+              <Route
+                path="/bestelling/:leverancierIdString/:userIdString"
+                element={<BestellingPage />}
+              />
+              <Route
+                path="/track-and-trace"
+                element={<BestellingTrackAndTrace />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </GridItem>
