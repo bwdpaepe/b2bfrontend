@@ -127,25 +127,36 @@ export default function BestellingOrderPage() {
     }
   };
 
-  const handleBestellingClick = () => {
+  const handleBestellingClick = async () => {
     console.log("Bestelling geplaatst");
-    postBestellingen(
-      leverancierIdString!,
-      geselecteerdeDoos?.doosId!,
-      adresgegevens.straat,
-      adresgegevens.huisnummer,
-      adresgegevens.postcode,
-      adresgegevens.stad,
-      adresgegevens.land
-    );
-    toast({
-      title: "Bestelling geplaatst",
-      description: "Uw bestelling is geplaatst",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    handleNavigate(`/`);
+    try {
+      const response = await postBestellingen(
+        leverancierIdString!,
+        geselecteerdeDoos?.doosId!,
+        adresgegevens.straat,
+        adresgegevens.huisnummer,
+        adresgegevens.postcode,
+        adresgegevens.stad,
+        adresgegevens.land
+      );
+      console.log(response.data);
+      toast({
+        title: "Bestelling geplaatst",
+        description: "Uw bestelling is geplaatst",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      handleNavigate(`/`);
+    } catch (error: any) {
+      toast({
+        title: `${error} `,
+        description: "Er is iets misgegaan",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
