@@ -7,7 +7,6 @@ import Home from "./components/mainPages/Home";
 import BestellingenLijst from "./components/mainPages/BestellingenLijst";
 import Notificaties from "./components/mainPages/Notificaties";
 import NotFound from "./components/mainPages/NotFound";
-import Winkelmand from "./components/mainPages/WinkelmandPage";
 import Producten from "./components/mainPages/Producten";
 
 import Profile from "./components/mainPages/Profile";
