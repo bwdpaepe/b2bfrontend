@@ -1,4 +1,4 @@
-import { Box, Center, Text, Button } from "@chakra-ui/react";
+import { Box, Center, Text, Button, useToast } from "@chakra-ui/react";
 import WinkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
 import WinkelmandProductEntry from "./WinkelmandProductEntry";
@@ -14,6 +14,7 @@ export default function WinkelmandCard(props: {
   leverancierId: number | null;
 }) {
   const userContext = useContext(UserContext);
+  const toast = useToast();
   let loggedInUser: User | null = null;
   if (userContext.length > 0) {
     loggedInUser = JSON.parse(userContext);
@@ -25,7 +26,13 @@ export default function WinkelmandCard(props: {
 
   async function handleBestelling() {
     if (!userContext) {
-      alert("Je moet ingelogd zijn om te kunnen bestellen");
+      toast({
+        title: "Je bent niet ingelogd",
+        description: "Log in om een bestelling te plaatsen",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
 
       return;
     }
