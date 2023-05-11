@@ -16,16 +16,11 @@ import BestellingPage from "./components/mainPages/BestellingOrderPage";
 import BestellingDetails from "./components/mainPages/BestellingDetails";
 import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
 
-export const UserContext = React.createContext("");
 
 function App() {
   return (
     <>
-      <UserContext.Provider
-        value={
-          localStorage.getItem("User") ? localStorage.getItem("User")! : ""
-        }
-      >
+
         <Grid
           templateAreas={`"menu""content""footer"`}
           h="100vh"
@@ -78,7 +73,7 @@ function App() {
             <Footer />
           </GridItem>
         </Grid>
-      </UserContext.Provider>
+
     </>
   );
 }
