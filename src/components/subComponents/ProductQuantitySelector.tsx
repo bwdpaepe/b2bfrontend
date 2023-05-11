@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "../../App";
+
 import {
   NumberInput,
   NumberInputField,
@@ -18,6 +18,7 @@ import { addProductToWinkelmand } from "../../service/winkelmand";
 import Winkelmand from "../../type/Winkelmand";
 import TotalPrice from "../../type/TotalPrice";
 import winkelmandProduct from "../../type/WinkelmandProduct";
+import useLoggedUser from "../../util/useLoggedUser";
 
 interface ProductQuantitySelectorProps {
   product: Product;
@@ -26,7 +27,7 @@ interface ProductQuantitySelectorProps {
 export default function ProductQuantitySelector({
   product,
 }: ProductQuantitySelectorProps) {
-  const user = useContext(UserContext);
+  const [user]  = useLoggedUser();
   const [quantity, setQuantity] = useState(1);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
