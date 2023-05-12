@@ -6,11 +6,11 @@ import order from "../../assets/icons/order.png";
 import delivery from "../../assets/icons/delivery.png";
 import AanmeldModal from "./AanmeldModal";
 import NotificationButton from "./NotificationButton";
-import { UserContext } from "../../App";
 import { useContext } from "react";
+import useLoggedUser from "../../util/useLoggedUser";
 
 export default function MenuButtons() {
-  const userContext = useContext(UserContext);
+ const [user] = useLoggedUser();
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -40,7 +40,7 @@ export default function MenuButtons() {
             </Button>
             <Button
               className="menuButton"
-              display={userContext.length > 0 ? "flex" : "none"}
+              display={user.length ? "flex" : "none"}
               onClick={() => {
                 handleNavigate("bestellingen");
               }}

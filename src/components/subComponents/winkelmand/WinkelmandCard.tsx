@@ -2,7 +2,7 @@ import { Box, Center, Text, Button, useToast } from "@chakra-ui/react";
 import WinkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
 import WinkelmandProductEntry from "./WinkelmandProductEntry";
-import { UserContext } from "../../../App";
+import useLoggedUser from "../../../util/useLoggedUser";
 import User from "../../../type/User";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
@@ -13,11 +13,11 @@ export default function WinkelmandCard(props: {
   leverancier: string | null;
   leverancierId: number | null;
 }) {
-  const userContext = useContext(UserContext);
+  const [user] = useLoggedUser();
   const toast = useToast();
   let loggedInUser: User | null = null;
-  if (userContext.length > 0) {
-    loggedInUser = JSON.parse(userContext);
+  if (user.length) {
+    loggedInUser = JSON.parse(user);
   }
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -25,7 +25,7 @@ export default function WinkelmandCard(props: {
   }
 
   async function handleBestelling() {
-    if (!userContext) {
+    if (!loggedInUser) {
       toast({
         title: "Je bent niet ingelogd",
         description: "Log in om een bestelling te plaatsen",

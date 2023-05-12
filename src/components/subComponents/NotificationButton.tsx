@@ -13,13 +13,14 @@ import notificationsIcon from "../../assets/icons/Notifications.png";
 import { checkNew, checkUnread } from "../../service/notifications";
 import { useCallback, useContext, useEffect, useState } from "react";
 import useInterval from "@use-it/interval";
-import { UserContext } from "../../App";
+
 import { getLimitedNotifications } from "../../service/notifications";
 import { useNavigate } from "react-router";
 import NotificationCardMini from "./NotificationCardMini";
 import Notifications from "../../type/Notifications";
 import ErrorMessage from "./ErrorMessage";
 import { showNotification } from "../../util/showNotification";
+import useLoggedUser from "../../util/useLoggedUser";
 
 export default function NotificationButton() {
   const [error, setError] = useState("");
@@ -27,6 +28,7 @@ export default function NotificationButton() {
   const [limitedNotifications, setLimitedNotifications] =
     useState<Notifications[]>();
   const [isLoading, toggleLoading] = useBoolean();
+  const [user] = useLoggedUser();
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -34,10 +36,10 @@ export default function NotificationButton() {
     window.location.reload(); // reload the page to update the notifications list
   }
 
-  const userContext = useContext(UserContext);
+  
 
   const _getNew = useCallback(async () => {
-    if (userContext.length > 0) {
+    if (user) {
       try {
         const _newAmount = await checkNew();
         if (_newAmount > 0) {
@@ -59,7 +61,7 @@ export default function NotificationButton() {
   useInterval(_getNew, 10000);
 
   const _checkUnread = useCallback(async () => {
-    if(userContext){
+    if(user){
     try {
       const _unreadAmount: number = await checkUnread();
       if (_unreadAmount > 99) {
@@ -95,7 +97,7 @@ export default function NotificationButton() {
           as={MenuButton}
           className="menuButton"
           onClick={() => handleClick()}
-          display={userContext.length > 0 ? "flex" : "none"}
+          display={user.length ? "flex" : "none"}
         >
           <Center>
             <Box id="notificationButton" bgImage={notificationsIcon}>
