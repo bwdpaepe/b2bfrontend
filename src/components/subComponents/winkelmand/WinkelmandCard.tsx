@@ -12,6 +12,8 @@ export default function WinkelmandCard(props: {
   totalPrice: TotalPrice | null;
   leverancier: string | null;
   leverancierId: number | null;
+  updateProductQuantity: (productId: number, newQuantity: number) => void;
+  deleteProduct: (productId: number) => void;
 }) {
   const [user] = useLoggedUser();
   const toast = useToast();
@@ -52,7 +54,11 @@ export default function WinkelmandCard(props: {
               <Text fontWeight="bold">Leverancier: {props.leverancier}</Text>
               <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
               {props.producten.map((product) => (
-                <WinkelmandProductEntry product={product} />
+                <WinkelmandProductEntry
+                  product={product}
+                  updateProductQuantity={props.updateProductQuantity}
+                  deleteProduct={props.deleteProduct}
+                />
               ))}{" "}
               <Text fontWeight="bold">
                 {" "}
