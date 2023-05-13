@@ -55,7 +55,11 @@ export default function WinkelmandComponent() {
 
   // delete a product in the winkelmand, this is passed down to the WinkelmandProductEntry component
   const deleteProduct = (productId: number) => {
-    if (!winkelmand) return;
+    console.log("deleteProduct called with productId: " + productId);
+    if (!winkelmand) {
+      console.log("winkelmand is null");
+      return;
+    }
 
     const newWinkelmand: Winkelmand = JSON.parse(JSON.stringify(winkelmand));
     newWinkelmand.winkelmandProducten =

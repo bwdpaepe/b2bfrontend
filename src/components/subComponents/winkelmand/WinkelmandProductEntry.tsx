@@ -1,6 +1,20 @@
-import { Box, Grid, GridItem, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Text,
+} from "@chakra-ui/react";
 import winkelmandProduct from "../../../type/WinkelmandProduct";
 import { useState, useEffect } from "react";
+import { AiFillDelete } from "react-icons/ai";
 
 export default function WinkelmandProductEntry(props: {
   product: winkelmandProduct;
@@ -12,28 +26,50 @@ export default function WinkelmandProductEntry(props: {
   // useEffect is used to delay the updateProductQuantity function call and prevent it from being called too often.
   // https://usehooks-ts.com/react-hook/use-debounce
   useEffect(() => {
-    console.log("useEffect in WinkelmandProductEntry to delay updateProductQuantity");
+    console.log(
+      "useEffect in WinkelmandProductEntry to delay updateProductQuantity"
+    );
     const timer = setTimeout(() => {
       if (quantity !== props.product.aantal) {
         props.updateProductQuantity(props.product.product.productId, quantity);
       }
-    }, 1000);  // 1s
+    }, 1000); // 1s
 
     return () => clearTimeout(timer);
   }, [quantity, props]);
-  
+
   function handleClick() {}
 
-  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("handleQuantityChange with value " + event.target.value);
-    const newQuantity = parseInt(event.target.value);
-    if (!isNaN(newQuantity)) {
-        setQuantity(newQuantity);
+  //   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     console.log("handleQuantityChange with value " + event.target.value);
+  //     const newQuantity = parseInt(event.target.value);
+  //     if (!isNaN(newQuantity)) {
+  //       setQuantity(newQuantity);
+  //     }
+  //   };
+
+  const handleQuantityChange = (
+    valueAsString: string,
+    valueAsNumber: number
+  ) => {
+    console.log("handleQuantityChange with value " + valueAsNumber);
+    if (!isNaN(valueAsNumber)) {
+      setQuantity(valueAsNumber);
     }
   };
 
   const handleDeleteClick = () => {
-    props.deleteProduct(props.product.product.productId);
+    // if confirmed, call deleteProduct function
+    // else do nothing
+    if (
+      window.confirm(
+        "Weet je zeker dat je " +
+          props.product.product.naam +
+          " uit je winkelmand wilt verwijderen?"
+      )
+    ) {
+      props.deleteProduct(props.product.product.productId);
+    }
   };
 
   return (
@@ -51,7 +87,7 @@ export default function WinkelmandProductEntry(props: {
           </GridItem>
           <GridItem>
             <Box className="winkelmandProductNaam">
-              <Text>
+              {/* <Text>
                 Aantal:{" "}
                 <Input
                   display="inline-block"
@@ -61,7 +97,30 @@ export default function WinkelmandProductEntry(props: {
                   mb="2px"
                   onChange={handleQuantityChange}
                 ></Input>
-              </Text>
+              </Text> */}
+              <Flex flexDirection="row" alignItems="center">
+                <Text mr={1}>Aantal: </Text>
+                <NumberInput
+                  display="inline-block"
+                  width="80px"
+                  height="30px"
+                  alignContent={"center"}
+                  mb={"10px"}
+                  //mb="20px"
+                  value={quantity}
+                  min={1}
+                  max={props.product.product.voorraad}
+                  variant="filled"
+                  focusBorderColor="#ec4842"
+                  onChange={handleQuantityChange}
+                >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper mt={1.5} />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Flex>
             </Box>
           </GridItem>
           <GridItem>
@@ -78,6 +137,22 @@ export default function WinkelmandProductEntry(props: {
             <Box className="winkelmandProductNaam">
               <Text> totaal: {props.product.subtotal.toFixed(2)} €</Text>
             </Box>
+          </GridItem>
+          <GridItem>
+            <Button
+              variant="solid"
+              className="button"
+              width="60px"
+              ml={4}
+              py={"4"}
+              _hover={{
+                //transform: "translateY(2px)",
+                boxShadow: "lg",
+              }}
+              onClick={handleDeleteClick}
+            >
+              <AiFillDelete size="2.5rem" />
+            </Button>
           </GridItem>
         </Grid>
       </Box>
