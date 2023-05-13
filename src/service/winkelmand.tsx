@@ -32,3 +32,12 @@ export async function addEditProductToWinkelmand(productId: number, quantity: nu
     throw new Error(error.response.data.error);
   }
 }
+
+export async function deleteProductFromWinkelmand(productId: number) {
+  try {
+    const response = await http.delete(`/winkelmand/deleteProduct/${productId}`, { headers: authHeader() });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response.data.error);
+  }
+}

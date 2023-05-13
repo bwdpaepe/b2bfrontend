@@ -8,7 +8,10 @@ import useLoggedUser from "../../../util/useLoggedUser";
 import winkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
 import { Box, Center, Text } from "@chakra-ui/react";
-import { addEditProductToWinkelmand } from "../../../service/winkelmand";
+import {
+  addEditProductToWinkelmand,
+  deleteProductFromWinkelmand,
+} from "../../../service/winkelmand";
 
 export default function WinkelmandComponent() {
   const [winkelmand, setWinkelmand] = useState<Winkelmand>();
@@ -60,30 +63,28 @@ export default function WinkelmandComponent() {
 
     if (productToUpdate) {
       const quantityDiff = newQuantity - productToUpdate.aantal; // needed to update the total price of the winkelmand in localStorage
-        productToUpdate.aantal = newQuantity;
-        productToUpdate.subtotal =
-          productToUpdate.product.eenheidsprijs * newQuantity;
+      productToUpdate.aantal = newQuantity;
+      productToUpdate.subtotal =
+        productToUpdate.product.eenheidsprijs * newQuantity;
 
-        // update totalPrice
-        const priceIndex = newWinkelmand.totalPrice.findIndex(
-          (item: TotalPrice) =>
-            item.bedrijfId === productToUpdate.product.bedrijf.bedrijfId
-        );
+      // update totalPrice
+      const priceIndex = newWinkelmand.totalPrice.findIndex(
+        (item: TotalPrice) =>
+          item.bedrijfId === productToUpdate.product.bedrijf.bedrijfId
+      );
 
-        if (priceIndex > -1) {
-          newWinkelmand.totalPrice[priceIndex].value +=
-            productToUpdate.product.eenheidsprijs * quantityDiff; // quantityDiff is used here, not newQuantity, because newQuantity is the new quantity of the product, not the difference between the old and new quantity
-        }
+      if (priceIndex > -1) {
+        newWinkelmand.totalPrice[priceIndex].value +=
+          productToUpdate.product.eenheidsprijs * quantityDiff; // quantityDiff is used here, not newQuantity, because newQuantity is the new quantity of the product, not the difference between the old and new quantity
+      }
 
       if (user) {
         // If the user is logged in, update the winkelmand in the database
-        // TODO: uncomment this when the backend is ready, this is not yet implemented
         await addEditProductToWinkelmand(
           productToUpdate.product.productId,
           newQuantity,
           true // isUpdate, this optional parameter is true because we are updating the quantity of a product
         );
-        
       } else {
         // If the user is not logged in, update the winkelmand in localStorage
         localStorage.setItem("winkelmand", JSON.stringify(newWinkelmand));
@@ -95,7 +96,7 @@ export default function WinkelmandComponent() {
   };
 
   // delete a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
-  const deleteProduct = (productId: number) => {
+  const deleteProduct = async (productId: number) => {
     console.log("deleteProduct called with productId: " + productId);
     if (!winkelmand) {
       console.log("winkelmand is null");
@@ -103,10 +104,6 @@ export default function WinkelmandComponent() {
     }
 
     const newWinkelmand: Winkelmand = JSON.parse(JSON.stringify(winkelmand));
-    // newWinkelmand.winkelmandProducten =
-    //   newWinkelmand.winkelmandProducten.filter(
-    //     (product: winkelmandProduct) => product.product.productId !== productId
-    //   );
     const productIndex = newWinkelmand.winkelmandProducten.findIndex(
       (product: winkelmandProduct) => product.product.productId === productId
     );
@@ -114,33 +111,30 @@ export default function WinkelmandComponent() {
     if (productIndex > -1) {
       const productToDelete = newWinkelmand.winkelmandProducten[productIndex];
 
+      // update totalPrice
+      const priceIndex = newWinkelmand.totalPrice.findIndex(
+        (item: TotalPrice) =>
+          item.bedrijfId === productToDelete.product.bedrijf.bedrijfId
+      );
+
+      if (priceIndex > -1) {
+        newWinkelmand.totalPrice[priceIndex].value -= productToDelete.subtotal;
+        newWinkelmand.totalPrice[priceIndex].value =
+          Math.round(newWinkelmand.totalPrice[priceIndex].value * 100) / 100; // round to 2 decimals (because of floating point errors)
+        // if the total price for this bedrijf is now 0, remove it from the totalPrice array
+        if (newWinkelmand.totalPrice[priceIndex].value === 0) {
+          newWinkelmand.totalPrice.splice(priceIndex, 1);
+        }
+      }
+
+      // remove product from winkelmand
+      newWinkelmand.winkelmandProducten.splice(productIndex, 1);
+
       if (user) {
         // If the user is logged in, delete the product from the winkelmand in the database
-        // TODO: uncomment this when the backend is ready
-        // await deleteProductFromWinkelmand(productId);
+        await deleteProductFromWinkelmand(productId);
       } else {
         // If the user is not logged in, delete the product from the winkelmand in localStorage
-
-        // update totalPrice
-        const priceIndex = newWinkelmand.totalPrice.findIndex(
-          (item: TotalPrice) =>
-            item.bedrijfId === productToDelete.product.bedrijf.bedrijfId
-        );
-
-        if (priceIndex > -1) {
-          newWinkelmand.totalPrice[priceIndex].value -=
-            productToDelete.subtotal;
-          newWinkelmand.totalPrice[priceIndex].value =
-            Math.round(newWinkelmand.totalPrice[priceIndex].value * 100) / 100; // round to 2 decimals (because of floating point errors)
-          // if the total price for this bedrijf is now 0, remove it from the totalPrice array
-          if (newWinkelmand.totalPrice[priceIndex].value === 0) {
-            newWinkelmand.totalPrice.splice(priceIndex, 1);
-          }
-        }
-
-        // remove product from winkelmand
-        newWinkelmand.winkelmandProducten.splice(productIndex, 1);
-
         localStorage.setItem("winkelmand", JSON.stringify(newWinkelmand));
       }
 
