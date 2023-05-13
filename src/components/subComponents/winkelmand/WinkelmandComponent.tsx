@@ -59,24 +59,7 @@ export default function WinkelmandComponent() {
     );
 
     if (productToUpdate) {
-
-      if (user) {
-        // If the user is logged in, update the winkelmand in the database
-        // TODO: uncomment this when the backend is ready, this is not yet implemented
-        await addEditProductToWinkelmand(
-          productToUpdate.product.productId,
-          newQuantity,
-          true // isUpdate, this optional parameter is true because we are updating the quantity of a product
-        );
-        console.log("TEST TEST TEST")
- 
-        // fetch the updated winkelmand from the database
-        await _getWinkelmand();
-        window.location.reload();
-        
-      } else {
-        // If the user is not logged in, update the winkelmand in localStorage
-        const quantityDiff = newQuantity - productToUpdate.aantal; // needed to update the total price of the winkelmand in localStorage
+      const quantityDiff = newQuantity - productToUpdate.aantal; // needed to update the total price of the winkelmand in localStorage
         productToUpdate.aantal = newQuantity;
         productToUpdate.subtotal =
           productToUpdate.product.eenheidsprijs * newQuantity;
@@ -92,6 +75,17 @@ export default function WinkelmandComponent() {
             productToUpdate.product.eenheidsprijs * quantityDiff; // quantityDiff is used here, not newQuantity, because newQuantity is the new quantity of the product, not the difference between the old and new quantity
         }
 
+      if (user) {
+        // If the user is logged in, update the winkelmand in the database
+        // TODO: uncomment this when the backend is ready, this is not yet implemented
+        await addEditProductToWinkelmand(
+          productToUpdate.product.productId,
+          newQuantity,
+          true // isUpdate, this optional parameter is true because we are updating the quantity of a product
+        );
+        
+      } else {
+        // If the user is not logged in, update the winkelmand in localStorage
         localStorage.setItem("winkelmand", JSON.stringify(newWinkelmand));
       }
 
