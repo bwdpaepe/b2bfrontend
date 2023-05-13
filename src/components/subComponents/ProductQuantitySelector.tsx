@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
-import { addProductToWinkelmand } from "../../service/winkelmand";
+import { addEditProductToWinkelmand } from "../../service/winkelmand";
 import Winkelmand from "../../type/Winkelmand";
 import TotalPrice from "../../type/TotalPrice";
 import winkelmandProduct from "../../type/WinkelmandProduct";
@@ -39,7 +39,7 @@ export default function ProductQuantitySelector({
       // if user is logged in, add product to winkelmand in database
       try {
         // Call addProductToWinkelmand with productId and quantity
-        await addProductToWinkelmand(product.productId, quantity);
+        await addEditProductToWinkelmand(product.productId, quantity);
         setSuccessMessage(succesMessageText);
         setTimeout(() => {
           setSuccessMessage("");

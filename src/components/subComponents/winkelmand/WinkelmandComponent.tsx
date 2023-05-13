@@ -8,6 +8,7 @@ import useLoggedUser from "../../../util/useLoggedUser";
 import winkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
 import { Box, Center, Text } from "@chakra-ui/react";
+import { addEditProductToWinkelmand } from "../../../service/winkelmand";
 
 export default function WinkelmandComponent() {
   const [winkelmand, setWinkelmand] = useState<Winkelmand>();
@@ -36,7 +37,10 @@ export default function WinkelmandComponent() {
 
   // update the quantity of a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
   // this is created here because the Winkelmand state is kept here
-  const updateProductQuantity = (productId: number, newQuantity: number) => {
+  const updateProductQuantity = async (
+    productId: number,
+    newQuantity: number
+  ) => {
     console.log(
       "updateProductQuantity called with productId: " +
         productId +
@@ -49,16 +53,27 @@ export default function WinkelmandComponent() {
     }
 
     // clone the winkelmand object before modifying it to avoid mutating state directly
-    const newWinkelmand: Winkelmand = JSON.parse(JSON.stringify(winkelmand));
+    let newWinkelmand: Winkelmand = JSON.parse(JSON.stringify(winkelmand));
     const productToUpdate = newWinkelmand.winkelmandProducten.find(
       (product: winkelmandProduct) => product.product.productId === productId
     );
 
     if (productToUpdate) {
+
       if (user) {
         // If the user is logged in, update the winkelmand in the database
         // TODO: uncomment this when the backend is ready, this is not yet implemented
-        //await updateProductInWinkelmand(productId, newQuantity);
+        await addEditProductToWinkelmand(
+          productToUpdate.product.productId,
+          newQuantity,
+          true // isUpdate, this optional parameter is true because we are updating the quantity of a product
+        );
+        console.log("TEST TEST TEST")
+ 
+        // fetch the updated winkelmand from the database
+        await _getWinkelmand();
+        window.location.reload();
+        
       } else {
         // If the user is not logged in, update the winkelmand in localStorage
         const quantityDiff = newQuantity - productToUpdate.aantal; // needed to update the total price of the winkelmand in localStorage
@@ -153,7 +168,9 @@ export default function WinkelmandComponent() {
 
   return (
     <>
-      {sortedWinkelmand && winkelmand && winkelmand.winkelmandProducten.length >= 1 ? (
+      {sortedWinkelmand &&
+      winkelmand &&
+      winkelmand.winkelmandProducten.length >= 1 ? (
         <WinkelmandCardHolder
           winkelmand={sortedWinkelmand}
           totalPrices={winkelmand.totalPrice}
