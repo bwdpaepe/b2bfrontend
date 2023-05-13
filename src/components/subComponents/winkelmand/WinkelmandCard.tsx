@@ -4,11 +4,10 @@ import TotalPrice from "../../../type/TotalPrice";
 import WinkelmandProductEntry from "./WinkelmandProductEntry";
 import useLoggedUser from "../../../util/useLoggedUser";
 import User from "../../../type/User";
-import { useContext } from "react";
 import { useNavigate } from "react-router";
 
 export default function WinkelmandCard(props: {
-  producten: WinkelmandProduct[] | null;
+  producten: WinkelmandProduct[] /*| null */;
   totalPrice: TotalPrice | null;
   leverancier: string | null;
   leverancierId: number | null;
@@ -25,6 +24,9 @@ export default function WinkelmandCard(props: {
   function handleNavigate(pathname: string) {
     navigate(pathname);
   }
+
+  console.log("WinkelmandCard props: ");
+  console.log(props.producten?.length);
 
   async function handleBestelling() {
     if (!loggedInUser) {
@@ -47,9 +49,9 @@ export default function WinkelmandCard(props: {
     <>
       <Center>
         <Box className="WinkelmandCard">
-          {props.producten === null ? (
+          {/* {!props.producten ? (
             <Text>Je winkelmand is leeg</Text>
-          ) : (
+          ) : ( */}
             <>
               <Text fontWeight="bold">Leverancier: {props.leverancier}</Text>
               <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
@@ -75,7 +77,7 @@ export default function WinkelmandCard(props: {
                 Bestellen
               </Button>
             </>
-          )}
+          {/* )} */}
         </Box>
       </Center>
     </>

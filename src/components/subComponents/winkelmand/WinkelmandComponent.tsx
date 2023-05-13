@@ -50,6 +50,15 @@ export default function WinkelmandComponent() {
       productToUpdate.aantal = newQuantity;
       setWinkelmand(newWinkelmand);
       // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
+
+      if (user) {
+        // If the user is logged in, update the winkelmand in the database
+        // TODO: uncomment this when the backend is ready
+        //await updateProductInWinkelmand(productId, newQuantity);
+      } else {
+        // If the user is not logged in, update the winkelmand in localStorage
+        localStorage.setItem('winkelmand', JSON.stringify(newWinkelmand));
+      }
     }
   };
 
@@ -69,6 +78,16 @@ export default function WinkelmandComponent() {
 
     setWinkelmand(newWinkelmand);
     // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
+
+    if (user) {
+      // If the user is logged in, delete the product from the winkelmand in the database
+      // TODO: uncomment this when the backend is ready
+      // await deleteProductFromWinkelmand(productId);
+
+    } else {
+      // If the user is not logged in, delete the product from the winkelmand in localStorage
+      localStorage.setItem('winkelmand', JSON.stringify(newWinkelmand));
+    }
   };
 
   useEffect(() => {

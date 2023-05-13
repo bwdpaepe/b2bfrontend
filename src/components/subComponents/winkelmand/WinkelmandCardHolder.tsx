@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Center } from "@chakra-ui/react";
 import WinkelmandCard from "./WinkelmandCard";
 import BedrijfProducten from "../../../type/BedrijfProducten";
 import TotalPrice from "../../../type/TotalPrice";
@@ -14,15 +14,20 @@ export default function WinkelmandCardHolder(props: {
   return (
     <>
       <Box id="WinkelmandCardHolder">
-        {props.winkelmand === null ? (
-          <WinkelmandCard
-            leverancier={null}
-            leverancierId={null}
-            producten={null}
-            totalPrice={null}
-            updateProductQuantity={props.updateProductQuantity}
-            deleteProduct={props.deleteProduct}
-          />
+        {props.winkelmand === null || props.winkelmand.length === 0 ? (
+          // <WinkelmandCard
+          //   leverancier={null}
+          //   leverancierId={null}
+          //   producten={null}
+          //   totalPrice={null}
+          //   updateProductQuantity={props.updateProductQuantity}
+          //   deleteProduct={props.deleteProduct}
+          // />
+          <Center>
+            <Box className="WinkelmandCard">
+              <Text>Je winkelmand is leeg</Text>
+            </Box>
+          </Center>
         ) : (
           <>
             {props.winkelmand.map((entry) => (
