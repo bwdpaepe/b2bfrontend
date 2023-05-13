@@ -14,7 +14,7 @@ export default function WinkelmandCardHolder(props: {
   return (
     <>
       <Box id="WinkelmandCardHolder">
-        {props.winkelmand === null || props.winkelmand.length === 0 ? (
+        {!props.winkelmand || props.winkelmand.length === 0 ? (
           // <WinkelmandCard
           //   leverancier={null}
           //   leverancierId={null}
