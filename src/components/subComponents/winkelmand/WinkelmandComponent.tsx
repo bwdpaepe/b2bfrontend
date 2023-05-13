@@ -6,10 +6,13 @@ import BedrijfProducten from "../../../type/BedrijfProducten";
 import WinkelmandProductenSorteerder from "../../../util/WinkelmandProductenSorteerder";
 import useLoggedUser from "../../../util/useLoggedUser";
 import winkelmandProduct from "../../../type/WinkelmandProduct";
+import TotalPrice from "../../../type/TotalPrice";
+import { Box, Center, Text } from "@chakra-ui/react";
 
 export default function WinkelmandComponent() {
   const [winkelmand, setWinkelmand] = useState<Winkelmand>();
-  const [sortedWinkelmand, setSortedWinkelmand] = useState<BedrijfProducten[]>();
+  const [sortedWinkelmand, setSortedWinkelmand] =
+    useState<BedrijfProducten[]>();
   const [user] = useLoggedUser();
 
   const _getWinkelmand = useCallback(async () => {
@@ -31,10 +34,15 @@ export default function WinkelmandComponent() {
     setSortedWinkelmand(_sortedWinkelmand);
   }
 
-  // update the quantity of a product in the winkelmand, this is passed down to the WinkelmandProductEntry component
+  // update the quantity of a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
   // this is created here because the Winkelmand state is kept here
   const updateProductQuantity = (productId: number, newQuantity: number) => {
-    console.log("updateProductQuantity called with productId: " + productId + " and newQuantity: " + newQuantity);
+    console.log(
+      "updateProductQuantity called with productId: " +
+        productId +
+        " and newQuantity: " +
+        newQuantity
+    );
     if (!winkelmand) {
       console.log("winkelmand is null");
       return;
@@ -47,22 +55,37 @@ export default function WinkelmandComponent() {
     );
 
     if (productToUpdate) {
-      productToUpdate.aantal = newQuantity;
-      setWinkelmand(newWinkelmand);
-      // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
-
       if (user) {
         // If the user is logged in, update the winkelmand in the database
-        // TODO: uncomment this when the backend is ready
+        // TODO: uncomment this when the backend is ready, this is not yet implemented
         //await updateProductInWinkelmand(productId, newQuantity);
       } else {
         // If the user is not logged in, update the winkelmand in localStorage
-        localStorage.setItem('winkelmand', JSON.stringify(newWinkelmand));
+        const quantityDiff = newQuantity - productToUpdate.aantal; // needed to update the total price of the winkelmand in localStorage
+        productToUpdate.aantal = newQuantity;
+        productToUpdate.subtotal =
+          productToUpdate.product.eenheidsprijs * newQuantity;
+
+        // update totalPrice
+        const priceIndex = newWinkelmand.totalPrice.findIndex(
+          (item: TotalPrice) =>
+            item.bedrijfId === productToUpdate.product.bedrijf.bedrijfId
+        );
+
+        if (priceIndex > -1) {
+          newWinkelmand.totalPrice[priceIndex].value +=
+            productToUpdate.product.eenheidsprijs * quantityDiff; // quantityDiff is used here, not newQuantity, because newQuantity is the new quantity of the product, not the difference between the old and new quantity
+        }
+
+        localStorage.setItem("winkelmand", JSON.stringify(newWinkelmand));
       }
+
+      // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
+      setWinkelmand(newWinkelmand);
     }
   };
 
-  // delete a product in the winkelmand, this is passed down to the WinkelmandProductEntry component
+  // delete a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
   const deleteProduct = (productId: number) => {
     console.log("deleteProduct called with productId: " + productId);
     if (!winkelmand) {
@@ -71,22 +94,49 @@ export default function WinkelmandComponent() {
     }
 
     const newWinkelmand: Winkelmand = JSON.parse(JSON.stringify(winkelmand));
-    newWinkelmand.winkelmandProducten =
-      newWinkelmand.winkelmandProducten.filter(
-        (product: winkelmandProduct) => product.product.productId !== productId
-      );
+    // newWinkelmand.winkelmandProducten =
+    //   newWinkelmand.winkelmandProducten.filter(
+    //     (product: winkelmandProduct) => product.product.productId !== productId
+    //   );
+    const productIndex = newWinkelmand.winkelmandProducten.findIndex(
+      (product: winkelmandProduct) => product.product.productId === productId
+    );
 
-    setWinkelmand(newWinkelmand);
-    // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
+    if (productIndex > -1) {
+      const productToDelete = newWinkelmand.winkelmandProducten[productIndex];
 
-    if (user) {
-      // If the user is logged in, delete the product from the winkelmand in the database
-      // TODO: uncomment this when the backend is ready
-      // await deleteProductFromWinkelmand(productId);
+      if (user) {
+        // If the user is logged in, delete the product from the winkelmand in the database
+        // TODO: uncomment this when the backend is ready
+        // await deleteProductFromWinkelmand(productId);
+      } else {
+        // If the user is not logged in, delete the product from the winkelmand in localStorage
 
-    } else {
-      // If the user is not logged in, delete the product from the winkelmand in localStorage
-      localStorage.setItem('winkelmand', JSON.stringify(newWinkelmand));
+        // update totalPrice
+        const priceIndex = newWinkelmand.totalPrice.findIndex(
+          (item: TotalPrice) =>
+            item.bedrijfId === productToDelete.product.bedrijf.bedrijfId
+        );
+
+        if (priceIndex > -1) {
+          newWinkelmand.totalPrice[priceIndex].value -=
+            productToDelete.subtotal;
+          newWinkelmand.totalPrice[priceIndex].value =
+            Math.round(newWinkelmand.totalPrice[priceIndex].value * 100) / 100; // round to 2 decimals (because of floating point errors)
+          // if the total price for this bedrijf is now 0, remove it from the totalPrice array
+          if (newWinkelmand.totalPrice[priceIndex].value === 0) {
+            newWinkelmand.totalPrice.splice(priceIndex, 1);
+          }
+        }
+
+        // remove product from winkelmand
+        newWinkelmand.winkelmandProducten.splice(productIndex, 1);
+
+        localStorage.setItem("winkelmand", JSON.stringify(newWinkelmand));
+      }
+
+      // the useEffect hook will sort the winkelmand after the winkelmand state is updated because the winkelmand state is a dependency of the useEffect hook
+      setWinkelmand(newWinkelmand);
     }
   };
 
@@ -103,7 +153,7 @@ export default function WinkelmandComponent() {
 
   return (
     <>
-      {sortedWinkelmand && winkelmand ? (
+      {sortedWinkelmand && winkelmand && winkelmand.winkelmandProducten.length >= 1 ? (
         <WinkelmandCardHolder
           winkelmand={sortedWinkelmand}
           totalPrices={winkelmand.totalPrice}
@@ -111,12 +161,19 @@ export default function WinkelmandComponent() {
           deleteProduct={deleteProduct}
         />
       ) : (
-        <WinkelmandCardHolder
-          winkelmand={null}
-          totalPrices={null}
-          updateProductQuantity={updateProductQuantity}
-          deleteProduct={deleteProduct}
-        />
+        <Box id="WinkelmandCardHolder">
+          <Center>
+            <Box className="WinkelmandCard">
+              <Text>Je winkelmand is leeg !</Text>
+            </Box>
+          </Center>
+        </Box>
+        // <WinkelmandCardHolder
+        //   winkelmand={null}
+        //   totalPrices={null}
+        //   updateProductQuantity={updateProductQuantity}
+        //   deleteProduct={deleteProduct}
+        // />
       )}
     </>
   );
