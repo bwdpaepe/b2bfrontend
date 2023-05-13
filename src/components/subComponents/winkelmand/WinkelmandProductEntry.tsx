@@ -15,6 +15,7 @@ import {
 import winkelmandProduct from "../../../type/WinkelmandProduct";
 import { useState, useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { useNavigate } from "react-router";
 
 export default function WinkelmandProductEntry(props: {
   product: winkelmandProduct;
@@ -23,6 +24,10 @@ export default function WinkelmandProductEntry(props: {
 }) {
   const [quantity, setQuantity] = useState(props.product.aantal);
 
+  const navigate = useNavigate();
+  function handleNavigate(pathname: string) {
+    navigate(pathname);
+  }
   // useEffect is used to delay the updateProductQuantity function call and prevent it from being called too often.
   // https://usehooks-ts.com/react-hook/use-debounce
   useEffect(() => {
@@ -38,7 +43,7 @@ export default function WinkelmandProductEntry(props: {
     return () => clearTimeout(timer);
   }, [quantity, props]);
 
-  function handleClick() {}
+  // function handleClick() {}
 
   //   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //     console.log("handleQuantityChange with value " + event.target.value);
@@ -79,7 +84,7 @@ export default function WinkelmandProductEntry(props: {
           <GridItem>
             <Box
               className="winkelmandProductNaam, underlineOnHover"
-              onClick={() => handleClick()}
+              onClick={() => handleNavigate(`/producten/${props.product.product.bedrijf.bedrijfId}/${props.product.product.productId}`)}
               cursor="pointer"
             >
               {props.product.product.naam}{" "}
