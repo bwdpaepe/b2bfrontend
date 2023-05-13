@@ -25,8 +25,8 @@ export default function WinkelmandCard(props: {
     navigate(pathname);
   }
 
-  console.log("WinkelmandCard props: ");
-  console.log(props.producten?.length);
+  // console.log("WinkelmandCard props: ");
+  // console.log(props.producten?.length);
 
   async function handleBestelling() {
     if (!loggedInUser) {
@@ -57,6 +57,7 @@ export default function WinkelmandCard(props: {
               <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
               {props.producten.map((product) => (
                 <WinkelmandProductEntry
+                  key={product.product.productId}
                   product={product}
                   updateProductQuantity={props.updateProductQuantity}
                   deleteProduct={props.deleteProduct}

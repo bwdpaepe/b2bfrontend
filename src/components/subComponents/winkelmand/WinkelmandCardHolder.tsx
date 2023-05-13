@@ -32,6 +32,7 @@ export default function WinkelmandCardHolder(props: {
         <>
           {props.winkelmand.map((entry) => (
             <WinkelmandCard
+              key={entry.bedrijfId}
               leverancier={entry.bedrijfNaam}
               leverancierId={entry.bedrijfId}
               producten={entry.producten}
