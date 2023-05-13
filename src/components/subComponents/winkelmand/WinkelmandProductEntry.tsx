@@ -1,19 +1,34 @@
 import { Box, Grid, GridItem, Input, Text } from "@chakra-ui/react";
 import winkelmandProduct from "../../../type/WinkelmandProduct";
+import { useState, useEffect } from "react";
 
 export default function WinkelmandProductEntry(props: {
   product: winkelmandProduct;
   updateProductQuantity: (productId: number, newQuantity: number) => void;
   deleteProduct: (productId: number) => void;
 }) {
-    
+  const [quantity, setQuantity] = useState(props.product.aantal);
+
+  // useEffect is used to delay the updateProductQuantity function call and prevent it from being called too often.
+  // https://usehooks-ts.com/react-hook/use-debounce
+  useEffect(() => {
+    console.log("useEffect in WinkelmandProductEntry to delay updateProductQuantity");
+    const timer = setTimeout(() => {
+      if (quantity !== props.product.aantal) {
+        props.updateProductQuantity(props.product.product.productId, quantity);
+      }
+    }, 1000);  // 1s
+
+    return () => clearTimeout(timer);
+  }, [quantity, props]);
+  
   function handleClick() {}
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("handleQuantityChange with value " + event.target.value);
     const newQuantity = parseInt(event.target.value);
     if (!isNaN(newQuantity)) {
-      props.updateProductQuantity(props.product.product.productId, newQuantity);
+        setQuantity(newQuantity);
     }
   };
 
@@ -42,9 +57,9 @@ export default function WinkelmandProductEntry(props: {
                   display="inline-block"
                   width="60px"
                   height="30px"
-                  defaultValue={props.product.aantal}
+                  defaultValue={quantity}
                   mb="2px"
-                  onChange={handleQuantityChange} 
+                  onChange={handleQuantityChange}
                 ></Input>
               </Text>
             </Box>
