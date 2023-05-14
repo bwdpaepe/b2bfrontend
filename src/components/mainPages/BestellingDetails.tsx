@@ -6,16 +6,17 @@ import { Box, Text} from "@chakra-ui/react";
 import { Button } from '@chakra-ui/react';
 import { useNavigate } from "react-router";
 
-import Bestelling from "../../type/Bestelling";
+import BestellingDetail from "../../type/BestellingDetail";
+import BesteldProductCard from "../subComponents/BesteldProductCard";
 import { bestellingByBestellingId } from "../../service/bestellingen";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
 
 import "../../styling/bestellingen.css"
+import BesteldProducten from "../../type/BesteldProducten";
 
 export default function BestellingDetails() {
   const { bestellingIdString } = useParams();
-  
-  const [bestelling, setBestelling] = useState<Bestelling>();
+  const [bestelling, setBestelling] = useState<BestellingDetail>();
 
   const navigate = useNavigate();
     function handleNavigate(pathname: string) {
@@ -25,8 +26,13 @@ export default function BestellingDetails() {
     useEffect(() => {
     async function fetchBestelling() {
       const bestellingData = await bestellingByBestellingId(Number(bestellingIdString));
-      setBestelling(bestellingData);
-      console.log(bestellingData);
+      if(bestellingData) {
+        setBestelling(bestellingData);
+        console.log(bestellingData);
+      }
+      else {
+        throw Error (`kon bestelling met id ${bestellingIdString} niet ophalen`);
+      }
     }
     fetchBestelling();
   }, [bestellingIdString]);
@@ -34,8 +40,18 @@ export default function BestellingDetails() {
   return(
     <Container maxW="70%" centerContent>
       <Flex direction={"column"}>
-        <Box  minWidth="100%" h="50px"><Text>PRODUCT</Text></Box>
-        <Box  minWidth="100%" h="50px"><Text>PRODUCT</Text></Box>
+        <Box id="WinkelmandCardHolder">
+          <>
+          {bestelling?.besteldeProducten.map((entry) => (
+              <BesteldProductCard
+                naam={entry.naam}
+                eenheidsprijs={entry.eenheidsprijs}
+                aantal={entry.aantal}
+                beschrijving={entry.omschrijving}
+              ></BesteldProductCard>
+            ))}
+          </>
+        </Box>
         <Flex direction={"row"}>
           <Flex direction={"column"}>
           <Text>
