@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Container } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/react';
 import { Box, Text} from "@chakra-ui/react";
-import { Button } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/react';
 import { useNavigate } from "react-router";
 
 import BestellingDetail from "../../type/BestellingDetail";
@@ -40,75 +40,79 @@ export default function BestellingDetails() {
   return(
     <Container maxW="70%" centerContent>
       <Flex direction={"column"}>
-        <Box id="WinkelmandCardHolder">
-          <>
-          {bestelling?.besteldeProducten.map((entry) => (
+        <Box id="BesteldProductCardHolder">
+          {bestelling?.besteldeProducten === null ? (
+            <Text>Geen producten in deze bestelling</Text>
+          ) : (
+            bestelling?.besteldeProducten.map((entry) => (
               <BesteldProductCard
                 naam={entry.naam}
                 eenheidsprijs={entry.eenheidsprijs}
+                bedrijfsId={bestelling.leverancierBedrijf.bedrijfId}
                 aantal={entry.aantal}
-                beschrijving={entry.omschrijving}
+                omschrijving={entry.product.omschrijving}
+                pictureFilename={entry.product.pictureFilename}
               ></BesteldProductCard>
-            ))}
-          </>
+            ))
+          )}
         </Box>
-        <Flex direction={"row"}>
+        <Flex direction={"row"} className={"bestellingDetails"}>
           <Flex direction={"column"}>
-          <Text>
+          <Text fontWeight="bold">
             Order Id
           </Text>
           <Text>
             {bestelling?.orderId}
           </Text>
-          <Text>
+          <Text fontWeight="bold">
             Besteld op
           </Text>
           <Text>
             {bestelling?.datumGeplaatst.toString()}
           </Text>
-          <Text>
+          <Text fontWeight="bold">
             Aankoopstatus
           </Text>
           <Text>
-            {BestellingStatus[bestelling ? bestelling.status : 0]}
+            {bestelling?.status}
           </Text>
           </Flex>  
           <Spacer />
           <Flex direction={"column"}>
-          <Text>
+          <Text fontWeight="bold">
             Leveradres
           </Text>
           <Text>
-            Straat
+            {bestelling?.leveradresStraat} {bestelling?.leveradresNummer}
           </Text>
           <Text>
-            Postcode en stad
+            {bestelling?.leveradresPostcode} {bestelling?.leveradresStad}
           </Text>
           <Text>
-            Land
+            {bestelling?.leveradresLand}
           </Text>
-          <Text>
+          <Text fontWeight="bold">
             Track en trace code
           </Text>
-          <Button colorScheme='white' onClick={() => handleNavigate(`/bestellingen/${bestelling ? bestelling.bestellingId : 0}/track-and-trace`)}>
+          <Link colorScheme='red' onClick={() => handleNavigate(`/track-and-trace`)}>
             {bestelling?.trackAndTraceCode}
-          </Button>
+          </Link>
           </Flex>  
           <Spacer />
           <Flex direction={"column"}>
-          <Text>
+          <Text fontWeight="bold">
             Verpakking
           </Text>
           <Text>
-            Doos
+            {bestelling?.doos.naam}
           </Text>
-          <Text>
+          <Text fontWeight="bold">
             Leverancier
           </Text>
           <Text>
-            Leverancier
+            {bestelling?.leverancierBedrijf.naam}
           </Text>
-          <Text>
+          <Text fontWeight="bold">
             Kostenoverzicht
           </Text>
           <Text>
