@@ -38,7 +38,7 @@ export default function WinkelmandProductEntry(props: {
       if (quantity !== props.product.aantal) {
         props.updateProductQuantity(props.product.product.productId, quantity);
       }
-    }, 1000); // 1s
+    }, 300); // 0.3s
 
     return () => clearTimeout(timer);
   }, [quantity, props]);
@@ -84,7 +84,11 @@ export default function WinkelmandProductEntry(props: {
           <GridItem>
             <Box
               className="winkelmandProductNaam, underlineOnHover"
-              onClick={() => handleNavigate(`/producten/${props.product.product.bedrijf.bedrijfId}/${props.product.product.productId}`)}
+              onClick={() =>
+                handleNavigate(
+                  `/producten/${props.product.product.bedrijf.bedrijfId}/${props.product.product.productId}`
+                )
+              }
               cursor="pointer"
             >
               {props.product.product.naam}{" "}
