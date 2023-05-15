@@ -6,4 +6,5 @@ export default interface BesteldProducten {
   eenheidsprijs: number;
   naam: string;
   product: BesteldProductenProduct;
+  subtotal: number;
 }

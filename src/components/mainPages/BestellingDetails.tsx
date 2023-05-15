@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Container } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/react';
-import { Box, Text} from "@chakra-ui/react";
+import { Heading, Box, Text} from "@chakra-ui/react";
 import { Link } from '@chakra-ui/react';
 import { useNavigate } from "react-router";
 
@@ -39,6 +39,7 @@ export default function BestellingDetails() {
 
   return(
     <Container maxW="70%" centerContent>
+      <Heading>Aankoop {bestelling?.orderId}</Heading>
       <Flex direction={"column"}>
         <Box id="BesteldProductCardHolder">
           {bestelling?.besteldeProducten === null ? (
@@ -116,7 +117,7 @@ export default function BestellingDetails() {
             Kostenoverzicht
           </Text>
           <Text>
-            Kostenoverzicht
+            {bestelling?.totalPrice}
           </Text>
           </Flex>  
         </Flex>

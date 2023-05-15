@@ -23,4 +23,5 @@ export default interface BestellingDetail{
   notification: Notification;
   besteldeProducten: BesteldProducten[];
   doos: Doos;
+  totalPrice: number;
 }
