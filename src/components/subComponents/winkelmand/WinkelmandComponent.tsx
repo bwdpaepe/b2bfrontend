@@ -33,12 +33,12 @@ export default function WinkelmandComponent() {
     }
   }, [user]);
 
-  function sorteerWinkelmand() {
-    const _sortedWinkelmand = WinkelmandProductenSorteerder(winkelmand!);
-    setSortedWinkelmand(_sortedWinkelmand);
-  }
-
-  
+  const sorteerWinkelmand = useCallback(() => {
+    if (winkelmand) {
+      const _sortedWinkelmand = WinkelmandProductenSorteerder(winkelmand);
+      setSortedWinkelmand(_sortedWinkelmand);
+    }
+  }, [winkelmand]);
 
   // update the quantity of a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
   // this is created here because the Winkelmand state is kept here
@@ -150,11 +150,9 @@ export default function WinkelmandComponent() {
   }, [_getWinkelmand]);
 
   useEffect(() => {
-    if (winkelmand) {
-      sorteerWinkelmand();
-      console.log("Winkelmand sorted");
-    }
-  }, [winkelmand]);
+    sorteerWinkelmand();
+    console.log("Winkelmand sorted");
+  }, [sorteerWinkelmand]);
 
   return (
     <>
