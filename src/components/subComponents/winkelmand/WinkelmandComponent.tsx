@@ -38,6 +38,8 @@ export default function WinkelmandComponent() {
     setSortedWinkelmand(_sortedWinkelmand);
   }
 
+  
+
   // update the quantity of a product in the winkelmand, this function is passed down to the WinkelmandProductEntry component
   // this is created here because the Winkelmand state is kept here
   const updateProductQuantity = async (
@@ -173,12 +175,6 @@ export default function WinkelmandComponent() {
             </Box>
           </Center>
         </Box>
-        // <WinkelmandCardHolder
-        //   winkelmand={null}
-        //   totalPrices={null}
-        //   updateProductQuantity={updateProductQuantity}
-        //   deleteProduct={deleteProduct}
-        // />
       )}
     </>
   );

@@ -4,7 +4,6 @@ import {
   Flex,
   Grid,
   GridItem,
-  // Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -42,16 +41,6 @@ export default function WinkelmandProductEntry(props: {
 
     return () => clearTimeout(timer);
   }, [quantity, props]);
-
-  // function handleClick() {}
-
-  //   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     console.log("handleQuantityChange with value " + event.target.value);
-  //     const newQuantity = parseInt(event.target.value);
-  //     if (!isNaN(newQuantity)) {
-  //       setQuantity(newQuantity);
-  //     }
-  //   };
 
   const handleQuantityChange = (
     valueAsString: string,
@@ -96,18 +85,7 @@ export default function WinkelmandProductEntry(props: {
           </GridItem>
           <GridItem>
             <Box className="winkelmandProductNaam">
-              {/* <Text>
-                Aantal:{" "}
-                <Input
-                  display="inline-block"
-                  width="60px"
-                  height="30px"
-                  defaultValue={quantity}
-                  mb="2px"
-                  onChange={handleQuantityChange}
-                ></Input>
-              </Text> */}
-              <Flex flexDirection="row" alignItems="center">
+               <Flex flexDirection="row" alignItems="center">
                 <Text mr={1}>Aantal: </Text>
                 <NumberInput
                   display="inline-block"
@@ -115,7 +93,6 @@ export default function WinkelmandProductEntry(props: {
                   height="30px"
                   alignContent={"center"}
                   mb={"10px"}
-                  //mb="20px"
                   value={quantity}
                   min={1}
                   max={props.product.product.voorraad}
@@ -155,7 +132,6 @@ export default function WinkelmandProductEntry(props: {
               ml={4}
               py={"4"}
               _hover={{
-                //transform: "translateY(2px)",
                 boxShadow: "lg",
               }}
               onClick={handleDeleteClick}

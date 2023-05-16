@@ -49,9 +49,6 @@ export default function WinkelmandCard(props: {
     <>
       <Center>
         <Box className="WinkelmandCard">
-          {/* {!props.producten ? (
-            <Text>Je winkelmand is leeg</Text>
-          ) : ( */}
             <>
               <Text fontWeight="bold">Leverancier: {props.leverancier}</Text>
               <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
@@ -78,7 +75,6 @@ export default function WinkelmandCard(props: {
                 Bestellen
               </Button>
             </>
-          {/* )} */}
         </Box>
       </Center>
     </>
