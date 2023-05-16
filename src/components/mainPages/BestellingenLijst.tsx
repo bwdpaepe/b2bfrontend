@@ -17,6 +17,7 @@ import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
 import enumKeys from "../../util/Util";
+import { EditIcon } from "@chakra-ui/icons";
 
 type UnitConversion = {
   orderId: string;
@@ -24,6 +25,7 @@ type UnitConversion = {
   datumGeplaatst: Date;
   status: BestellingStatus;
   details: JSX.Element;
+  wijzigen: JSX.Element;
 };
 
 const columnHelper = createColumnHelper<UnitConversion>();
@@ -48,6 +50,10 @@ const columns = [
   columnHelper.accessor("details", {
     cell: (info) => info.getValue(),
     header: "Details",
+  }),
+  columnHelper.accessor("wijzigen", {
+    cell: (info) => info.getValue(),
+    header: "Wijzigen",
   }),
 ];
 
@@ -74,6 +80,7 @@ export default function BestellingenLijst() {
   }, []);
 
   bestellingen = bestellingen.map((bestelling: Bestelling) => {
+    console.log(JSON.stringify(bestelling.status.toString()));
     return {
       ...bestelling,
       email: bestelling.aankoper.email,
@@ -87,6 +94,16 @@ export default function BestellingenLijst() {
           Zie details
         </Button>
       ),
+      wijzigen:
+        bestelling.status.toString() === "GEPLAATST" ? ( //TODO: contoleren waarom dit niet werkt bestelling.status === BestellingStatus.GEPLAATST ? ( ... ) : ( ... )
+          <IconButton
+            aria-label="Wijzig bestelling"
+            size="sm"
+            icon={<EditIcon />}
+          />
+        ) : (
+          <Text>Niet te wijzigen</Text>
+        ),
     };
   });
 

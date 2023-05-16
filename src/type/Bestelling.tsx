@@ -1,7 +1,7 @@
-import User from './User';
-import { BestellingStatus } from '../enums/BestellingStatusEnum';
+import User from "./User";
+import { BestellingStatus } from "../enums/BestellingStatusEnum";
 
-export default interface IBestelling{
+export default interface IBestelling {
   bestellingId: number;
   aankoper: User;
   status: BestellingStatus;
@@ -9,5 +9,6 @@ export default interface IBestelling{
   orderId: string;
   trackAndTraceCode: string;
   details: JSX.Element;
-  email:string;
+  wijzigen: JSX.Element;
+  email: string;
 }
