@@ -99,6 +99,7 @@ export default function BestellingenLijst() {
           <IconButton
             aria-label="Wijzig bestelling"
             size="sm"
+            colorScheme="white"
             icon={<EditIcon />}
           />
         ) : (
