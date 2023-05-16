@@ -22,7 +22,7 @@ export default function BestellingDetails() {
     function handleNavigate(pathname: string) {
       navigate(pathname);
     }
-    
+
     useEffect(() => {
     async function fetchBestelling() {
       const bestellingData = await bestellingByBestellingId(Number(bestellingIdString));
@@ -39,25 +39,28 @@ export default function BestellingDetails() {
 
   return(
     <Container maxW="70%" centerContent>
+      <Text onClick={() => handleNavigate("/bestellingen")}>Terug naar overzicht</Text>
       <Heading>Aankoop {bestelling?.orderId}</Heading>
-      <Flex direction={"column"}>
+      <Flex direction={"column"} className={"bestellingOverzicht"}>
         <Box id="BesteldProductCardHolder">
           {bestelling?.besteldeProducten === null ? (
             <Text>Geen producten in deze bestelling</Text>
           ) : (
             bestelling?.besteldeProducten.map((entry) => (
               <BesteldProductCard
+                key={entry.id}
                 naam={entry.naam}
                 eenheidsprijs={entry.eenheidsprijs}
                 bedrijfsId={bestelling.leverancierBedrijf.bedrijfId}
                 aantal={entry.aantal}
                 omschrijving={entry.product.omschrijving}
                 pictureFilename={entry.product.pictureFilename}
+                subtotal={entry.subtotal}
               ></BesteldProductCard>
             ))
           )}
         </Box>
-        <Flex direction={"row"} className={"bestellingDetails"}>
+        <Flex className={"bestellingDetails"}>
           <Flex direction={"column"}>
           <Text fontWeight="bold">
             Order Id
@@ -95,7 +98,7 @@ export default function BestellingDetails() {
           <Text fontWeight="bold">
             Track en trace code
           </Text>
-          <Link colorScheme='red' onClick={() => handleNavigate(`/track-and-trace`)}>
+          <Link colorScheme='red' onClick={() => handleNavigate(`/track-and-trace`,)}>
             {bestelling?.trackAndTraceCode}
           </Link>
           </Flex>  
@@ -117,7 +120,7 @@ export default function BestellingDetails() {
             Kostenoverzicht
           </Text>
           <Text>
-            {bestelling?.totalPrice}
+            {bestelling?.totalPrice.toFixed(2)}
           </Text>
           </Flex>  
         </Flex>

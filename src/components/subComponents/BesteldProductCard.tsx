@@ -7,6 +7,7 @@ export default function BesteldProductCard(props: {
   aantal: number | null;
   omschrijving: string | null;
   pictureFilename: string | null;
+  subtotal: number | null;
 }) {
 
   console.log(`../../assets/productafbeeldingen/${props.bedrijfsId}/${props.pictureFilename}`);
@@ -15,23 +16,26 @@ export default function BesteldProductCard(props: {
       <Box className="BesteldProductCard">
       <Grid className="BesteldProductGrid" alignItems="top">
 
-<GridItem><Box> <Image
+<GridItem className={"box1"}><Box> <Image
                   rounded={"md"}
                   alt={"product image"}
                   src={require(`../../assets/productafbeeldingen/${props.bedrijfsId}/${props.pictureFilename}`)}
                   fit={"cover"}
                   w={"100%"}
                 /> </Box></GridItem>
-<GridItem>
+<GridItem className={"box2"}>
   <Box h={'100%'}>
-    <Flex direction={'column'} h={'100%'} justifyContent={'space-between'}>
-      <Text>naam: {props.naam}</Text>
-      <Text> aantal: {props.aantal}</Text>
-      <Text> eenheidsprijs: {props.eenheidsprijs} €</Text>
+    <Flex direction={'column'} h={'100%'} className={"flex-space-between"}>
+      <Text>{props.naam}</Text>
+      <Text>{props.aantal} x {props.eenheidsprijs?.toFixed(2)} €</Text>
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      <Text>{props.subtotal?.toFixed(2)} €</Text>
     </Flex>
     </Box>
 </GridItem>
-<GridItem><Box><Text> omschrijving: {props.omschrijving}</Text></Box></GridItem>
+<GridItem className={"box3"}><Box><Text>{props.omschrijving}</Text></Box></GridItem>
 
 </Grid>
       </Box>
