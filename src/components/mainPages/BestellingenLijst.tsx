@@ -9,12 +9,15 @@ import { Container } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import Bestelling from "../../type/Bestelling";
 //import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
+import enumKeys from "../../util/Util";
+import OrderAdresChangePopover from "../subComponents/bestelling/OrderAdresChangePopover";
 
 type UnitConversion = {
   orderId: string;
@@ -22,6 +25,7 @@ type UnitConversion = {
   datumGeplaatst: Date;
   status: BestellingStatus;
   details: JSX.Element;
+  wijzigen: JSX.Element;
 };
 
 const columnHelper = createColumnHelper<UnitConversion>();
@@ -47,6 +51,10 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Details",
   }),
+  columnHelper.accessor("wijzigen", {
+    cell: (info) => info.getValue(),
+    header: "Wijzigen",
+  }),
 ];
 
 export default function BestellingenLijst() {
@@ -57,6 +65,11 @@ export default function BestellingenLijst() {
   const [searchDatum, setSearchDatum] = useState("");
   const [textStatus, setTextStatus] = useState("");
   const [searchStatus, setSearchStatus] = useState("");
+
+  const navigate = useNavigate();
+  function handleNavigate(pathname: string) {
+    navigate(pathname);
+  }
 
   useEffect(() => {
     async function fetchBestellingen() {
@@ -70,7 +83,22 @@ export default function BestellingenLijst() {
     return {
       ...bestelling,
       email: bestelling.aankoper.email,
-      details: <Button colorScheme="white">Zie details</Button>,
+      details: (
+        <Button
+          colorScheme="white"
+          onClick={() =>
+            handleNavigate(`/bestellingen/${bestelling.bestellingId}`)
+          }
+        >
+          Zie details
+        </Button>
+      ),
+      wijzigen:
+        bestelling.status.toString() === "GEPLAATST" ? ( //TODO: contoleren waarom dit niet werkt bestelling.status === BestellingStatus.GEPLAATST ? ( ... ) : ( ... )
+          <OrderAdresChangePopover bestelling={bestelling} />
+        ) : (
+          <Text>Niet wijzigbaar</Text>
+        ),
     };
   });
 
@@ -91,6 +119,24 @@ export default function BestellingenLijst() {
       }),
     [bestellingen, searchAankoper, searchDatum, searchStatus]
   );
+  /*
+  const filteredBestellingen = useMemo(
+    () =>
+      bestellingen.filter((b: Bestelling) => {
+        console.log("filtering...");
+
+        return (
+          b.aankoper.email
+            .toLowerCase()
+            .includes(searchAankoper.toLowerCase()) &&
+          (searchDatum == "" ||
+            new Date(b.datumGeplaatst).getTime() ===
+              new Date(searchDatum).getTime()) &&
+          (searchStatus == "" || BestellingStatus[b.status] == searchStatus)
+        );
+      }),
+    [bestellingen, searchAankoper, searchDatum, searchStatus]
+  );*/
 
   // render a message if there are no products
   if (!bestellingen.length) {
@@ -127,6 +173,13 @@ export default function BestellingenLijst() {
           >
             {
               //Object.values(BestellingStatus).map((value: string, index: number, array: string[]) => {return (<option></option>);})
+              /* {enumKeys(BestellingStatus).map((status: string) => {
+                return (
+                  <option key={status} value={BestellingStatus[parseInt(status)]}>
+                    {BestellingStatus[parseInt(status)]}
+                  </option>
+                );
+              })}*/
             }
             <option key={1} value={BestellingStatus.GEPLAATST}>
               GEPLAATST
