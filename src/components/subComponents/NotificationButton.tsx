@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import notificationsIcon from "../../assets/icons/Notifications.png";
 import { checkNew, checkUnread } from "../../service/notifications";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useInterval from "@use-it/interval";
 
 import { getLimitedNotifications } from "../../service/notifications";

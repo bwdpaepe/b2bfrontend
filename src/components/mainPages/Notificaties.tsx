@@ -1,4 +1,4 @@
-import { Box, HStack, Text, useBoolean, Spinner } from "@chakra-ui/react";
+import { HStack, Text, useBoolean, Spinner } from "@chakra-ui/react";
 import "../../styling/notificaties.css";
 import { useCallback, useEffect, useState } from "react";
 import Notifications from "../../type/Notifications";
