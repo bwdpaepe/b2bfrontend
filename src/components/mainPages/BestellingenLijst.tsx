@@ -17,7 +17,7 @@ import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
 import enumKeys from "../../util/Util";
-import { EditIcon } from "@chakra-ui/icons";
+import OrderAdresChangePopover from "../subComponents/bestelling/OrderAdresChangePopover";
 
 type UnitConversion = {
   orderId: string;
@@ -80,7 +80,6 @@ export default function BestellingenLijst() {
   }, []);
 
   bestellingen = bestellingen.map((bestelling: Bestelling) => {
-    console.log(JSON.stringify(bestelling.status.toString()));
     return {
       ...bestelling,
       email: bestelling.aankoper.email,
@@ -96,12 +95,7 @@ export default function BestellingenLijst() {
       ),
       wijzigen:
         bestelling.status.toString() === "GEPLAATST" ? ( //TODO: contoleren waarom dit niet werkt bestelling.status === BestellingStatus.GEPLAATST ? ( ... ) : ( ... )
-          <IconButton
-            aria-label="Wijzig bestelling"
-            size="sm"
-            colorScheme="white"
-            icon={<EditIcon />}
-          />
+          <OrderAdresChangePopover bestelling={bestelling} />
         ) : (
           <Text>Niet te wijzigen</Text>
         ),
