@@ -65,3 +65,22 @@ export async function getNotifications() {
     );
   }
 }
+
+export async function getNotification(id: string) {
+  try {
+    const response = await http.get<Notifications>("/notifications/"+id, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("Token") },
+    });
+    if (response.status >= 200 && response.status < 300) {
+      return response.data;
+    } else {
+      throw Error(
+        "Kon de notificaties niet ophalen, probeer opnieuw in te loggen"
+      );
+    }
+  } catch (error: any) {
+    throw Error(
+      "Kon de notificaties niet ophalen, probeer opnieuw in te loggen"
+    );
+  }
+}

@@ -117,7 +117,7 @@ export default function NotificationButton() {
             limitedNotifications &&
             limitedNotifications?.map((not) => (
               <>
-                <NotificationCardMini notification={not} />
+                <MenuItem p="0px" m="0px"><NotificationCardMini notification={not} /></MenuItem>
               </>
             ))}
           {limitedNotifications ? (

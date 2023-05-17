@@ -2,13 +2,17 @@ import { Box, HStack, Text, useBoolean, Spinner } from "@chakra-ui/react";
 import "../../styling/notificaties.css";
 import { useCallback, useEffect, useState } from "react";
 import Notifications from "../../type/Notifications";
-import { getNotifications } from "../../service/notifications";
+import { getNotification, getNotifications } from "../../service/notifications";
 import LeftPanelNotifications from "../subComponents/LeftPanelNotifications";
 import ErrorMessage from "../subComponents/ErrorMessage";
 import "../../styling/index.css";
+import { useParams } from "react-router";
+import RightPaneNotification from "../subComponents/RightPaneNotification";
 
 export default function Notificaties() {
+  let {id} = useParams();
   const [notifications, setNotifications] = useState<Notifications[]>();
+  const [notification, setNotification] = useState<Notifications>();
   const [error, setError] = useState();
   const [isLoading, toggleLoading] = useBoolean();
 
@@ -22,11 +26,32 @@ export default function Notificaties() {
       setError(error.message);
       toggleLoading.off();
     }
-  }, []);
+  }, [id]);
+
+  const _getNotification = useCallback(async () => {
+    try {
+      if(id){
+
+      const _notification = await getNotification(id!);
+      setNotification(_notification);
+
+      }
+
+    } catch (error: any) {
+      setError(error.message);
+
+    }
+
+  },[id])
 
   useEffect(() => {
     _getNotifications();
   }, [_getNotifications]);
+
+  useEffect(() => {
+    _getNotification();
+    console.log(notifications);
+  }, [_getNotification]);
 
   return (
     <>
@@ -37,7 +62,7 @@ export default function Notificaties() {
           {error ? (
             <ErrorMessage message={error}></ErrorMessage>
           ) : (
-            <HStack w="100%" ml={2}>
+            <HStack w="100%" ml={2} alignItems="start">
               {notifications ? (
                 <LeftPanelNotifications
                   notifications={notifications ? notifications : null}
@@ -45,7 +70,7 @@ export default function Notificaties() {
               ) : (
                 <Text>Er zijn geen notificaties...</Text>
               )}
-              <Box></Box>
+              <RightPaneNotification notification={notification? notification : null}/>
             </HStack>
           )}
         </>
