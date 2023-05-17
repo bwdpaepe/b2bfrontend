@@ -12,12 +12,32 @@ export async function getWinkelmand() {
 }
 
 // PUT .../winkelmand/addProduct/66/10, where 66 is the productId and 10 is the quantity
-export async function addProductToWinkelmand(productId: number, quantity: number) {
+export async function addEditProductToWinkelmand(productId: number, quantity: number, isUpdate?: boolean) {
   try {
-    const response = await http.put(`/winkelmand/addProduct/${productId}/${quantity}`, null, { headers: authHeader() });
+    // If `update` is not provided, it will be false.
+    console.log("isUpdate: " + isUpdate);
+    const isUpdateBoolean = isUpdate !== undefined ?  isUpdate  : false;
+    console.log("isUpdateBoolean: " + isUpdateBoolean);
+
+    const response = await http.put(`/winkelmand/addProduct/${productId}/${quantity}`, null, {
+      params: {
+        isUpdate: isUpdateBoolean,
+      }, 
+      headers: authHeader() 
+    });
+    console.log("Log from winkelmand service: " + response.data);
     return response.data;
   } catch (error: any) {
     console.log("Log from winkelmand service: " + error);
+    throw new Error(error.response.data.error);
+  }
+}
+
+export async function deleteProductFromWinkelmand(productId: number) {
+  try {
+    const response = await http.delete(`/winkelmand/deleteProduct/${productId}`, { headers: authHeader() });
+    return response.data;
+  } catch (error: any) {
     throw new Error(error.response.data.error);
   }
 }
