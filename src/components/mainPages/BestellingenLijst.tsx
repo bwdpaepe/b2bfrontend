@@ -119,24 +119,6 @@ export default function BestellingenLijst() {
       }),
     [bestellingen, searchAankoper, searchDatum, searchStatus]
   );
-  /*
-  const filteredBestellingen = useMemo(
-    () =>
-      bestellingen.filter((b: Bestelling) => {
-        console.log("filtering...");
-
-        return (
-          b.aankoper.email
-            .toLowerCase()
-            .includes(searchAankoper.toLowerCase()) &&
-          (searchDatum == "" ||
-            new Date(b.datumGeplaatst).getTime() ===
-              new Date(searchDatum).getTime()) &&
-          (searchStatus == "" || BestellingStatus[b.status] == searchStatus)
-        );
-      }),
-    [bestellingen, searchAankoper, searchDatum, searchStatus]
-  );*/
 
   // render a message if there are no products
   if (!bestellingen.length) {
