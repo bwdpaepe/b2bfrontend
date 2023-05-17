@@ -97,7 +97,7 @@ export default function BestellingenLijst() {
         bestelling.status.toString() === "GEPLAATST" ? ( //TODO: contoleren waarom dit niet werkt bestelling.status === BestellingStatus.GEPLAATST ? ( ... ) : ( ... )
           <OrderAdresChangePopover bestelling={bestelling} />
         ) : (
-          <Text>Niet te wijzigen</Text>
+          <Text>Niet wijzigbaar</Text>
         ),
     };
   });

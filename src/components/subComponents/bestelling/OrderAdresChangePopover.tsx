@@ -13,7 +13,9 @@ import {
   Button,
   Select,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import FocusLock from "react-focus-lock";
 import Bestelling from "./../../../type/Bestelling";
@@ -29,8 +31,9 @@ export default function OrderAdresChangePopover({
 }) {
   const [dozen, setDozen] = useState<Doos[]>([]);
   const toast = useToast();
-
   const [selectedDoos, setSelectedDoos] = useState<Doos>(bestelling.doos);
+
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   const onDoosChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedDoosId = Number(event.target.value);
@@ -89,7 +92,12 @@ export default function OrderAdresChangePopover({
     getDozen(bestelling);
   }, [bestelling]);
   return (
-    <Popover>
+    <Popover
+      onClose={onClose}
+      closeOnBlur={false}
+      isOpen={isOpen}
+      onOpen={onOpen}
+    >
       <PopoverTrigger>
         <IconButton
           aria-label="Wijzig bestelling"
@@ -98,18 +106,21 @@ export default function OrderAdresChangePopover({
           icon={<EditIcon />}
         />
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent p={5}>
         <FocusLock returnFocus persistentFocus={false}>
+          <PopoverHeader fontWeight="bold">
+            Wijzig bestelling {bestelling.bestellingId}
+          </PopoverHeader>
+          <PopoverArrow />
           <PopoverCloseButton color="white" />
-
-          <Stack>
+          <Stack spacing={4}>
             <form
               onSubmit={(e) => {
                 onHandleUpdateAdres(e);
               }}
             >
               <FormControl>
-                <FormLabel>Land</FormLabel>
+                <FormLabel mt={2}>Land</FormLabel>
                 <Input type="text" defaultValue={bestelling.leveradresLand} />
               </FormControl>
               <FormControl>
@@ -143,10 +154,15 @@ export default function OrderAdresChangePopover({
                     <option value={doos.doosId}>{doos.naam}</option>
                   ))}
                 </Select>
+              </FormControl>
+              <HStack spacing={4} mt={4} p={2}>
                 <Button colorScheme="green" type="submit">
                   Submit
                 </Button>
-              </FormControl>
+                <Button colorScheme="red" onClick={onClose}>
+                  Cancel
+                </Button>
+              </HStack>
             </form>
           </Stack>
         </FocusLock>
