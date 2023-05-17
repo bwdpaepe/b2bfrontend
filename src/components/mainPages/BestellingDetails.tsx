@@ -13,14 +13,19 @@ import { BestellingStatus } from "../../enums/BestellingStatusEnum";
 
 import "../../styling/bestellingen.css"
 import BesteldProducten from "../../type/BesteldProducten";
+import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
 
 export default function BestellingDetails() {
   const { bestellingIdString } = useParams();
   const [bestelling, setBestelling] = useState<BestellingDetail>();
+  const [bestellingTTC, setBestellingTTC] = useState<BestellingByTrackAndTrace>();
 
   const navigate = useNavigate();
-    function handleNavigate(pathname: string) {
-      navigate(pathname);
+  function handleNavigate(pathname: string) {
+    navigate(pathname);
+  }
+    function handleNavigateWithParams(pathname: string, bTTC: BestellingByTrackAndTrace|undefined) {
+      navigate(pathname,{state:bTTC});
     }
 
     useEffect(() => {
@@ -28,14 +33,33 @@ export default function BestellingDetails() {
       const bestellingData = await bestellingByBestellingId(Number(bestellingIdString));
       if(bestellingData) {
         setBestelling(bestellingData);
-        console.log(bestellingData);
+        
+        
       }
       else {
         throw Error (`kon bestelling met id ${bestellingIdString} niet ophalen`);
       }
     }
     fetchBestelling();
+    
   }, [bestellingIdString]);
+
+  useEffect(() => {
+    
+    if(bestelling) {
+      const bTTC:BestellingByTrackAndTrace = {
+        bestellingId: bestelling?.bestellingId,
+        status: bestelling?.status,
+        datumGeplaatst: bestelling?.datumGeplaatst,
+        leveradresPostcode: bestelling?.leveradresPostcode,
+        orderId: bestelling?.orderId,
+        trackAndTraceCode: bestelling?.trackAndTraceCode,
+        transportdienst: bestelling?.transportdienst,
+        notification: bestelling?.notification
+      };
+      setBestellingTTC(bTTC);
+    }
+  }, [bestelling]);
 
   return(
     <Container maxW="70%" centerContent>
@@ -98,7 +122,7 @@ export default function BestellingDetails() {
           <Text fontWeight="bold">
             Track en trace code
           </Text>
-          <Link colorScheme='red' onClick={() => handleNavigate(`/track-and-trace`,)}>
+          <Link colorScheme='red' onClick={() => handleNavigateWithParams(`/track-and-trace`, bestellingTTC)}>
             {bestelling?.trackAndTraceCode}
           </Link>
           </Flex>  

@@ -4,6 +4,7 @@ import Bedrijf from './Bedrijf';
 import Transportdienst from './Transportdienst';
 import Doos from './Doos';
 import BesteldProducten from './BesteldProducten';
+import Notification from './Notifications';
 
 export default interface BestellingDetail{
   bestellingId: number;
