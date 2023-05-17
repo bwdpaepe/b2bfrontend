@@ -39,7 +39,9 @@ export default function NotificationButton() {
   
 
   const _getNew = useCallback(async () => {
-    if (user) {
+    const _user = localStorage.getItem("User")
+    if (_user) {
+      
       try {
         const _newAmount = await checkNew();
         if (_newAmount > 0) {

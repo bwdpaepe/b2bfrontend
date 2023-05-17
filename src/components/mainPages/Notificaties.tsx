@@ -50,7 +50,6 @@ export default function Notificaties() {
 
   useEffect(() => {
     _getNotification();
-    console.log(notifications);
   }, [_getNotification]);
 
   return (
