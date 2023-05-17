@@ -71,6 +71,7 @@ export default function OrderAdresChangePopover({
         duration: 5000,
         isClosable: true,
       });
+      onClose();
     } catch (error: any) {
       toast({
         title: "Er is iets misgegaan",
