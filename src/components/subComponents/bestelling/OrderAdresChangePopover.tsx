@@ -50,7 +50,7 @@ export default function OrderAdresChangePopover({
       ) as HTMLInputElement[];
       const doosId = selectedDoos?.doosId || bestelling.doos.doosId;
 
-      await updateBestelling(
+      const response = await updateBestelling(
         straat.value,
         nummer.value,
         postcode.value,
@@ -59,9 +59,10 @@ export default function OrderAdresChangePopover({
         doosId,
         bestelling.bestellingId
       );
-      console.log("bestelling.bestellingId", doosId);
+      console.log(response);
+
       toast({
-        title: "Bestelling gewijzigd",
+        title: `${response.message}`,
         description: `Bestelling ${bestelling.bestellingId} is gewijzigd`,
         status: "success",
         duration: 5000,
@@ -69,8 +70,8 @@ export default function OrderAdresChangePopover({
       });
     } catch (error: any) {
       toast({
-        title: `${error} `,
-        description: "Er is iets misgegaan",
+        title: "Er is iets misgegaan",
+        description: `${error}`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -97,12 +98,11 @@ export default function OrderAdresChangePopover({
           icon={<EditIcon />}
         />
       </PopoverTrigger>
-      <PopoverContent p={3}>
+      <PopoverContent>
         <FocusLock returnFocus persistentFocus={false}>
-          <PopoverArrow />
           <PopoverCloseButton color="white" />
-          <PopoverHeader>Wijzig bestelling</PopoverHeader>
-          <Stack spacing={3} mt={2}>
+
+          <Stack>
             <form
               onSubmit={(e) => {
                 onHandleUpdateAdres(e);

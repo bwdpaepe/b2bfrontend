@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import authHeader from "./auth-header";
 import http from "./http";
 
@@ -113,12 +114,13 @@ export async function updateBestelling(
         headers: authHeader(),
       }
     );
-    console.log(response);
     if (response.data) {
       return response.data;
     }
   } catch (error: any) {
-    console.log(error);
-    throw Error("Kon de bestelling niet updaten._");
+    if (error.response.data.error) {
+      throw Error(error.response.data.error);
+    }
+    throw Error(error);
   }
 }
