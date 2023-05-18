@@ -64,7 +64,7 @@ export default function NotificationButton() {
 
   const _checkUnread = useCallback(async () => {
     const _user = localStorage.getItem("User")
-    if(user){
+    if(_user){
     try {
       const _unreadAmount: number = await checkUnread();
       if (_unreadAmount > 99) {
