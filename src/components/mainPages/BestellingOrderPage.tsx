@@ -130,7 +130,7 @@ export default function BestellingOrderPage() {
   const handleBestellingClick = async () => {
     console.log("Bestelling geplaatst");
     try {
-      const response = await postBestellingen(
+      await postBestellingen(
         leverancierIdString!,
         geselecteerdeDoos?.doosId!,
         adresgegevens.straat,
