@@ -5,4 +5,5 @@ export default interface Notification{
     orderId: number;
     bestellingStatus: string;
     status: string;
+    trackAndTraceCode: string;
 }

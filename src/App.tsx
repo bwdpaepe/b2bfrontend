@@ -39,7 +39,7 @@ function App() {
             <Routes>
               <Route index element={<Home />} />
               <Route path="/bestellingen" element={<BestellingenLijst />} />
-              <Route path="/notificaties" element={<Notificaties />} />
+              <Route path="/notificaties/:id?" element={<Notificaties/>} />
               <Route path="/winkelmand" element={<WinkelmandPage />} />
               <Route path="/profile" element={<Profile />} />
               <Route

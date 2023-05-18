@@ -35,11 +35,23 @@ cursor: pointer;
   }
 
 
-  @media screen and (max-width: 610px) {
+  @media screen and (max-width: 800px) {
     #leftPaneNotifications {
       width: 200px;
+      min-width: 200px;
+    }
+    #rightPaneNotification{
+      width: 600px;
+      min-width: 600px;      
     }
   }
+
+
+  #notificatieGrid{
+      grid-template-columns: 250px 300px ;
+      grid-template-rows: 1fr 1fr;
+   }
+  
 
 
 

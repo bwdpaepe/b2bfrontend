@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import notificationsIcon from "../../assets/icons/Notifications.png";
 import { checkNew, checkUnread } from "../../service/notifications";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useInterval from "@use-it/interval";
 
 import { getLimitedNotifications } from "../../service/notifications";
@@ -39,7 +39,9 @@ export default function NotificationButton() {
   
 
   const _getNew = useCallback(async () => {
-    if (user) {
+    const _user = localStorage.getItem("User")
+    if (_user) {
+      
       try {
         const _newAmount = await checkNew();
         if (_newAmount > 0) {
@@ -61,7 +63,8 @@ export default function NotificationButton() {
   useInterval(_getNew, 10000);
 
   const _checkUnread = useCallback(async () => {
-    if(user){
+    const _user = localStorage.getItem("User")
+    if(_user){
     try {
       const _unreadAmount: number = await checkUnread();
       if (_unreadAmount > 99) {
@@ -117,7 +120,7 @@ export default function NotificationButton() {
             limitedNotifications &&
             limitedNotifications?.map((not) => (
               <>
-                <NotificationCardMini notification={not} />
+                <MenuItem p="0px" m="0px"><NotificationCardMini notification={not} /></MenuItem>
               </>
             ))}
           {limitedNotifications ? (
