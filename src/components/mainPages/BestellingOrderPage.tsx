@@ -139,15 +139,8 @@ export default function BestellingOrderPage() {
         adresgegevens.stad,
         adresgegevens.land
       );
-      console.log(response.data);
-      toast({
-        title: "Bestelling geplaatst",
-        description: "Uw bestelling is geplaatst",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      handleNavigate(`/`);
+
+      handleNavigate(`/bestelling/succes`);
     } catch (error: any) {
       toast({
         title: `${error} `,

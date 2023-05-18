@@ -15,65 +15,64 @@ import WinkelmandPage from "./components/mainPages/WinkelmandPage";
 import BestellingPage from "./components/mainPages/BestellingOrderPage";
 import BestellingDetails from "./components/mainPages/BestellingDetails";
 import BestellingTrackAndTrace from "./components/mainPages/BestellingTrackAndTrace";
-
+import BestellingSuccesPage from "./components/subComponents/bestelling/BestellingSuccesPage";
 
 function App() {
   return (
     <>
-
-        <Grid
-          templateAreas={`"menu""content""footer"`}
-          h="100vh"
-          w="100%"
-          templateRows="115px 1fr 55px"
+      <Grid
+        templateAreas={`"menu""content""footer"`}
+        h="100vh"
+        w="100%"
+        templateRows="115px 1fr 55px"
+      >
+        <GridItem gridArea="menu">
+          <MenuBar />
+        </GridItem>
+        <GridItem
+          gridArea="content"
+          overflow="scroll"
+          overflowY="auto"
+          overflowX="hidden"
         >
-          <GridItem gridArea="menu">
-            <MenuBar />
-          </GridItem>
-          <GridItem
-            gridArea="content"
-            overflow="scroll"
-            overflowY="auto"
-            overflowX="hidden"
-          >
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="/bestellingen" element={<BestellingenLijst />} />
-              <Route path="/notificaties" element={<Notificaties />} />
-              <Route path="/winkelmand" element={<WinkelmandPage />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route
-                path="/producten/:bedrijfIdString"
-                element={<Producten />}
-              />
-              <Route
-                path="/producten/:bedrijfIdString/:productIdString"
-                element={<ProductDetails />}
-              />
-              <Route
-                path="/bestellingen/:bestellingIdString"
-                element={<BestellingDetails />}
-              />
-              <Route
-                path="/bestellingen/:bestellingIdString/track-and-trace"
-                element={<BestellingTrackAndTrace />}
-              />
-              <Route
-                path="/bestelling/:leverancierIdString/:userIdString"
-                element={<BestellingPage />}
-              />
-              <Route
-                path="/track-and-trace"
-                element={<BestellingTrackAndTrace />}
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </GridItem>
-          <GridItem gridArea="footer">
-            <Footer />
-          </GridItem>
-        </Grid>
-
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/bestellingen" element={<BestellingenLijst />} />
+            <Route path="/notificaties" element={<Notificaties />} />
+            <Route path="/winkelmand" element={<WinkelmandPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/producten/:bedrijfIdString" element={<Producten />} />
+            <Route
+              path="/producten/:bedrijfIdString/:productIdString"
+              element={<ProductDetails />}
+            />
+            <Route
+              path="/bestellingen/:bestellingIdString"
+              element={<BestellingDetails />}
+            />
+            <Route
+              path="/bestellingen/:bestellingIdString/track-and-trace"
+              element={<BestellingTrackAndTrace />}
+            />
+            <Route
+              path="/bestelling/:leverancierIdString/:userIdString"
+              element={<BestellingPage />}
+            />
+            <Route
+              path="/track-and-trace"
+              element={<BestellingTrackAndTrace />}
+            />
+            <Route
+              path="/bestelling/succes"
+              element={<BestellingSuccesPage />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </GridItem>
+        <GridItem gridArea="footer">
+          <Footer />
+        </GridItem>
+      </Grid>
     </>
   );
 }
