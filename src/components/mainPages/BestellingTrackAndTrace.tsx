@@ -41,7 +41,10 @@ export default function BestellingTrackAndTrace() {
   else {
     return(
       <Container maxW="70%" centerContent>
-        <Text onClick={handleBackToForm}>Terug naar formulier</Text>
+        <Text onClick={handleBackToForm} _hover={{
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}>Terug naar formulier</Text>
         <Heading>Track & trace gegevens van aankoop {bestelling.orderId}</Heading>
         <TrackAndTraceResultaat bestelling={bestelling}/>
       </Container>

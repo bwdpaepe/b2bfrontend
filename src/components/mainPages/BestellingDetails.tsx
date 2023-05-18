@@ -63,7 +63,10 @@ export default function BestellingDetails() {
 
   return(
     <Container maxW="70%" centerContent>
-      <Text onClick={() => handleNavigate("/bestellingen")}>Terug naar overzicht</Text>
+      <Text onClick={() => handleNavigate("/bestellingen")} _hover={{
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}>Terug naar overzicht</Text>
       <Heading>Aankoop {bestelling?.orderId}</Heading>
       <Flex direction={"column"} className={"bestellingOverzicht"}>
         <Box id="BesteldProductCardHolder">
@@ -122,9 +125,15 @@ export default function BestellingDetails() {
           <Text fontWeight="bold">
             Track en trace code
           </Text>
-          <Link colorScheme='red' onClick={() => handleNavigateWithParams(`/track-and-trace`, bestellingTTC)}>
+          {bestelling?.trackAndTraceCode ? <Link colorScheme='red' onClick={() => handleNavigateWithParams(`/track-and-trace`, bestellingTTC)} _hover={{
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}>
             {bestelling?.trackAndTraceCode}
-          </Link>
+          </Link> : <Text>
+            Track and Trace niet beschikbaar
+          </Text>}
+          
           </Flex>  
           <Spacer />
           <Flex direction={"column"}>
@@ -144,7 +153,7 @@ export default function BestellingDetails() {
             Kostenoverzicht
           </Text>
           <Text>
-            {bestelling?.totalPrice.toFixed(2)}
+            {bestelling?.totalPrice.toFixed(2)} €
           </Text>
           </Flex>  
         </Flex>
