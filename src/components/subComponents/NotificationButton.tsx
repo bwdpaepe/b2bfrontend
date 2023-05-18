@@ -63,6 +63,7 @@ export default function NotificationButton() {
   useInterval(_getNew, 10000);
 
   const _checkUnread = useCallback(async () => {
+    const _user = localStorage.getItem("User")
     if(user){
     try {
       const _unreadAmount: number = await checkUnread();
