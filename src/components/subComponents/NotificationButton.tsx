@@ -39,8 +39,7 @@ export default function NotificationButton() {
   
 
   const _getNew = useCallback(async () => {
-    const _user = localStorage.getItem("User")
-    if (_user) {
+    if (user) {
       
       try {
         const _newAmount = await checkNew();
@@ -58,13 +57,12 @@ export default function NotificationButton() {
       }
 
     }
-  }, []);
+  }, [user]);
 
   useInterval(_getNew, 10000);
 
   const _checkUnread = useCallback(async () => {
-    const _user = localStorage.getItem("User")
-    if(_user){
+    if(user){
     try {
       const _unreadAmount: number = await checkUnread();
       if (_unreadAmount > 99) {
@@ -75,7 +73,7 @@ export default function NotificationButton() {
     } catch (error: any) {
       setError(error.message);
     }
-}}, []);
+}}, [user]);
 
   useEffect(() => {
     _checkUnread();
