@@ -1,16 +1,19 @@
 import { Box, Text } from "@chakra-ui/react";
 import Notifications from "../../type/Notifications";
 import { NotificationStatusDutch, NotificationStatus } from "../../util/NotificationStatusEnum";
+import { useNavigate} from "react-router";
 
 export default function NotificationCardMini(notification : {notification: Notifications}) {
-  function handleClick(){
-      //TODO
+  const navigate = useNavigate();
+  function handleClick(notificationId: string){
+      navigate("/notificaties" + notificationId)
+      
   }
 
   const statusDutch = NotificationStatusDutch[notification.notification.status as keyof typeof NotificationStatusDutch];
 
   return (<>
-    <Box key={notification.notification.notificationID} id="notificationCardMini" onClick={() => handleClick()}>
+    <Box key={notification.notification.notificationID} id="notificationCardMini" onClick={() => handleClick("/" + notification.notification.notificationID)}>
       <Box display="inline-block">
         <Text>Bestelling : {notification.notification.bestellingId} </Text>
         <Text>Datum : {notification.notification.creationDate.substring(0,10)}</Text>
