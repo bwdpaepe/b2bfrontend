@@ -51,10 +51,6 @@ function App() {
               element={<BestellingDetails />}
             />
             <Route
-              path="/bestellingen/:bestellingIdString/track-and-trace"
-              element={<BestellingTrackAndTrace />}
-            />
-            <Route
               path="/bestelling/:leverancierIdString/:userIdString"
               element={<BestellingPage />}
             />

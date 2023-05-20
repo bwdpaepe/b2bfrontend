@@ -128,7 +128,7 @@ export default function BestellingenLijst() {
   return (
     <Container maxW="70%" centerContent>
       <Heading>Mijn aankopen</Heading>
-      <Grid mt="20" templateColumns="repeat(5, 1fr)" gap={6}>
+      <Grid templateColumns="repeat(5, 1fr)" gap={6} className={"bestellingOverzicht"}>
         <GridItem w="100%" h="10" className="gridItem" />
         <GridItem w="100%" h="10" className="gridItem">
           <Input
