@@ -1,16 +1,118 @@
+.bestellingOverzicht {
+  margin-top: 100px;
+}
+
+.bestellingDetails {
+  width: 90%;
+  flex-direction: column;   
+}
+
 .chakra-container {
   position: relative;
 }
 
 .chakra-container h2 {
   position: absolute;
-  left: 0;
-  margin-top: 10px;
+  left: 1rem;
+  margin-top: 20px;
+}
+
+.chakra-container h2 {
+  margin-bottom: 1rem;
 }
 
 .gridItem > button, .chakra-table button, .chakra-button {
   background-color: #EC4842;
 }
+
+#BesteldProductCardHolder{
+  margin-top: 25px;
+}
+
+.BesteldProductCard {
+  width: 90%;
+    height: auto;
+    min-height: 50px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: #ec4842;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.BesteldProductEntry{
+  border-color: gray;
+  border-width:0 0 1px 0;
+  min-height: 80px;
+  margin: 5px;
+ 
+
+}
+
+.underlineOnHover:hover{
+  text-decoration: underline;
+}
+
+
+@media screen and (max-width: 900px) {
+  .BesteldProductGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 1rem;
+  }
+
+  .box1 {grid-column-start: 1;grid-column-end: 2;grid-row-start: 1;grid-row-end: 3;}
+  .box2 {grid-column-start: 2;grid-column-end: 3;grid-row-start: 1;grid-row-end: 2;}
+  .box3 {grid-column-start: 2;grid-column-end: 3;grid-row-start: 2;grid-row-end: 3;}
+}
+
+@media screen and (min-width: 901px) {
+  .BesteldProductGrid {
+      grid-template-columns: 1fr 1fr 50%;
+      grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap: 1rem;
+      
+  }
+
+  .flex-space-between {
+    justify-content: space-between;
+  }
+
+  .bestellingDetails {
+    width: 90%;
+    flex-direction: row;   
+  }
+}
+
+@media screen and (min-width: 1101px) {
+  .BesteldProductGrid {
+      grid-template-columns: 1fr 1fr 60%;
+      //grid-template-rows: 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 1rem;
+      
+  }
+}
+
+@media screen and (min-width: 1401px) {
+  .BesteldProductGrid {
+    grid-template-columns: 1fr 1fr 70%;
+    //grid-template-rows: 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 1rem;
+    
+}
+  .bestellingOverzicht {
+    margin-top: 80px;
+  }
+
+  
+}
+
+
+
 
  
 

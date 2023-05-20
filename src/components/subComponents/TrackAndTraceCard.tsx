@@ -9,6 +9,13 @@ import {
 import delivery_black from "../../assets/icons/delivery_black.png";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
 
+const statusCode = function(inputStatus: string){
+  if (inputStatus === "UIT_VOOR_LEVERING"){
+    return 'UIT VOOR LEVERING';
+  }
+  return inputStatus;
+}
+
 export default function TrackAndTraceCard(props: {
   status: string;
   bestellingStatus: BestellingStatus|undefined;
@@ -43,7 +50,7 @@ export default function TrackAndTraceCard(props: {
           {currentStatus && <Image src={delivery_black} boxSize="80px" fit="fill"></Image>}
         </CardBody>
         <CardFooter className="ttc-card-footer">
-          <Text>{BestellingStatus[parseInt(props.status)]}</Text>
+          <Text className="ttc-status">{statusCode(BestellingStatus[parseInt(props.status)])}</Text>
         </CardFooter>
       </Stack>
     </Card>

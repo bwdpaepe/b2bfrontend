@@ -1,22 +1,30 @@
-.chakra-container > .chakra-text {
-  position: absolute;
-  left: 0;
-  margin-top: 10px;
-  color: #EC4842;
-}
-
-.chakra-container > .chakra-text::before {
-  content: '> ';
+.chakra-container {
+  position: relative;
 }
 
 .chakra-container h2 {
   position: absolute;
-  left: 0;
-  margin-top: 35px;
+  left: 1rem;
+  margin-top: 50px;
+}
+
+.chakra-container > .chakra-text {
+  position: absolute;
+  left: 1rem;
+  margin-top: 30px;
+  color: #EC4842;
 }
 
 form, .ttc-resultaat {
-  margin-top: 100px;
+  margin-top: 140px;
+}
+
+.ttc-status {
+  transform: rotate(90deg);
+}
+
+.chakra-container > .chakra-text::before {
+  content: '< ';
 }
 
 form .chakra-button {
@@ -34,18 +42,47 @@ p.ttcError {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100px;
 }
 
 .chakra-card .chakra-text {
-  word-break: break-all;
+  word-break: break-none;
+}
+
+@media screen and (min-width: 901px) {
+  form, .ttc-resultaat {
+    margin-top: 120px;
+  }
+
+  .chakra-container h2 {
+    margin-top: 40px;
+  }
+  
+  .chakra-container > .chakra-text {
+    margin-top: 20px;
+  }
 }
 
 @media (min-width: 1100px) {
   form, .ttc-resultaat {
-    margin-top: 80px;
+    margin-top: 100px;
   }
 
-  .chakra-card .chakra-text {
-    word-break: keep-all;
+  .chakra-container h2 {
+    margin-top: 40px;
   }
+  
+  .chakra-container > .chakra-text {
+    margin-top: 20px;
+    
+  }
+
+  .ttc-status {
+    transform: rotate(0deg);
+  }
+
+  .ttc-card-footer {
+    min-height: auto;
+  }
+
 }
