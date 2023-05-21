@@ -11,12 +11,10 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import Bestelling from "../../type/Bestelling";
-//import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
-import enumKeys from "../../util/Util";
 import OrderAdresChangePopover from "../subComponents/bestelling/OrderAdresChangePopover";
 
 type UnitConversion = {

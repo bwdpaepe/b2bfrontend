@@ -9,10 +9,7 @@ import { useNavigate } from "react-router";
 import BestellingDetail from "../../type/BestellingDetail";
 import BesteldProductCard from "../subComponents/BesteldProductCard";
 import { bestellingByBestellingId } from "../../service/bestellingen";
-import { BestellingStatus } from "../../enums/BestellingStatusEnum";
-
 import "../../styling/bestellingen.css"
-import BesteldProducten from "../../type/BesteldProducten";
 import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
 
 export default function BestellingDetails() {

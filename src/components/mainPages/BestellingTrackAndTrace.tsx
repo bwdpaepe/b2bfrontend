@@ -1,9 +1,7 @@
 import {useEffect, useState} from  "react";
 import {useLocation} from 'react-router-dom';
 
-import { Container } from '@chakra-ui/react';
-import { Text } from '@chakra-ui/react';
-import { Heading } from '@chakra-ui/react';
+import { Container, Text, Heading } from '@chakra-ui/react';
 
 import "../../styling/trackAndTrace.css";
 import BestellingByTrackAndTrace from "../../type/BestellingByTrackAndTrace";
@@ -15,7 +13,7 @@ export default function BestellingTrackAndTrace() {
   const location = useLocation();
 
   useEffect(() => {
-    if(location.state){
+    if(location.state ){
       setBestelling(location.state);
     }
     else{
