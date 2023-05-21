@@ -1,5 +1,5 @@
 import { Box, Text, Image, Stack, Container } from "@chakra-ui/react";
-import { AiFillPhone, AiOutlineHome, AiOutlineMail } from "react-icons/ai";
+import { AiFillPhone, AiOutlineHome } from "react-icons/ai";
 import Bedrijf from "../../type/Bedrijf";
 
 function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
@@ -28,11 +28,6 @@ function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
         </Stack>
 
         <Stack direction={"row"} spacing={2} alignItems={"center"}>
-          <AiOutlineMail />
-          <Text>NOG NIET IN DATABASE</Text>
-        </Stack>
-
-        <Stack direction={"row"} spacing={2} alignItems={"center"}>
           <AiFillPhone />
           <Text>{bedrijf?.telefoonnummer}</Text>
         </Stack>
@@ -40,8 +35,9 @@ function FooterProductPage({ bedrijf }: { bedrijf: Bedrijf | undefined }) {
         <Stack direction={"row"} spacing={2} alignItems={"center"}>
           <AiOutlineHome />{" "}
           <Text>
-            {bedrijf?.straat} {bedrijf?.huisnummer} {bedrijf?.postcode}{" "}
-            {bedrijf?.stad}
+            {bedrijf?.straat} {bedrijf?.huisnummer}, <br/> {bedrijf?.postcode}{" "}
+            {bedrijf?.stad}. <br/> 
+            {bedrijf?.land}
           </Text>
         </Stack>
       </Container>
