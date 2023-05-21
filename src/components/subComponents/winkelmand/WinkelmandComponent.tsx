@@ -25,7 +25,7 @@ export default function WinkelmandComponent() {
       setWinkelmand(_winkelmand);
     } else {
       const _winkelmand = localStorage.getItem("winkelmand");
-      console.log(_winkelmand);
+      // console.log(_winkelmand);
       if (_winkelmand) {
         const parsed_winkelmand = JSON.parse(_winkelmand);
         setWinkelmand(parsed_winkelmand);

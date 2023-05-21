@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import profile from "../../assets/icons/profile.png";
 import AanmeldFormulier from "./AanmeldFormulier";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { sessionClose } from "../../service/aanmelden";
 import useLoggedUser from "../../util/useLoggedUser";

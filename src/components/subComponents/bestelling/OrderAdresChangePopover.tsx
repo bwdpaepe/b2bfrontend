@@ -5,7 +5,7 @@ import {
   PopoverHeader,
   PopoverArrow,
   PopoverCloseButton,
-  Stack,
+  VStack,
   FormControl,
   FormLabel,
   IconButton,
@@ -95,7 +95,7 @@ export default function OrderAdresChangePopover({
   return (
     <Popover
       onClose={onClose}
-      closeOnBlur={false}
+      closeOnBlur={true}
       isOpen={isOpen}
       onOpen={onOpen}
     >
@@ -107,44 +107,44 @@ export default function OrderAdresChangePopover({
           icon={<EditIcon />}
         />
       </PopoverTrigger>
-      <PopoverContent p={5}>
+      <PopoverContent>
         <FocusLock returnFocus persistentFocus={false}>
           <PopoverHeader fontWeight="bold">
             Wijzig bestelling {bestelling.bestellingId}
           </PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton color="white" />
-          <Stack spacing={4}>
+          <VStack p={2}>
             <form
               onSubmit={(e) => {
                 onHandleUpdateAdres(e);
               }}
             >
               <FormControl>
-                <FormLabel mt={2}>Land</FormLabel>
+                <FormLabel>Land</FormLabel>
                 <Input type="text" defaultValue={bestelling.leveradresLand} />
               </FormControl>
               <FormControl>
-                <FormLabel>Stad</FormLabel>
+                <FormLabel mt={2}>Stad</FormLabel>
                 <Input type="text" defaultValue={bestelling.leveradresStad} />
               </FormControl>
               <FormControl>
-                <FormLabel>Postcode</FormLabel>
+                <FormLabel mt={2}>Postcode</FormLabel>
                 <Input
                   type="text"
                   defaultValue={bestelling.leveradresPostcode}
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>Straat</FormLabel>
+                <FormLabel mt={2}>Straat</FormLabel>
                 <Input type="text" defaultValue={bestelling.leveradresStraat} />
               </FormControl>
               <FormControl>
-                <FormLabel>Nummer</FormLabel>
+                <FormLabel mt={2}>Nummer</FormLabel>
                 <Input type="text" defaultValue={bestelling.leveradresNummer} />
               </FormControl>
               <FormControl>
-                <FormLabel>Dozen</FormLabel>
+                <FormLabel mt={2}>Dozen</FormLabel>
                 <Select
                   placeholder={selectedDoos?.naam}
                   onChange={(e) => {
@@ -165,7 +165,7 @@ export default function OrderAdresChangePopover({
                 </Button>
               </HStack>
             </form>
-          </Stack>
+          </VStack>
         </FocusLock>
       </PopoverContent>
     </Popover>

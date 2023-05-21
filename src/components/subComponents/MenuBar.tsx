@@ -3,7 +3,6 @@ import logo from "../../assets/icons/logo_red.jpg"
 import MenuButtons from "./MenuButtons";
 import "../../styling/menu.css"
 import useLoggedUser from "../../util/useLoggedUser";
-import { useContext } from "react";
 import User from "../../type/User";
 
 

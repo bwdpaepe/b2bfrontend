@@ -19,14 +19,11 @@ export default function Home() {
   return (
     <Box w="100vw" h="50px" alignSelf="center">
       <SimpleGrid
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-          lg: "repeat(8, 1fr)",
-        }}
-        gap={1}
-        p={3}
-        justifyItems={{ base: "center", md: "center", lg: "center" }}
+        gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))"
+        gridGap="1rem"
+        p={["1rem", "1rem", "1rem", "1rem", "1rem", "1rem"]}
+        justifyContent="center"
+        gridAutoRows={["1fr", "1fr", "1fr", "1fr", "1fr", "1fr"]}
       >
         {bedrijven.map((bedrijf) => (
           <BedrijfHomeCard key={bedrijf.bedrijfId} bedrijf={bedrijf} />

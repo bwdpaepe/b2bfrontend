@@ -6,7 +6,6 @@ import order from "../../assets/icons/order.png";
 import delivery from "../../assets/icons/delivery.png";
 import AanmeldModal from "./AanmeldModal";
 import NotificationButton from "./NotificationButton";
-import { useContext } from "react";
 import useLoggedUser from "../../util/useLoggedUser";
 
 export default function MenuButtons() {

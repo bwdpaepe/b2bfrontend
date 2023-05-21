@@ -111,15 +111,15 @@ export default function ProductenLijst({
           </option>
         </Select>
       </Stack>
-      <SimpleGrid
-        templateColumns={{
-          base: "repeat(1, minmax(0, 1fr))",
-          md: "repeat(1, minmax(0, 1fr))",
-          lg: "repeat(2, minmax(0, 1fr))",
-          xl: "repeat(4, minmax(0, 1fr))",
-        }}
-        gap={3}
-        p={3}
+      <SimpleGrid className="productGrid"
+        // templateColumns={{
+        //   base: "repeat(1, minmax(0, 1fr))",
+        //   md: "repeat(1, minmax(0, 1fr))",
+        //   lg: "repeat(2, minmax(0, 1fr))",
+        //   xl: "repeat(3, minmax(0, 1fr))",
+        // }}
+        // gap={3}
+        // p={3}
       >
         {sortedProducten.map((product) => (
           <ProductCard

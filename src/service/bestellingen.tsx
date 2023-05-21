@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import authHeader from "./auth-header";
 import http from "./http";
 
