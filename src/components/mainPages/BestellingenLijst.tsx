@@ -84,6 +84,7 @@ export default function BestellingenLijst() {
       details: (
         <Button
           colorScheme="white"
+          height={8}  // Set height to 8 to match the edit button
           onClick={() =>
             handleNavigate(`/bestellingen/${bestelling.bestellingId}`)
           }
@@ -120,7 +121,7 @@ export default function BestellingenLijst() {
 
   // render a message if there are no products
   if (!bestellingen.length) {
-    return <Text>No bestellingen found.</Text>;
+    return <Text>Geen bestellingen gevonden.</Text>;
   }
 
   return (
