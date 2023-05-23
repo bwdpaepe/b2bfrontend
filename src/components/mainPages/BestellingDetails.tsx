@@ -44,7 +44,7 @@ export default function BestellingDetails() {
   }, [bestellingIdString]);
 
   useEffect(() => {
-    if (bestelling) {
+    if (bestelling) { // bestelling : type BestellingDetail
       const bTTC: BestellingByTrackAndTrace = {
         bestellingId: bestelling?.bestellingId,
         status: bestelling?.status,
@@ -54,6 +54,7 @@ export default function BestellingDetails() {
         trackAndTraceCode: bestelling?.trackAndTraceCode,
         transportdienst: bestelling?.transportdienst,
         notification: bestelling?.notification,
+        levertermijn: bestelling?.levertermijn,
       };
       setBestellingTTC(bTTC);
     }

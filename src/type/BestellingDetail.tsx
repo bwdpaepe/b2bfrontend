@@ -25,4 +25,5 @@ export default interface BestellingDetail{
   besteldeProducten: BesteldProducten[];
   doos: Doos;
   totalPrice: number;
+  levertermijn: number;
 }

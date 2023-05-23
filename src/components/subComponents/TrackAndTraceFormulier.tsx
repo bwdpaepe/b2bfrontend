@@ -37,7 +37,7 @@ export default function TrackAndTraceFormulier(props: {
   const onSubmit = async (data: typeTrackAndTraceSchema) => {
     const { ttc, verify } = data;
     try {
-      props.setBestelling(await bestellingByTrackAndTrace(ttc, verify));
+      props.setBestelling(await bestellingByTrackAndTrace(ttc, verify)); // setBestelling : type BestellingByTrackAndTrace
       reset();
     } catch (error: any) {
       setError(error.message);
