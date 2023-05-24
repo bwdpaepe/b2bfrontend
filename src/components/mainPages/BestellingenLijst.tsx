@@ -11,12 +11,11 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import Bestelling from "../../type/Bestelling";
-//import Bestelling from "./Bestelling";
 import { DataTable } from "../subComponents/DataTable";
 import { bestellingenByAankoper } from "../../service/bestellingen";
 import "../../styling/bestellingen.css";
 import { BestellingStatus } from "../../enums/BestellingStatusEnum";
-import enumKeys from "../../util/Util";
+import OrderAdresChangePopover from "../subComponents/bestelling/OrderAdresChangePopover";
 
 type UnitConversion = {
   orderId: string;
@@ -24,6 +23,7 @@ type UnitConversion = {
   datumGeplaatst: Date;
   status: BestellingStatus;
   details: JSX.Element;
+  wijzigen: JSX.Element;
 };
 
 const columnHelper = createColumnHelper<UnitConversion>();
@@ -48,6 +48,10 @@ const columns = [
   columnHelper.accessor("details", {
     cell: (info) => info.getValue(),
     header: "Details",
+  }),
+  columnHelper.accessor("wijzigen", {
+    cell: (info) => info.getValue(),
+    header: "Wijzigen",
   }),
 ];
 
@@ -80,6 +84,7 @@ export default function BestellingenLijst() {
       details: (
         <Button
           colorScheme="white"
+          height={8}  // Set height to 8 to match the edit button
           onClick={() =>
             handleNavigate(`/bestellingen/${bestelling.bestellingId}`)
           }
@@ -87,6 +92,12 @@ export default function BestellingenLijst() {
           Zie details
         </Button>
       ),
+      wijzigen:
+        bestelling.status.toString() === "GEPLAATST" ? ( //TODO: contoleren waarom dit niet werkt bestelling.status === BestellingStatus.GEPLAATST ? ( ... ) : ( ... )
+          <OrderAdresChangePopover bestelling={bestelling} />
+        ) : (
+          <Text>Niet wijzigbaar</Text>
+        ),
     };
   });
 
@@ -99,10 +110,10 @@ export default function BestellingenLijst() {
           b.aankoper.email
             .toLowerCase()
             .includes(searchAankoper.toLowerCase()) &&
-          (searchDatum === "" ||
+          (searchDatum == "" ||
             new Date(b.datumGeplaatst).getTime() ===
               new Date(searchDatum).getTime()) &&
-          (searchStatus === "" || BestellingStatus[b.status] === searchStatus)
+          (searchStatus == "" || BestellingStatus[b.status] == searchStatus)
         );
       }),
     [bestellingen, searchAankoper, searchDatum, searchStatus]
@@ -110,13 +121,13 @@ export default function BestellingenLijst() {
 
   // render a message if there are no products
   if (!bestellingen.length) {
-    return <Text>No bestellingen found.</Text>;
+    return <Text>Geen bestellingen gevonden.</Text>;
   }
 
   return (
     <Container maxW="70%" centerContent>
       <Heading>Mijn aankopen</Heading>
-      <Grid mt="20" templateColumns="repeat(5, 1fr)" gap={6}>
+      <Grid templateColumns="repeat(5, 1fr)" gap={6} className={"bestellingOverzicht"}>
         <GridItem w="100%" h="10" className="gridItem" />
         <GridItem w="100%" h="10" className="gridItem">
           <Input
@@ -141,13 +152,31 @@ export default function BestellingenLijst() {
             placeholder="Selecteer status"
             onChange={(e) => setTextStatus(e.target.value)}
           >
-            {enumKeys(BestellingStatus).map((status: string) => {
-              return (
-                <option key={status} value={BestellingStatus[parseInt(status)]}>
-                  {BestellingStatus[parseInt(status)]}
-                </option>
-              );
-            })}
+            {
+              //Object.values(BestellingStatus).map((value: string, index: number, array: string[]) => {return (<option></option>);})
+              /* {enumKeys(BestellingStatus).map((status: string) => {
+                return (
+                  <option key={status} value={BestellingStatus[parseInt(status)]}>
+                    {BestellingStatus[parseInt(status)]}
+                  </option>
+                );
+              })}*/
+            }
+            <option key={1} value={BestellingStatus.GEPLAATST}>
+              GEPLAATST
+            </option>
+            <option key={2} value={BestellingStatus.VERWERKT}>
+              VERWERKT
+            </option>
+            <option key={3} value={BestellingStatus.VERZONDEN}>
+              VERZONDEN
+            </option>
+            <option key={4} value={BestellingStatus.UIT_VOOR_LEVERING}>
+              UIT VOOR LEVERING
+            </option>
+            <option key={5} value={BestellingStatus.GELEVERD}>
+              GELEVERD
+            </option>
           </Select>
         </GridItem>
         <GridItem w="100%" h="10" className="gridItem">

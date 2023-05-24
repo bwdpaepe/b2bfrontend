@@ -1,5 +1,4 @@
 import BedrijfProducten from "../type/BedrijfProducten";
-import Product from "../type/Product";
 import Winkelmand from "../type/Winkelmand";
 import winkelmandProduct from "../type/WinkelmandProduct";
 

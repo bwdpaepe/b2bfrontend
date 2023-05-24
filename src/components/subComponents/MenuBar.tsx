@@ -2,17 +2,17 @@ import { Box, HStack, Image, Text} from "@chakra-ui/react";
 import logo from "../../assets/icons/logo_red.jpg"
 import MenuButtons from "./MenuButtons";
 import "../../styling/menu.css"
-import { UserContext } from "../../App";
-import { useContext } from "react";
+import useLoggedUser from "../../util/useLoggedUser";
 import User from "../../type/User";
 
 
 export default function MenuBar(){
 
-    const userContext = useContext(UserContext);
-    var user : User | null = null;
-    if (userContext.length > 0) {
-        user = JSON.parse(userContext);
+    const [user] = useLoggedUser();
+    
+    let loggedInUser : User | null = null
+    if (user.length) {
+        loggedInUser = JSON.parse(user);
     }
    
     
@@ -24,7 +24,7 @@ export default function MenuBar(){
             <MenuButtons/>
 
         </HStack>
-        <Text className="userText"> Welkom, {user? user.firstname : "Gast"} !</Text>
+        <Text className="userText"> Welkom, {loggedInUser? loggedInUser.firstname : "Gast"} !</Text>
     </Box>
     </>
     )

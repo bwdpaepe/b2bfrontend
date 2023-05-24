@@ -2,30 +2,34 @@ import { Box, Center, Text, Button, useToast } from "@chakra-ui/react";
 import WinkelmandProduct from "../../../type/WinkelmandProduct";
 import TotalPrice from "../../../type/TotalPrice";
 import WinkelmandProductEntry from "./WinkelmandProductEntry";
-import { UserContext } from "../../../App";
+import useLoggedUser from "../../../util/useLoggedUser";
 import User from "../../../type/User";
-import { useContext } from "react";
 import { useNavigate } from "react-router";
 
 export default function WinkelmandCard(props: {
-  producten: WinkelmandProduct[] | null;
+  producten: WinkelmandProduct[] /*| null */;
   totalPrice: TotalPrice | null;
   leverancier: string | null;
   leverancierId: number | null;
+  updateProductQuantity: (productId: number, newQuantity: number) => void;
+  deleteProduct: (productId: number) => void;
 }) {
-  const userContext = useContext(UserContext);
+  const [user] = useLoggedUser();
   const toast = useToast();
   let loggedInUser: User | null = null;
-  if (userContext.length > 0) {
-    loggedInUser = JSON.parse(userContext);
+  if (user.length) {
+    loggedInUser = JSON.parse(user);
   }
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
     navigate(pathname);
   }
 
+  // console.log("WinkelmandCard props: ");
+  // console.log(props.producten?.length);
+
   async function handleBestelling() {
-    if (!userContext) {
+    if (!loggedInUser) {
       toast({
         title: "Je bent niet ingelogd",
         description: "Log in om een bestelling te plaatsen",
@@ -45,14 +49,16 @@ export default function WinkelmandCard(props: {
     <>
       <Center>
         <Box className="WinkelmandCard">
-          {props.producten === null ? (
-            <Text>Je winkelmand is leeg</Text>
-          ) : (
             <>
               <Text fontWeight="bold">Leverancier: {props.leverancier}</Text>
               <Text fontWeight="bold">PRODUCTEN: </Text>{" "}
               {props.producten.map((product) => (
-                <WinkelmandProductEntry product={product} />
+                <WinkelmandProductEntry
+                  key={product.product.productId}
+                  product={product}
+                  updateProductQuantity={props.updateProductQuantity}
+                  deleteProduct={props.deleteProduct}
+                />
               ))}{" "}
               <Text fontWeight="bold">
                 {" "}
@@ -69,7 +75,6 @@ export default function WinkelmandCard(props: {
                 Bestellen
               </Button>
             </>
-          )}
         </Box>
       </Center>
     </>

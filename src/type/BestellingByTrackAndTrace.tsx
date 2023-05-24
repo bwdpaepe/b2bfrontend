@@ -11,5 +11,5 @@ export default interface BestellingByTrackAndTrace {
   trackAndTraceCode: string;
   transportdienst: Transportdienst;
   notification: Notification;
-
+  levertermijn: number;
 }

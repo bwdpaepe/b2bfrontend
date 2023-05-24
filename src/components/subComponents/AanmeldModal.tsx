@@ -16,20 +16,20 @@ import {
 } from "@chakra-ui/react";
 import profile from "../../assets/icons/profile.png";
 import AanmeldFormulier from "./AanmeldFormulier";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { sessionClose } from "../../service/aanmelden";
-import { UserContext } from "../../App";
+import useLoggedUser from "../../util/useLoggedUser";
 import User from "../../type/User";
 
 export default function AanmeldModal() {
+  const [user] = useLoggedUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
-  const userContext = useContext(UserContext);
+  
   let loggedInUser: User | null = null;
-  if (userContext.length > 0) {
-    loggedInUser = JSON.parse(userContext);
+  if (user.length) {
+    loggedInUser = JSON.parse(user);
   }
 
   const handleButtonClick = () => {

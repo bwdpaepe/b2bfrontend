@@ -3,7 +3,7 @@ import {
   Grid,
   GridItem,
   Stack,
-  useBreakpointValue,
+  // useBreakpointValue,
 } from "@chakra-ui/react";
 
 import ProductenLijst from "../subComponents/ProductenLijst";
@@ -17,6 +17,7 @@ import { useParams } from "react-router";
 import FooterProductPage from "../subComponents/FooterProductPage";
 import LeftFilterPanel from "../subComponents/LeftFilterPanel";
 import Categorie from "../../type/Categorie";
+import "../../styling/producten.css";
 
 export default function Producten() {
   //BedrijfId
@@ -24,7 +25,7 @@ export default function Producten() {
   const bedrijfId = Number(bedrijfIdString);
 
   //Screen width
-  const screenWidth = useBreakpointValue({ base: false, md: true });
+  // const screenWidth = useBreakpointValue({ base: false, md: true });
 
   //Bedrijf states
   const [bedrijf, setBedrijf] = useState<Bedrijf>();
@@ -67,8 +68,10 @@ export default function Producten() {
   return (
     <Flex>
       <Stack direction={"column"}>
-        <Grid templateColumns={{ base: "5fr", md: "250px 1fr" }}>
-          {screenWidth && (
+        <Grid className="productsGrid"
+          // templateColumns={{ base: "5fr", md: "250px 1fr" }}
+          >
+          {/* {screenWidth && ( */}
             <LeftFilterPanel
               onVoorraadChange={onVoorraadChange}
               onMinimumPrijsChange={onMinimumPrijsChange}
@@ -76,7 +79,7 @@ export default function Producten() {
               onCategorieChange={onCategoriesChange}
               bedrijfCategorieën={bedrijfCategorieën}
             />
-          )}
+          {/* )} */}
           <GridItem>
             <ProductenLijst
               bedrijfId={bedrijfId}

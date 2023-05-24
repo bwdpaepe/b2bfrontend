@@ -9,7 +9,7 @@ export default function LeftPanelNotifications(props: {notifications : Notificat
 
 
     return(<>
-    <Box w="35%" maxW="400px" mt="10px" h="80vh" id="leftPaneNotifications" overflow="scroll" overflowX="hidden" overflowY="auto">
+    <Box w="35%" maxW="400px" minW="200px" mt="10px" h="80vh" id="leftPaneNotifications" overflow="scroll" overflowX="hidden" overflowY="auto">
         {props.notifications?.map((not) => <NotificationCardMini notification={not}/>)}
     </Box>
 

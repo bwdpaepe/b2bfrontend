@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "../../App";
+import React, { useState } from "react";
+
 import {
   NumberInput,
   NumberInputField,
@@ -14,10 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Product from "../../type/Product";
-import { addProductToWinkelmand } from "../../service/winkelmand";
+import { addEditProductToWinkelmand } from "../../service/winkelmand";
 import Winkelmand from "../../type/Winkelmand";
 import TotalPrice from "../../type/TotalPrice";
 import winkelmandProduct from "../../type/WinkelmandProduct";
+import useLoggedUser from "../../util/useLoggedUser";
 
 interface ProductQuantitySelectorProps {
   product: Product;
@@ -26,7 +27,7 @@ interface ProductQuantitySelectorProps {
 export default function ProductQuantitySelector({
   product,
 }: ProductQuantitySelectorProps) {
-  const user = useContext(UserContext);
+  const [user]  = useLoggedUser();
   const [quantity, setQuantity] = useState(1);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,7 +39,7 @@ export default function ProductQuantitySelector({
       // if user is logged in, add product to winkelmand in database
       try {
         // Call addProductToWinkelmand with productId and quantity
-        await addProductToWinkelmand(product.productId, quantity);
+        await addEditProductToWinkelmand(product.productId, quantity);
         setSuccessMessage(succesMessageText);
         setTimeout(() => {
           setSuccessMessage("");

@@ -8,6 +8,7 @@ import {
   Divider,
   Select,
   useToast,
+  useBoolean,
 } from "@chakra-ui/react";
 import EditableLineBestellingPage from "../subComponents/bestelling/EditableLineBestellingPage";
 import { useNavigate, useParams } from "react-router";
@@ -46,6 +47,8 @@ export default function BestellingOrderPage() {
     straat: "",
     huisnummer: "",
   });
+
+  const [isLoading, toggleLoading] = useBoolean();
 
   const navigate = useNavigate();
   function handleNavigate(pathname: string) {
@@ -129,8 +132,9 @@ export default function BestellingOrderPage() {
 
   const handleBestellingClick = async () => {
     console.log("Bestelling geplaatst");
+    toggleLoading.on();
     try {
-      const response = await postBestellingen(
+      await postBestellingen(
         leverancierIdString!,
         geselecteerdeDoos?.doosId!,
         adresgegevens.straat,
@@ -139,15 +143,8 @@ export default function BestellingOrderPage() {
         adresgegevens.stad,
         adresgegevens.land
       );
-      console.log(response.data);
-      toast({
-        title: "Bestelling geplaatst",
-        description: "Uw bestelling is geplaatst",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      handleNavigate(`/`);
+      toggleLoading.off();
+      handleNavigate(`/bestelling/succes`);
     } catch (error: any) {
       toast({
         title: `${error} `,
@@ -156,6 +153,7 @@ export default function BestellingOrderPage() {
         duration: 5000,
         isClosable: true,
       });
+      toggleLoading.off();
     }
   };
 
@@ -275,6 +273,7 @@ export default function BestellingOrderPage() {
             w={"full"}
             colorScheme={"red"}
             onClick={handleBestellingClick}
+            isLoading={isLoading ? true : false}
           >
             Plaats bestelling
           </Button>
