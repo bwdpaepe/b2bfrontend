@@ -174,6 +174,9 @@ export default function BestellingOrderPage() {
           </Text>
           {bedrijfProfile && (
             <>
+              <Text fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+              Land
+              </Text>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.land}
                 onChange={(value: string) =>
@@ -181,6 +184,9 @@ export default function BestellingOrderPage() {
                 }
               />
               <br />
+              <Text fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+              Stad
+              </Text>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.stad}
                 onChange={(value: string) =>
@@ -188,6 +194,9 @@ export default function BestellingOrderPage() {
                 }
               />
               <br />
+              <Text fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+              Postcode
+              </Text>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.postcode}
                 onChange={(value: string) =>
@@ -195,6 +204,9 @@ export default function BestellingOrderPage() {
                 }
               />
               <br />
+              <Text fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+              Straat
+              </Text>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.straat}
                 onChange={(value: string) =>
@@ -202,6 +214,9 @@ export default function BestellingOrderPage() {
                 }
               />
               <br />
+              <Text fontSize={"md"} fontWeight={"bold"} fontStyle={"italic"}>
+              Huisnummer
+              </Text>
               <EditableLineBestellingPage
                 adresgegevens={bedrijfProfile?.huisnummer}
                 onChange={(value: string) =>
@@ -221,7 +236,7 @@ export default function BestellingOrderPage() {
           >
             {dozen.map((doos) => (
               <option key={doos.doosId} value={doos.naam}>
-                {doos.naam}
+                {doos.naam} - €{doos.prijs} ({doos.type.toLowerCase()})
               </option>
             ))}
           </Select>
